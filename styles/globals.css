@@ -138,7 +138,6 @@ body.dark .CodeMirror-gutters {
 
 .custom-slant .native-banner {
   display: flex;
-  max-width: 728px;
   flex-direction: column;
   overflow: hidden;
   margin-bottom: 36px;
