@@ -84,7 +84,7 @@ export default function Page({ slug, title, content, allDatasets }) {
 	const isDatasetPage = slug.startsWith('datasets/')
 	
 	return (
-		<div className="mx-auto max-w-3xl mt-10 mb-10 md:mt-20 leading-7 text-slate-700 misc-content">
+		<div className="mx-auto max-w-3xl mt-10 mb-10 md:mt-20 leading-7 text-slate-700 dark:text-slate-300 misc-content">
 			<div dangerouslySetInnerHTML={{ __html: content }} />
 			
 			{isDatasetPage && (
