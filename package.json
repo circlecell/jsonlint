@@ -16,7 +16,7 @@
 		"gray-matter": "^4.0.3",
 		"jsonlint-mod": "^1.7.6",
 		"nanoid": "^4.0.2",
-		"next": "^13.4.7",
+		"next": "^11.0.0",
 		"next-navigation": "^1.0.6",
 		"react": "^17.0.2",
 		"react-codemirror2": "^7.2.1",
