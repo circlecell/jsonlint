@@ -23,7 +23,7 @@ export default function Home() {
 			
 			<h1 className="text-base mb-4">To format and validate your JSON, just copy + paste it below:</h1>
 			
-			<div className="grid grid-cols-[minmax(932px,1fr),auto] gap-12">
+			<div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(932px,1fr),auto] xl:gap-12">
 				<div className="min-w-4xl">
 				
 					<DynamicJSONLint json={json} url={url} />

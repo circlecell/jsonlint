@@ -97,7 +97,7 @@ const JSONLint = ({ json, url }) => {
 
 	return (
 		<>
-		<div className="border border-slate-200 dark:border-slate-600 max-w-5xl">
+		<div className="border border-slate-200 dark:border-slate-600">
 			<CodeMirror
 				value={input}
 				options={{
