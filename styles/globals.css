@@ -239,3 +239,12 @@ body.dark .CodeMirror-gutters {
   font-weight: 600;
   font-size: 12px;
 }
+
+/* top ad */
+
+.top-ad-container {
+  background: rgb(249, 250, 252, 0.85);
+}
+body.dark .top-ad-container {
+  background: rgb(16, 23, 41, 0.85);
+}

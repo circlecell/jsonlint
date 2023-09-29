@@ -16,7 +16,7 @@ export default function Home() {
     
 	return (
 		<>
-		<div className="mt-8 max-w-7xl mx-auto sticky top-0 z-10 flex">
+		<div className="mt-8 max-w-7xl mx-auto sticky top-ad-container top-0 z-10 flex">
 			<div id="bsa-zone_1570746984891-3_123456"></div>
 		</div>
 		<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
