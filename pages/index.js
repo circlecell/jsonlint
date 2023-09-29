@@ -37,7 +37,7 @@ export default function Home() {
 	return (
 		<>
 		<div id="stickyElement" className={`mt-8 max-w-7xl mx-auto sticky top-0 z-10 flex ${isSticky ? 'bg-opacity-80 bg-white' : 'bg-transparent'}`}>
-			<div className={`w-[728px] h-[90px] bg-slate-300 ${isSticky ? 'mx-auto' : ''}`}></div>
+			<div id="bsa-zone_1570746984891-3_123456" className={`w-[728px] h-[90px] bg-slate-300 ${isSticky ? 'mx-auto' : ''}`}></div>
 		</div>
 		<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
 			
@@ -48,9 +48,11 @@ export default function Home() {
 				
 					<DynamicJSONLint json={json} url={url} />
 					
-					<div className="block mt-20 mb-20">
+					<div className="block mt-10 mb-20">
+					
+						<div className="custom-slant"></div>
 			
-						<h2>About the JSONLint Editor</h2>
+						<h2 className="mt-10">About the JSONLint Editor</h2>
 						<p>JSONLint is a validator and reformatter for JSON, a lightweight data-interchange format. Copy and paste, directly type, or input a URL in the editor above and let JSONLint tidy and validate your messy JSON code.</p>
 		
 						<h2>What Is JSON?</h2>
@@ -116,10 +118,10 @@ export default function Home() {
 					</div>
 					
 				</div>
-				<div className="">
+				<div>
 					
-					<div className="">
-						<div className="w-[300px] h-[600px] bg-slate-300"></div>
+					<div>
+						<div id="bsa-zone_1605730077127-6_123456" className="bg-slate-300"></div>
 					</div>
 					
 					<div className="mt-20">

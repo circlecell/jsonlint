@@ -7,5 +7,12 @@
 				"installCommand": "npm install --legacy-peer-deps"
 			}
 		}
+	],
+	"redirects": [
+		{
+			"source": "/ads.txt",
+			"destination": "https://cdn4.buysellads.net/pub/jsonlint.ads.txt",
+			"permanent": true
+		}
 	]
 }

@@ -54,7 +54,6 @@ export default function App({ Component, pageProps }) {
 			<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"/>
 			<meta name="msapplication-TileColor" content="#00aba9"/>
 			<meta name="theme-color" content="#ffffff"/>
-			
 		</Head>
 		<div className="min-h-full bg-slate-50 dark:bg-slate-900">
 			<ValidContext.Provider value={{ isValid, setIsValid }}>
@@ -63,6 +62,52 @@ export default function App({ Component, pageProps }) {
 				</Layout>
 			</ValidContext.Provider>
 		</div>
+		<Script src={`//m.servedby-buysellads.com/monetization.custom.js`} />
+		<Script
+		    id='native-ad'
+		    dangerouslySetInnerHTML={{
+		        __html: `
+				window.onload = function() {
+					if (typeof _bsa !== 'undefined' && _bsa) {
+		                _bsa.init('custom', 'CVADT27Y', 'placement:jsonlintcom', {
+		                    target: '.custom-slant',
+		                    template: \`
+		                        <a href="##link##" class="native-banner">
+		                            <div class="native-sponsor-container">
+		                                <div class="native-sponsor">
+		                                    <div class="native-label">Sponsor</div>
+		                                    <div class="native-company">##company##</div>
+		                                </div>
+		                            </div>
+		                            <div class="native-main">
+		                                <img class="native-logo" src="##logo##" style="background-color: ##backgroundColor##">
+		                                <div class="native-text">
+		                                    <div class="native-tagline">##tagline##</div>
+		                                    <div class="native-description">##description##</div>
+		                                    <div class="native-cta">##callToAction##</div>
+		                                </div>
+		                            </div>
+		                        </a>\`
+		                });
+		            }
+				};
+		        `,
+		    }}
+		/>
+		<Script
+			id='bsa'
+			dangerouslySetInnerHTML={{
+				__html: `
+				(function(){
+					var bsa_optimize=document.createElement('script');
+					bsa_optimize.type='text/javascript';
+					bsa_optimize.async=true;
+					bsa_optimize.src='https://cdn4.buysellads.net/pub/jsonlint.js?'+(new Date()-new Date()%600000);
+					(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa_optimize);
+				})();
+				`,
+			}}
+		/>
 		<Script src={`https://www.googletagmanager.com/gtag/js?id=UA-69209117-1`} />
 		<Script
 			id='gajs'
