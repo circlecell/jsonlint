@@ -76,6 +76,9 @@
   font-family: 'MonoLisa', monospace !important;
   font-size: 12px;
 }
+body.dark .CodeMirror {
+  color: rgb(241, 245, 249);
+}
 
 .cm-s-default .cm-string.cm-property {
 	color: rgb(177, 107, 42) !important;
