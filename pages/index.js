@@ -14,30 +14,10 @@ export default function Home() {
 	const router = useRouter()
     const { json, url } = router.query
     
-    const [isSticky, setIsSticky] = useState(false)
-    
-    useEffect(() => {
-	    const element = document.getElementById('stickyElement')
-	    const originalOffset = element.offsetTop
-	
-	    const handleScroll = () => {
-	        if (window.scrollY >= originalOffset) {
-	            setIsSticky(true)
-	        } else {
-	            setIsSticky(false)
-	        }
-	    }
-	
-	    window.addEventListener('scroll', handleScroll)
-	    return () => {
-	        window.removeEventListener('scroll', handleScroll)
-	    }
-	}, [])
-    
 	return (
 		<>
-		<div id="stickyElement" className={`mt-8 max-w-7xl mx-auto sticky top-0 z-10 flex ${isSticky ? 'bg-opacity-80 bg-white' : 'bg-transparent'}`}>
-			<div id="bsa-zone_1570746984891-3_123456" className={`w-[728px] h-[90px] bg-slate-300 ${isSticky ? 'mx-auto' : ''}`}></div>
+		<div className="mt-8 max-w-7xl mx-auto sticky top-0 z-10 flex">
+			<div id="bsa-zone_1570746984891-3_123456"></div>
 		</div>
 		<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
 			
@@ -121,7 +101,7 @@ export default function Home() {
 				<div>
 					
 					<div>
-						<div id="bsa-zone_1605730077127-6_123456" className="bg-slate-300"></div>
+						<div id="bsa-zone_1605730077127-6_123456"></div>
 					</div>
 					
 					<div className="mt-20">
