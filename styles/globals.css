@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  main h1 {
+  	@apply text-xl mb-2 font-semibold
+  }
+  main h2 {
+  	@apply text-lg mb-2 font-semibold
+  }
+  main p {
+  	@apply text-base mb-6
+  }
+  main ul {
+  	@apply text-base mb-6 list-disc list-outside pl-4
+  }
+  main li {
+  	@apply text-base pb-3
+  }
+  code {
+  	@apply font-['MonoLisa'] bg-white text-fuchsia-600 text-xs rounded-sm border border-slate-200 px-1 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
+  }
+  main a, footer a {
+  	@apply underline text-blue-500
+  }
+  footer {
+  	@apply dark:text-slate-300
+  }
+  footer a {
+  	@apply dark:text-blue-400
+  }
+  
+  .misc-content pre {
+  	@apply font-['MonoLisa'] whitespace-pre-wrap shadow-sm break-words bg-white mb-6 py-4 px-4 text-fuchsia-600 text-xs rounded-sm border border-slate-200 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
+  }
+  .misc-content code {
+  	@apply border-0
+  }
+  
+  body.valid svg.logo {
+  	@apply text-green-600
+  }
+  body.invalid svg.logo {
+  	@apply text-red-600
+  }
+  footer ul.tools a strong {
+  	@apply underline block text-sm font-normal text-blue-500
+  }
+  footer ul.tools a span {
+  	@apply block text-sm font-normal
+  }
+}
+
+@font-face {
+    font-family: 'MonoLisa';
+    src: url('/fonts/MonoLisaVariableNormal.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MonoLisa';
+    src: url('/fonts/MonoLisaVariableItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+.cm-error-highlight {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.CodeMirror {
+  min-height: 500px;
+  resize: vertical;
+  overflow: auto;
+  font-family: 'MonoLisa', monospace !important;
+  font-size: 12px;
+}
+
+.cm-s-default .cm-string.cm-property {
+	color: rgb(177, 107, 42) !important;
+}
+.cm-s-default .cm-string {
+	color: green !important;
+}
+.CodeMirror-gutters {
+	background: rgb(241, 245, 249) !important;
+	border-right: 1px solid rgb(226, 232, 240) !important;
+}
+body.dark .CodeMirror-scroll {
+	background: rgb(51, 65, 85) !important;
+}
+body.dark .CodeMirror-gutters {
+	background: rgb(71, 85, 105) !important;
+	border-right: 1px solid rgb(71, 85, 105) !important;
+}
+
+.subtitle {
+	font-feature-settings: "ss02";
+	font-style: italic;
+}
