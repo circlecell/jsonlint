@@ -58,23 +58,21 @@ export default function Top() {
 				<div className="mx-auto w-full px-6 lg:px-6">
 					<div className="flex h-16 items-center justify-between">
 						<div className="flex items-center w-full">
-							<Link href="/" legacyBehavior>
-								<a className="flex-shrink-0 normal-case">
-									<div className="flex">
-										<span className="flex">
-											<svg className="logo text-slate-800 dark:text-slate-200 max-w-none mr-3 mt-1" fill="none" height="46" width="46" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-												<path 
-												 	d={isValid === true ? validPath : (isValid === false ? invalidPath : defaultPath)}
-													strokeLinecap="round" 
-													strokeLinejoin="round" 
-													strokeWidth="2" 
-													className="stroke-current"
-												/>
-											</svg>
-										</span>
-										<h1 className="hidden lg:block flex py-2 text-lg leading-5 font-semibold mr-12 font-['MonoLisa'] dark:text-slate-300">JSONLint <span className="block text-sm subtitle">Validator and Formatter</span></h1>
-									</div>
-								</a>
+							<Link href="/" className="flex-shrink-0 normal-case" onClick={(e) => {e.preventDefault();window.location.href = '/';}}>
+								<div className="flex">
+									<span className="flex">
+										<svg className="logo text-slate-800 dark:text-slate-200 max-w-none mr-3 mt-1" fill="none" height="46" width="46" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+											<path 
+											 	d={isValid === true ? validPath : (isValid === false ? invalidPath : defaultPath)}
+												strokeLinecap="round" 
+												strokeLinejoin="round" 
+												strokeWidth="2" 
+												className="stroke-current"
+											/>
+										</svg>
+									</span>
+									<h1 className="hidden lg:block flex py-2 text-lg leading-5 font-semibold mr-12 font-['MonoLisa'] dark:text-slate-300">JSONLint <span className="block text-sm subtitle">Validator and Formatter</span></h1>
+								</div>
 							</Link>
 						</div>
 						<div className="hidden md:block">
