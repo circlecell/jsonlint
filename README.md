@@ -26,7 +26,3 @@ We are always looking to make JSONLint even better! If you have any suggestions,
 
 - [Create an Issue](https://github.com/circlecell/jsonlint/issues) or
 - [Submit a Pull Request](https://github.com/circlecell/jsonlint/pulls)
-
-## License
-
-Please refer to the [LICENSE](URL_to_LICENSE_file) file for detailed information.
