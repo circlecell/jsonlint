@@ -12,6 +12,7 @@
 		"@tailwindcss/typography": "^0.5.9",
 		"@uiw/react-codemirror": "^4.21.18",
 		"codemirror": "^5.65.15",
+		"copy-to-clipboard": "^3.3.3",
 		"dotenv": "^16.3.1",
 		"gray-matter": "^4.0.3",
 		"jsonlint-mod": "^1.7.6",
