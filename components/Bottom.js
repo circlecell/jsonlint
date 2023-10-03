@@ -12,9 +12,9 @@ export default function Bottom() {
 				</h2>
 		        <ul className="tools grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 		            <li>
-		                <a href="/xml-to-json">
+		                <Link href="/xml-to-json">
 		                    <strong>XML to JSON</strong>
-		                </a>
+		                </Link>
 		            </li>
 		        </ul>
 		        
