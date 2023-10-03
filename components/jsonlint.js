@@ -4,7 +4,6 @@ import jsonlint from 'jsonlint-mod'
 import copy from 'copy-to-clipboard'
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/dracula.css'
 import 'codemirror/mode/javascript/javascript'
 
 // Fold
@@ -23,7 +22,7 @@ import 'codemirror/addon/scroll/annotatescrollbar'
 import 'codemirror/addon/search/matchesonscrollbar'
 import 'codemirror/addon/search/jump-to-line'
 
-const JSONLint = ({ json, url }) => {
+const JSONLint = ({ json, url, onClear }) => {
 	const { isValid, setIsValid } = useContext(ValidContext)
 	const [isPretty, setIsPretty] = useState(true)
 	const [input, setInput] = useState('')
@@ -91,6 +90,10 @@ const JSONLint = ({ json, url }) => {
 			setIsValid(null)
 			document.body.classList.remove('valid', 'invalid')
 		}
+		// Check if the onClear callback from the parent component exists
+	    if (typeof onClear === 'function') {
+	        onClear()
+	    }
 	}
 	
 	const handleCopy = () => {

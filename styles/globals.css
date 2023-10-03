@@ -12,6 +12,9 @@
   main p {
   	@apply text-base mb-6
   }
+  main ol {
+  	@apply text-base mb-6 list-decimal list-outside pl-4
+  }
   main ul {
   	@apply text-base mb-6 list-disc list-outside pl-4
   }
@@ -47,8 +50,8 @@
   footer ul.tools a strong {
   	@apply underline block text-sm font-normal text-blue-500
   }
-  footer ul.tools a span {
-  	@apply block text-sm font-normal
+  footer ul.tools span {
+  	@apply block text-xs font-normal mt-1
   }
 }
 

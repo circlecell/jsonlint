@@ -25,7 +25,8 @@
 		"remark": "^15.0.1",
 		"remark-html": "^16.0.1",
 		"tailwind-merge": "^1.14.0",
-		"tailwindcss-animate": "^1.0.6"
+		"tailwindcss-animate": "^1.0.6",
+		"xml2js": "^0.6.2"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.2",
