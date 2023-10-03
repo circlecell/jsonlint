@@ -57,7 +57,7 @@ export default function XMLtoJSONPage() {
 						
 					</div>
 				</div>
-				<div>
+				<div className="mt-10 mb-20">
 					
 					<div>
 						<div id="bsa-zone_1605730077127-6_123456"></div>
