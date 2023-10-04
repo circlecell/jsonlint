@@ -24,6 +24,10 @@ export default function Bottom() {
 				</h2>
 		        <ul className="tools grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
 		            <li>
+		                <a href="https://markdowneditor.org" rel="noopener">Markdown Editor</a>
+		                <span className="block">A lightweight and basic Markdown Editor</span>
+		            </li>
+		            <li>
 		                <a href="https://jscompress.com/" rel="noopener">JSCompress</a>
 		                <span className="block">A JavaScript Compression Tool</span>
 		            </li>
