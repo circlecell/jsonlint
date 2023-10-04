@@ -9,6 +9,9 @@
   main h2 {
   	@apply text-lg mb-2 font-semibold
   }
+  main h3 {
+  	@apply text-lg mb-2 font-semibold
+  }
   main p {
   	@apply text-base mb-6
   }
@@ -250,4 +253,13 @@ body.dark .CodeMirror-gutters {
 }
 body.dark .top-ad-container {
   background: rgb(16, 23, 41, 0.85);
+}
+
+.carousel {
+    scroll-snap-type: x mandatory;
+}
+.snap-start {
+    flex: 0 0 auto;
+    width: 100%;
+    scroll-snap-align: start;
 }

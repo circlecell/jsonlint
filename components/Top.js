@@ -75,9 +75,12 @@ export default function Top() {
 								</div>
 							</Link>
 						</div>
-						<div className="hidden md:block">
-							<div className="ml-4 flex items-center md:ml-6 whitespace-nowrap">
-								<button onClick={toggleTheme} className="focus:outline-none">
+						<div className="">
+							<div className="ml-4 flex">
+							    <Link className="block text-sm font-normal whitespace-nowrap flex items-center w-6 h-6" href="/json-formatter">
+							        <img src="/images/chrome.svg" height="36" width="36" alt="Chrome Logo" />
+							    </Link>
+								<button onClick={toggleTheme} className="block ml-4 focus:outline-none">
 									{theme === 'light' ? (
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-slate-400">
 										    <circle cx="12" cy="12" r="5" className="fill-current"/>
