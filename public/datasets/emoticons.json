@@ -1,0 +1,117 @@
+[
+  {
+    "label": "Table Flip",
+    "slug": "table-flip",
+    "emoticon": "(╯°□°）╯︵ ┻━┻"
+  },
+  {
+    "label": "Shrug",
+    "slug": "shrug",
+    "emoticon": "¯\\_(ツ)_/¯"
+  },
+  {
+    "label": "Smile",
+    "slug": "smile",
+    "emoticon": ":-)"
+  },
+  {
+    "label": "Sad",
+    "slug": "sad",
+    "emoticon": ":-("
+  },
+  {
+    "label": "Surprise",
+    "slug": "surprise",
+    "emoticon": ":-O"
+  },
+  {
+    "label": "Wink",
+    "slug": "wink",
+    "emoticon": ";-)"
+  },
+  {
+    "label": "Crying",
+    "slug": "crying",
+    "emoticon": ":'("
+  },
+  {
+    "label": "Heart",
+    "slug": "heart",
+    "emoticon": "<3"
+  },
+  {
+    "label": "Big Grin",
+    "slug": "big-grin",
+    "emoticon": ":-D"
+  },
+  {
+    "label": "Unamused",
+    "slug": "unamused",
+    "emoticon": "-_-"
+  },
+  {
+    "label": "Bear Face",
+    "slug": "bear-face",
+    "emoticon": "ʕ·ᴥ·ʔ"
+  },
+  {
+    "label": "Happy Tears",
+    "slug": "happy-tears",
+    "emoticon": "ಥ‿ಥ"
+  },
+  {
+    "label": "Angry",
+    "slug": "angry",
+    "emoticon": ">:-("
+  },
+  {
+    "label": "Sunglasses",
+    "slug": "sunglasses",
+    "emoticon": "B-)"
+  },
+  {
+    "label": "Thinking",
+    "slug": "thinking",
+    "emoticon": "(-_-)"
+  },
+  {
+    "label": "Kiss",
+    "slug": "kiss",
+    "emoticon": ":*"
+  },
+  {
+    "label": "Sleepy",
+    "slug": "sleepy",
+    "emoticon": "(-.-)Zzz..."
+  },
+  {
+    "label": "Confused",
+    "slug": "confused",
+    "emoticon": "o_O"
+  },
+  {
+    "label": "Annoyed",
+    "slug": "annoyed",
+    "emoticon": "-_-"
+  },
+  {
+    "label": "Facepalm",
+    "slug": "facepalm",
+    "emoticon": "(>_<)"
+  },
+  {
+    "label": "Cool Dude",
+    "slug": "cool-dude",
+    "emoticon": "(⌐■_■)"
+  },
+  {
+    "label": "Happy Cat",
+    "slug": "happy-cat",
+    "emoticon": "^_^"
+  },
+  {
+    "label": "Waving",
+    "slug": "waving",
+    "emoticon": "(^_^)/"
+  }
+]

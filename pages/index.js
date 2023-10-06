@@ -115,6 +115,9 @@ export default function Home() {
 							<li>
 								<Link href="/datasets/programming-languages">Programming Languages</Link>
 							</li>
+							<li>
+								<Link href="/datasets/emoticons">Emoticons</Link>
+							</li>
 						</ul>
 						
 					</div>
