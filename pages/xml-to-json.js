@@ -21,7 +21,8 @@ export default function XMLtoJSONPage() {
 		</div>
 		<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
 			
-			<h1 className="text-base mb-4">To convert your XML to JSON, just copy + paste it below:</h1>
+			<h1 className="text-xl mb-2">Convert XML to JSON</h1>
+			<h2 className="text-base mb-6 font-normal">Copy + paste your XML below and click the button:</h2>
 			
 			<XMLtoJSON />
 			

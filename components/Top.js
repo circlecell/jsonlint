@@ -54,7 +54,7 @@ export default function Top() {
 	return (
 		<>
 		<div>
-		  	<nav className="bg-white dark:bg-slate-700 border-b border-slate-200 dark:border-slate-600 font-bold font-system">
+		  	<nav className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 font-bold font-system">
 				<div className="mx-auto w-full px-6 lg:px-6">
 					<div className="flex h-16 items-center justify-between">
 						<div className="flex items-center w-full">

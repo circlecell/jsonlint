@@ -75,7 +75,7 @@ const XMLtoJSONLint = () => {
 						/>
 					</div>
 
-					<button className="py-3 px-4 inline-flex mt-6 justify-center mr-4 items-center gap-2 border-2 border-green-500 text-white bg-green-500 font-semibold text-green-500 hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => handleConvert()}>Convert to JSON</button>
+					<button className="primary-button" onClick={() => handleConvert()}>Convert to JSON</button>
 					
 				</div>
 				<div>

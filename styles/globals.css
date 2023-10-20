@@ -3,89 +3,93 @@
 @tailwind utilities;
 
 @layer base {
-  main h1 {
-  	@apply text-xl mb-2 font-semibold
-  }
-  main h2 {
-  	@apply text-lg mb-2 font-semibold
-  }
-  main h3 {
-  	@apply text-lg mb-2 font-semibold
-  }
-  main p {
-  	@apply text-base mb-6
-  }
-  main ol {
-  	@apply text-base mb-6 list-decimal list-outside pl-4
-  }
-  main ul {
-  	@apply text-base mb-6 list-disc list-outside pl-4
-  }
-  main li {
-  	@apply text-base pb-3
-  }
-  code {
-  	@apply font-['MonoLisa'] bg-white text-fuchsia-600 text-xs rounded-sm border border-slate-200 px-1 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
-  }
-  main a, footer a {
-  	@apply underline text-blue-500
-  }
-  footer {
-  	@apply dark:text-slate-300
-  }
-  footer a {
-  	@apply dark:text-blue-400
-  }
-  
-  .misc-content pre {
-  	@apply font-['MonoLisa'] whitespace-pre-wrap shadow-sm break-words bg-white mb-6 py-4 px-4 text-fuchsia-600 text-xs rounded-sm border border-slate-200 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
-  }
-  .misc-content code {
-  	@apply border-0
-  }
-  
-  body.valid svg.logo {
-  	@apply text-green-600
-  }
-  body.invalid svg.logo {
-  	@apply text-red-600
-  }
-  footer ul.tools a strong {
-  	@apply underline block text-sm font-normal text-blue-500
-  }
-  footer ul.tools span {
-  	@apply block text-xs font-normal mt-1
-  }
+	main h1 {
+		@apply text-xl mb-2 font-semibold
+	}
+	main h2 {
+		@apply text-lg mb-2 font-semibold
+	}
+	main h3 {
+		@apply text-lg mb-2 font-semibold
+	}
+	main p {
+		@apply text-base mb-6
+	}
+	main ol {
+		@apply text-base mb-6 list-decimal list-outside pl-4
+	}
+	main ul {
+		@apply text-base mb-6 list-disc list-outside pl-4
+	}
+	main li {
+		@apply text-base pb-3
+	}
+	code {
+		@apply font-['MonoLisa'] bg-white text-fuchsia-600 text-xs rounded-sm border border-slate-200 px-1 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
+	}
+	main a, footer a {
+		@apply underline text-blue-500
+	}
+	footer {
+		@apply dark:text-slate-300
+	}
+	footer a {
+		@apply dark:text-blue-400
+	}
+	main .primary-button {
+		@apply py-3 px-4 inline-flex mt-6 justify-center mr-4 items-center gap-2 border-2 border-green-500 text-white bg-green-500 font-semibold hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800
+	}
+	main .secondary-button {
+		@apply py-3 px-4 inline-flex mt-6 justify-center mr-4 items-center gap-2 border-2 border-slate-200 font-semibold text-slate-500 hover:text-white hover:bg-slate-500 hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-slate-800
+	}
+	.misc-content pre {
+		@apply font-['MonoLisa'] whitespace-pre-wrap shadow-sm break-words bg-white mb-6 py-4 px-4 text-fuchsia-600 text-xs rounded-sm border border-slate-200 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
+	}
+	.misc-content code {
+		@apply border-0
+	}
+	
+	body.valid svg.logo {
+		@apply text-green-600
+	}
+	body.invalid svg.logo {
+		@apply text-red-600
+	}
+	footer ul.tools a strong {
+		@apply underline block text-sm font-normal text-blue-500
+	}
+	footer ul.tools span {
+		@apply block text-xs font-normal mt-1
+	}
 }
 
 @font-face {
-    font-family: 'MonoLisa';
-    src: url('/fonts/MonoLisaVariableNormal.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'MonoLisa';
+	src: url('/fonts/MonoLisaVariableNormal.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'MonoLisa';
-    src: url('/fonts/MonoLisaVariableItalic.woff2') format('woff2');
-    font-weight: normal;
-    font-style: italic;
+	font-family: 'MonoLisa';
+	src: url('/fonts/MonoLisaVariableItalic.woff2') format('woff2');
+	font-weight: normal;
+	font-style: italic;
 }
 
 .cm-error-highlight {
-  background-color: rgba(255, 0, 0, 0.2);
+	background-color: rgba(255, 0, 0, 0.2);
 }
 .CodeMirror {
-  min-height: 500px;
-  resize: vertical;
-  overflow: auto;
-  font-family: 'MonoLisa', monospace !important;
-  font-size: 12px;
+	min-height: 500px;
+	resize: vertical;
+	overflow: auto;
+	font-family: 'MonoLisa', monospace !important;
+	font-size: 12px;
 }
 body.dark .CodeMirror {
-  color: rgb(241, 245, 249);
+	color: rgb(241, 245, 249);
 }
-
 .cm-s-default .cm-string.cm-property {
 	color: rgb(177, 107, 42) !important;
 }
@@ -103,7 +107,6 @@ body.dark .CodeMirror-gutters {
 	background: rgb(71, 85, 105) !important;
 	border-right: 1px solid rgb(71, 85, 105) !important;
 }
-
 .subtitle {
 	font-feature-settings: "ss02";
 	font-style: italic;
@@ -146,120 +149,115 @@ body.dark .CodeMirror-gutters {
 }
 
 .custom-slant .native-banner {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-bottom: 36px;
-  padding: 18px;
-  border: 1px solid #e6e8eb;
-  background-color: #fff;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .05);
-  text-decoration: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-
-  align-items: left;
-  ;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	margin-bottom: 36px;
+	padding: 18px;
+	border: 1px solid #e6e8eb;
+	background-color: #fff;
+	box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .05);
+	text-decoration: none;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	
+	align-items: left;
 }
 
 .custom-slant .native-sponsor-container {
-  overflow: hidden;
-  border-top-left-radius: 4px;
+	overflow: hidden;
+	border-top-left-radius: 4px;
 }
 
 .custom-slant .native-sponsor {
-  display: inline-flex;
-  margin-bottom: 10px;
-  padding: 0 10px;
-  background-image: linear-gradient(135deg, #6154F8cc, #6154F8);
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  font-size: 12px;
-  transform: skewX(-22deg);
-  transform-origin: top left;
-  pointer-events: none;
-
-  align-items: center;
+	display: inline-flex;
+	margin-bottom: 10px;
+	padding: 0 10px;
+	background-image: linear-gradient(135deg, #6154F8cc, #6154F8);
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+	font-size: 12px;
+	transform: skewX(-22deg);
+	transform-origin: top left;
+	pointer-events: none;
+	align-items: center;
 }
 
 .custom-slant .native-sponsor:after {
-  position: absolute;
-  top: 4px;
-  right: 5px;
-  width: 3px;
-  height: calc(100% - 8px);
-  background-color: #fff;
-  content: "";
+	position: absolute;
+	top: 4px;
+	right: 5px;
+	width: 3px;
+	height: calc(100% - 8px);
+	background-color: #fff;
+	content: "";
 }
 
 .custom-slant .native-sponsor > div {
-  padding: 8px 10px;
-  transform: skewX(22deg);
+	padding: 8px 10px;
+	transform: skewX(22deg);
 }
 
 .custom-slant .native-company {
-  border-left: 2px solid #fff;
+	border-left: 2px solid #fff;
 }
 
 .custom-slant .native-main {
-  display: flex;
+	display: flex;
 }
 
 .custom-slant .native-logo {
-  display: block;
-  box-sizing: border-box;
-  margin-right: 20px;
-  padding: 20px 30px;
-  width: 180px;
-  height: 100%;
-  border-radius: 8px;
+	display: block;
+	box-sizing: border-box;
+	margin-right: 20px;
+	padding: 20px 30px;
+	width: 180px;
+	height: 100%;
+	border-radius: 8px;
 }
 
 .custom-slant .native-text {
-  display: flex;
-  flex-direction: column;
-  color: #0d0d0d;
-  line-height: 1.4;
-
-  align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	color: #0d0d0d;
+	line-height: 1.4;
+	align-items: flex-start;
 }
 
 .custom-slant .native-tagline {
-  font-weight: 600;
-  font-size: 20px;
+	font-weight: 600;
+	font-size: 20px;
 }
 
 .custom-slant .native-description {
-  margin-bottom: 6px;
-  font-size: 16px;
+	margin-bottom: 6px;
+	font-size: 16px;
 }
 
 .custom-slant .native-cta {
-  display: flex;
-  padding: 8px 14px;
-  border-radius: 4px;
-  background-color: #323641;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: .4px;
-  font-weight: 600;
-  font-size: 12px;
+	display: flex;
+	padding: 8px 14px;
+	border-radius: 4px;
+	background-color: #323641;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: .4px;
+	font-weight: 600;
+	font-size: 12px;
 }
-
-/* top ad */
 
 .top-ad-container {
-  background: rgb(249, 250, 252, 0.85);
+	background: rgb(249, 250, 252, 0.85);
 }
 body.dark .top-ad-container {
-  background: rgb(16, 23, 41, 0.85);
+	background: rgb(16, 23, 41, 0.85);
 }
 
 .carousel {
-    scroll-snap-type: x mandatory;
+	scroll-snap-type: x mandatory;
 }
 .snap-start {
-    flex: 0 0 auto;
-    width: 100%;
-    scroll-snap-align: start;
+	flex: 0 0 auto;
+	width: 100%;
+	scroll-snap-align: start;
 }
