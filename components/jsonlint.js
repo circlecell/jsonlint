@@ -22,9 +22,31 @@ import 'codemirror/addon/scroll/annotatescrollbar'
 import 'codemirror/addon/search/matchesonscrollbar'
 import 'codemirror/addon/search/jump-to-line'
 
+function customStringify(jsonObject, pretty) {
+    let jsonString = pretty ? JSON.stringify(jsonObject, null, 4) : JSON.stringify(jsonObject)
+    jsonString = jsonString.replace(/\\\\u([\da-fA-F]{4})/g, '\\u$1').replace(/\\\//g, '/')
+
+    return jsonString
+}
+
+function customCompress(jsonString) {
+    let modifiedString = jsonString.replace(/\\u([\da-fA-F]{4})/g, 'UNICODE_$1')
+                                   .replace(/\\\//g, 'SLASH')
+    try {
+        let compressedJson = JSON.stringify(JSON.parse(modifiedString))
+        compressedJson = compressedJson.replace(/UNICODE_([\da-fA-F]{4})/g, '\\u$1')
+                                       .replace(/SLASH/g, '\\/')
+
+        return compressedJson
+    } catch (error) {
+        console.error("Error in customCompress:", error)
+        return jsonString
+    }
+}
+
 const JSONLint = ({ json, url, onClear }) => {
 	const { isValid, setIsValid } = useContext(ValidContext)
-	const [isPretty, setIsPretty] = useState(true)
+	const [isPretty, setIsPretty] = useState(false)
 	const [input, setInput] = useState('')
 	const [output, setOutput] = useState('')
 	const [error, setError] = useState('')
@@ -40,7 +62,7 @@ const JSONLint = ({ json, url, onClear }) => {
 
 		try {
 			const parsed = jsonlint.parse(jsonToValidate)
-			const indentedJson = JSON.stringify(parsed, null, 4)
+			const indentedJson = customStringify(parsed, true)
 			setOutput(indentedJson)
 			setInput(indentedJson)
 			setError('')
@@ -67,14 +89,13 @@ const JSONLint = ({ json, url, onClear }) => {
 	
 	const handleFormatting = () => {
 	    try {
-	        const parsed = JSON.parse(input)
+	        let formattedJson
 	        if (isPretty) {
-	            const compressed = JSON.stringify(parsed)
-	            setInput(compressed)
+	            formattedJson = customStringify(jsonlint.parse(input), true)
 	        } else {
-	            const pretty = JSON.stringify(parsed, null, 4)
-	            setInput(pretty)
+	            formattedJson = customCompress(input)
 	        }
+	        setInput(formattedJson)
 	        setIsPretty(!isPretty)
 	    } catch (error) {
 	        setError(`Failed to format JSON: ${error.message}`)
@@ -173,7 +194,7 @@ const JSONLint = ({ json, url, onClear }) => {
 		<div>
 			<button className="primary-button" onClick={() => handleValidate()}>Validate JSON</button>
 			<button className="secondary-button" onClick={handleClear}>Clear</button>
-			<button className="secondary-button" onClick={handleFormatting}>{isPretty ? "Compress" : "Prettify"}</button>
+			<button className="secondary-button" onClick={handleFormatting}>{isPretty ? "Prettify" : "Compress"}</button>
 			
 			{isValid === true && 
 			    <div className="bg-green-100 border border-green-200 text-green-700 px-4 py-2 mt-4">
