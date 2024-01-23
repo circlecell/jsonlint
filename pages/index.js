@@ -66,8 +66,8 @@ export default function Home() {
 							<li>Null values are represented by the <code>null</code> literal in lower case</li>
 							<li>Dates, and similar object types, aren&apos;t adequately supported and should be converted to strings</li>
 							<li>Each member of an object or array value must be followed by a comma, except for the last one</li>
-							<li>The standard extension for the JSON file is <code>&apos;.json&apos;</code></li>
-							<li>The mime type for JSON files is <code>&apos;application/json&apos;</code></li>
+							<li>The standard extension for the JSON file is <code>{'\'.json\''}</code></li>
+							<li>The mime type for JSON files is <code>{'\'application/json\''}</code></li>
 						</ul>
 						<p>You can achieve proper JSON formatting by following these simple rules. However, if you&apos;re unsure about your code, we suggest using this JSONLint Validator and formatter.</p>
 						
@@ -77,15 +77,16 @@ export default function Home() {
 						<h2>Tips & Tricks</h2>
 						<ul>
 							<li>You can use a URL and JSONLint will scrape it for JSON and parse it. Just structure the link like this, for example: <Link href="/?url=/datasets/programming-languages.json"><code>{process.env.NEXT_PUBLIC_BASE_URL}/?url={process.env.NEXT_PUBLIC_BASE_URL}/datasets/programming-languages.json</code></Link></li>
-							<li>You can provide JSON to lint in the URL if you link to JSONLint with the <code>&quot;json&quot;</code> parameter. For example: <Link href="/?json=%7B%22hello%22:%20%22world%22%7D"><code>{process.env.NEXT_PUBLIC_BASE_URL}/?json=%7B%22hello%22:%20%22world%22%7D</code></Link>.</li>
+							<li>You can provide JSON to lint in the URL if you link to JSONLint with the <code>{'\'json\''}</code> parameter. For example: <Link href="/?json=%7B%22hello%22:%20%22world%22%7D"><code>{process.env.NEXT_PUBLIC_BASE_URL}/?json=%7B%22hello%22:%20%22world%22%7D</code></Link>.</li>
 							<li>JSONLint can also be used as a JSON compressor/minifier. Just click on the &quot;Compress&quot; button above.</li>
 						</ul>
 						
 						<h2>Common Errors</h2>
 						<ul>
-							<li>Expecting <code>&apos;STRING&apos;</code> - You probably have an extra comma at the end of your collection. Something like <code>&lbrace; &quot;a&quot;: &quot;b&quot;, &rbrace;</code></li>
-							<li>Expecting <code>&apos;STRING&apos;</code>, <code>&apos;NUMBER&apos;</code>, <code>&apos;NULL&apos;&apos;</code>, <code>&apos;TRUE&apos;</code>, <code>&apos;FALSE&apos;</code>, <code>&apos;&lbrace;&apos;</code>, <code>&apos;[&apos;</code> - You probably have an extra comma at the end of your list. Something like: <code>[&quot;a&quot;, &quot;b&quot;, ]</code></li>
-							<li>Enclosing your collection keys in quotes. Proper format for a collection is <code>&lbrace; &quot;key&quot;: &quot;value&quot; &rbrace;</code></li>
+							<li>Expecting <code>&apos;STRING&apos;</code> - You probably have an extra comma at the end of your collection. Something like <code>{`{ "a": "b", }`}
+</code></li>
+							<li>Expecting <code>{'\'STRING\''}</code>, <code>{'\'NUMBER\''}</code>, <code>{'\'NULL\''}</code>, <code>{'\'TRUE\''}</code>, <code>{'\'FALSE\''}</code>, <code>{'\'{\''}</code>, <code>{'\'[\''}</code> - You probably have an extra comma at the end of your list. Something like: <code>{`["a", "b", ]`}</code></li>
+							<li>Enclosing your collection keys in quotes. Proper format for a collection is <code>{'{ "key": "value" }'}</code></li>
 							<li>Make sure you follow <a href="http://www.json.org/" title="Visit JSON.org to learn more">JSON&apos;s syntax</a> properly. For example, always use double quotes, always quotify your keys, and remove all callback functions.</li>
 						</ul>
 						
