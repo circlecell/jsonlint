@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Top />
-      <main className="px-8 lg:px-10">{children}</main>
+      <main>{children}</main>
       <Bottom />
     </>
   )

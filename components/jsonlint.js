@@ -29,6 +29,11 @@ function customStringify(jsonObject, pretty) {
     return jsonString
 }
 
+function convertSpacesToTabs(str, spacesPerIndent) {
+    const spaceGroup = ' '.repeat(spacesPerIndent)
+    return str.split('\n').map(line => line.replace(new RegExp(`^(${spaceGroup})+`, 'g'), match => '\t'.repeat(match.length / spacesPerIndent))).join('\n')
+}
+
 function customCompress(jsonString) {
     let modifiedString = jsonString.replace(/\\u([\da-fA-F]{4})/g, 'UNICODE_$1')
                                    .replace(/\\\//g, 'SLASH')
@@ -92,6 +97,7 @@ const JSONLint = ({ json, url, onClear }) => {
 	        let formattedJson
 	        if (isPretty) {
 	            formattedJson = customStringify(jsonlint.parse(input), true)
+				formattedJson = convertSpacesToTabs(formattedJson, 4)
 	        } else {
 	            formattedJson = customCompress(input)
 	        }

@@ -16,10 +16,10 @@ export default function JSONStringifyPage() {
     
 	return (
 		<>
-			<div className="mt-8 max-w-7xl mx-auto sticky top-ad-container top-0 z-10 flex">
+			<div className="mt-8 max-w-8xl mx-auto sticky top-ad-container top-0 z-10 flex">
 				<div id="bsa-zone_1570746984891-3_123456"></div>
 			</div>
-			<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
+			<div className="flex-1 pt-6 max-w-8xl mx-auto dark:text-slate-300 px-8 lg:px-10">
 				
 				<h1 className="text-xl mb-2">Stringify JSON</h1>
 				<h2 className="text-base mb-6 font-normal">Paste your JSON below and click the button:</h2>
@@ -63,7 +63,7 @@ export default function JSONStringifyPage() {
 						</div>
 					</div>
 				</div>
-			</main>
+			</div>
 		</>
 	)
 }

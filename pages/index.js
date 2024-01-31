@@ -16,10 +16,10 @@ export default function Home() {
     
 	return (
 		<>
-		<div className="mt-8 max-w-7xl mx-auto sticky top-ad-container top-0 z-10 flex">
+		<div className="mt-8 max-w-8xl mx-auto sticky top-ad-container top-0 z-10 flex">
 			<div id="bsa-zone_1570746984891-3_123456"></div>
 		</div>
-		<main className="flex-1 pt-6 max-w-7xl mx-auto dark:text-slate-300">
+		<div className="flex-1 pt-6 max-w-8xl mx-auto dark:text-slate-300 px-8 lg:px-10">
 			
 			<h1 className="text-base mb-4">To format and validate your JSON, just copy + paste it below:</h1>
 			
@@ -83,8 +83,7 @@ export default function Home() {
 						
 						<h2>Common Errors</h2>
 						<ul>
-							<li>Expecting <code>&apos;STRING&apos;</code> - You probably have an extra comma at the end of your collection. Something like <code>{`{ "a": "b", }`}
-</code></li>
+							<li>Expecting <code>&apos;STRING&apos;</code> - You probably have an extra comma at the end of your collection. Something like <code>{`{ "a": "b", }`}</code></li>
 							<li>Expecting <code>{'\'STRING\''}</code>, <code>{'\'NUMBER\''}</code>, <code>{'\'NULL\''}</code>, <code>{'\'TRUE\''}</code>, <code>{'\'FALSE\''}</code>, <code>{'\'{\''}</code>, <code>{'\'[\''}</code> - You probably have an extra comma at the end of your list. Something like: <code>{`["a", "b", ]`}</code></li>
 							<li>Enclosing your collection keys in quotes. Proper format for a collection is <code>{'{ "key": "value" }'}</code></li>
 							<li>Make sure you follow <a href="http://www.json.org/" title="Visit JSON.org to learn more">JSON&apos;s syntax</a> properly. For example, always use double quotes, always quotify your keys, and remove all callback functions.</li>
@@ -108,7 +107,7 @@ export default function Home() {
 					<div className="py-10 px-6 bg-slate-100 dark:bg-slate-800">
 						<h2 className="text-base font-semibold mb-6 font-['MonoLisa'] tracking-tight dark:text-slate-400">
 				        	<svg viewBox="0 0 640 512" height="24" className="mb-2 dark:text-slate-500"><path fill="currentColor" d="M416 31.94C416 21.75 408.1 0 384.1 0c-13.98 0-26.87 9.072-30.89 23.18l-128 448c-.8404 2.935-1.241 5.892-1.241 8.801C223.1 490.3 232 512 256 512c13.92 0 26.73-9.157 30.75-23.22l128-448C415.6 37.81 416 34.85 416 31.94zM176 143.1c0-18.28-14.95-32-32-32c-8.188 0-16.38 3.125-22.62 9.376l-112 112C3.125 239.6 0 247.8 0 255.1S3.125 272.4 9.375 278.6l112 112C127.6 396.9 135.8 399.1 144 399.1c17.05 0 32-13.73 32-32c0-8.188-3.125-16.38-9.375-22.63L77.25 255.1l89.38-89.38C172.9 160.3 176 152.2 176 143.1zM640 255.1c0-8.188-3.125-16.38-9.375-22.63l-112-112C512.4 115.1 504.2 111.1 496 111.1c-17.05 0-32 13.73-32 32c0 8.188 3.125 16.38 9.375 22.63l89.38 89.38l-89.38 89.38C467.1 351.6 464 359.8 464 367.1c0 18.28 14.95 32 32 32c8.188 0 16.38-3.125 22.62-9.376l112-112C636.9 272.4 640 264.2 640 255.1z"/></svg>
-							Other tools from JSONLint
+							More tools from JSONLint
 						</h2>
 				        <ul className="tools grid grid-cols-1">
 				            <li>
@@ -125,10 +124,30 @@ export default function Home() {
 						
 					</div>
 					
+					<div className="py-10 px-6 bg-slate-100 dark:bg-slate-800">
+						<h2 className="text-base font-semibold mb-6 font-['MonoLisa'] tracking-tight dark:text-slate-400">
+				        	<svg viewBox="0 0 640 512" height="24" className="mb-2 dark:text-slate-500"><path fill="currentColor" d="M416 31.94C416 21.75 408.1 0 384.1 0c-13.98 0-26.87 9.072-30.89 23.18l-128 448c-.8404 2.935-1.241 5.892-1.241 8.801C223.1 490.3 232 512 256 512c13.92 0 26.73-9.157 30.75-23.22l128-448C415.6 37.81 416 34.85 416 31.94zM176 143.1c0-18.28-14.95-32-32-32c-8.188 0-16.38 3.125-22.62 9.376l-112 112C3.125 239.6 0 247.8 0 255.1S3.125 272.4 9.375 278.6l112 112C127.6 396.9 135.8 399.1 144 399.1c17.05 0 32-13.73 32-32c0-8.188-3.125-16.38-9.375-22.63L77.25 255.1l89.38-89.38C172.9 160.3 176 152.2 176 143.1zM640 255.1c0-8.188-3.125-16.38-9.375-22.63l-112-112C512.4 115.1 504.2 111.1 496 111.1c-17.05 0-32 13.73-32 32c0 8.188 3.125 16.38 9.375 22.63l89.38 89.38l-89.38 89.38C467.1 351.6 464 359.8 464 367.1c0 18.28 14.95 32 32 32c8.188 0 16.38-3.125 22.62-9.376l112-112C636.9 272.4 640 264.2 640 255.1z"/></svg>
+							Learn more about JSON
+						</h2>
+				        <ul className="tools grid grid-cols-1">
+				            <li>
+				                <Link href="/mastering-json-format">
+				                    Mastering JSON Format: Advantages, Best Practices and Comparison with Other Data Formats
+				                </Link>
+				            </li>
+				            <li>
+				                <Link href="/common-mistakes-in-json-and-how-to-avoid-them">
+				                    Common JSON Mistakes and How to Avoid Them
+				                </Link>
+				            </li>
+				        </ul>
+						
+					</div>
+					
 				</div>
 			</div>
 			
-		</main>
+		</div>
 		</>
 	)
 }

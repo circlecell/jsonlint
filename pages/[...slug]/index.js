@@ -84,22 +84,24 @@ export default function Page({ slug, title, content, allDatasets }) {
 	const isDatasetPage = slug.startsWith('datasets/')
 	
 	return (
-		<div className="mx-auto max-w-3xl mt-10 mb-10 md:mt-20 leading-7 text-slate-700 dark:text-slate-300 misc-content">
-			<div dangerouslySetInnerHTML={{ __html: content }} />
-			
-			{isDatasetPage && (
-			<div className="mt-20 mb-20">
-                <h3>Additional JSON Datasets</h3>
-				<div className="grid grid-cols-2 gap-4">
-                    {allDatasets.map(dataset => (
-                        <a key={dataset.slug} href={`/datasets/${dataset.slug}`} className="hover:underline">
-                            {dataset.displayName}
-                        </a>
-                    ))}
-                </div>
-            </div>
-			)}
-			
+		<div className="bg-white w-full py-14 dark:bg-slate-800">
+			<div className="mx-auto max-w-3xl leading-7 text-slate-700 dark:text-slate-300 misc-content">
+				<div dangerouslySetInnerHTML={{ __html: content }} />
+				
+				{isDatasetPage && (
+				<div className="mt-20 mb-20">
+	                <h3>Additional JSON Datasets</h3>
+					<div className="grid grid-cols-2 gap-4">
+	                    {allDatasets.map(dataset => (
+	                        <a key={dataset.slug} href={`/datasets/${dataset.slug}`} className="hover:underline">
+	                            {dataset.displayName}
+	                        </a>
+	                    ))}
+	                </div>
+	            </div>
+				)}
+				
+			</div>
 		</div>
 	)
 }

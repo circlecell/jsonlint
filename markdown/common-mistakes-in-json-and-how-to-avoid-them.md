@@ -21,9 +21,9 @@ One such common mistake is the inconsistent use of key naming conventions. JSON 
 
 ```json
 {
-  "firstName": "Douglas",
-  "last_name": "Crockford",
-  "email-address": "doug.mock@example.com"
+	"firstName": "Douglas",
+	"last_name": "Crockford",
+	"email-address": "doug.mock@example.com"
 }
 ```
 

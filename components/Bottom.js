@@ -4,8 +4,8 @@ import Link from 'next/link'
 export default function Bottom() {
 
 	return (
-		<footer className="w-full bg-white py-12 pb-20 px-4 lg:px-10 dark:bg-slate-800" aria-labelledby="footer-heading">
-		    <div className="max-w-7xl mx-auto">
+		<footer className="w-full bg-white py-12 pb-20 dark:bg-slate-800 px-8 lg:px-10" aria-labelledby="footer-heading">
+		    <div className="max-w-8xl mx-auto">
 		    	<h3 className="text-base font-semibold mb-6 font-['MonoLisa'] tracking-tight dark:text-slate-300 dark:border-slate-700">JSON Datasets</h3>
 				<p className="mb-4">We have created a series of helpful JSON files that you can use for your projects and for testing. If you would like to contribute to the archive or have ideas please open up a ticket or pull request on our GitHub repo.</p>
 				
@@ -59,7 +59,7 @@ export default function Bottom() {
 		            </li>
 		        </ul>
 		    </div>
-		    <div className="max-w-7xl mx-auto mt-20 pt-6 border-t border-slate-200 dark:border-slate-700">
+		    <div className="max-w-8xl mx-auto mt-20 pt-6 border-t border-slate-200 dark:border-slate-700">
 		    	<div className="text-sm">
 		    		&copy; 2023 JSONLint.com. <Link href="/privacy">Privacy Policy</Link>
 				</div>
