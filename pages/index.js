@@ -140,6 +140,16 @@ export default function Home() {
 				                    Common JSON Mistakes and How to Avoid Them
 				                </Link>
 				            </li>
+							<li>
+				                <Link href="/mastering-json-in-javascript">
+				                    Mastering JSON in JavaScript: Comprehensive Examples and Techniques
+				                </Link>
+				            </li>
+							<li>
+				                <Link href="/benefits-of-using-a-json-beautifier">
+				                    Understanding the Benefits of Using a JSON Beautifier
+				                </Link>
+				            </li>
 				        </ul>
 						
 					</div>
