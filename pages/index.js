@@ -150,6 +150,11 @@ export default function Home() {
 				                    Understanding the Benefits of Using a JSON Beautifier
 				                </Link>
 				            </li>
+							<li>
+				                <Link href="/how-to-open-json-file">
+				                    How to open JSON files
+				                </Link>
+				            </li>
 				        </ul>
 						
 					</div>
