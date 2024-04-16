@@ -14,16 +14,16 @@ export default function App({ Component, pageProps }) {
 	
 	useEffect(() => {
 		const handleRouteChange = () => {
-			const script = document.getElementById('Aljs')
+			const script = document.getElementById('fullres');
 			if (script) {
-				script.remove()
+				script.remove();
 			}
-			const newScript = document.createElement('script')
-				newScript.src = 'https://aljs.log.dance/al.js'
-				newScript.id = 'Aljs'
-				newScript.dataset.site = 'jsonlint'
-			document.body.appendChild(newScript)
-		}
+			const newScript = document.createElement('script');
+			newScript.async = true;
+			newScript.src = 'https://t.fullres.net/jsonlint.js?' + (new Date() - new Date() % 43200000);
+			newScript.id = 'fullres';
+			document.head.appendChild(newScript);
+		}		
 		
 		// Call on component mount
 		handleRouteChange()
