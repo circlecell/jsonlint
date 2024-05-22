@@ -25,6 +25,10 @@ export default function Bottom() {
 					Our Friends and Favorites
 				</h2>
 		        <ul className="tools grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+					<li>
+		                <a href="https://fullres.com/?ref=json-lint" rel="noopener">Fullres</a>
+		                <span className="block">The All-in-one Platform for Creators</span>
+		            </li>
 		            <li>
 		                <a href="https://markdowneditor.org" rel="noopener">Markdown Editor</a>
 		                <span className="block">A lightweight and basic Markdown Editor</span>
@@ -40,10 +44,6 @@ export default function Bottom() {
 		            <li>
 		                <a href="https://jsoncompare.com/" rel="noopener">JSONCompare</a>
 		                <span>The Advanced JSON Linter</span>
-		            </li>
-		            <li>
-		                <a href="https://dns-lookup.com/" rel="noopener">DNS-Lookup</a>
-		                <span>Professional DNS & IP Lookup Tool</span>
 		            </li>
 		            <li>
 		                <a href="https://validatejavascript.com/" rel="noopener">ValidateJavaScript</a>
