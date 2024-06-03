@@ -35,6 +35,39 @@ export default function App({ Component, pageProps }) {
 		}
 	}, [router.events])
 	
+	// fullres events
+	useEffect(() => {
+        const handleButtonClick = () => {
+            const position = event.target.getAttribute('data-position')
+			window.fullres ||= { events: [] }
+            window.fullres.events.push({
+                key: 'downloadChromeExtension',
+                placeOnSite: '/json-formatter',
+                eventName: 'Detail Page CTA',
+                whichLink: position
+            })
+        }
+		
+		const setupButtonListener = () => {
+            const downloadButtons = document.querySelectorAll('.chrome-download-link');
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', handleButtonClick);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', setupButtonListener);
+        router.events.on('routeChangeComplete', setupButtonListener);
+
+        return () => {
+            const downloadButtons = document.querySelectorAll('.chrome-download-link');
+            downloadButtons.forEach(button => {
+                button.removeEventListener('click', handleButtonClick);
+            });
+            document.removeEventListener('DOMContentLoaded', setupButtonListener);
+            router.events.off('routeChangeComplete', setupButtonListener);
+        };
+    }, [router.events])
+	
 	return (
 		<>
 		<Head>

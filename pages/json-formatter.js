@@ -24,7 +24,8 @@ export default function Home() {
 				<h2 className="text-2xl font-normal mb-12">Turn tedious JSON data into a visually intuitive, interactive experience.</h2>
 				
 				<Link 
-					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold"
+					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold chrome-download-link"
+					data-position="top"
 					href="https://chrome.google.com/webstore/detail/json-formatter/ondecobpcidaehknoegeapmclapnkgcl"
 				>
 					Install (free!)
@@ -110,7 +111,8 @@ export default function Home() {
 				</div>
 				
 				<Link 
-					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold"
+					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold chrome-download-link"
+					data-position="bottom"
 					href="https://chrome.google.com/webstore/detail/json-formatter/ondecobpcidaehknoegeapmclapnkgcl"
 				>
 					Install (free!)
