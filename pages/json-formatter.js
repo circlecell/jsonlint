@@ -3,6 +3,36 @@ import Head from 'next/head'
 import Link from 'next/link'
 	
 export default function Home() {
+
+	useEffect(() => {
+        const handleButtonClick = (event) => {
+            const position = event.target.getAttribute('data-position')
+            window.fullres.events.push({
+                key: 'downloadChromeExtension',
+                placeOnSite: '/json-formatter',
+                eventName: 'Detail Page CTA',
+                whichLink: position
+            })
+        }
+
+        const setupButtonListener = () => {
+            const downloadButtons = document.querySelectorAll('.chrome-download-link')
+            downloadButtons.forEach(button => {
+                button.removeEventListener('click', handleButtonClick)
+                button.addEventListener('click', handleButtonClick)
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', setupButtonListener)
+
+        return () => {
+            const downloadButtons = document.querySelectorAll('.chrome-download-link')
+            downloadButtons.forEach(button => {
+                button.removeEventListener('click', handleButtonClick)
+            })
+            document.removeEventListener('DOMContentLoaded', setupButtonListener)
+        }
+    }, [])
     
 	return (
 		<>
