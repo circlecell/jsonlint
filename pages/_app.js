@@ -12,9 +12,9 @@ export default function App({ Component, pageProps }) {
 	const [isValid, setIsValid] = useState(null)
 	const router = useRouter()
 	
-	window.fullres ||= { events: [] }
-	
 	useEffect(() => {
+		window.fullres ||= { events: [] }
+		
 		const handleRouteChange = () => {
 			const script = document.getElementById('fullres');
 			if (script) {

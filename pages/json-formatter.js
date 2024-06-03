@@ -23,14 +23,13 @@ export default function Home() {
             })
         }
 
-        document.addEventListener('DOMContentLoaded', setupButtonListener)
+        setupButtonListener()
 
         return () => {
             const downloadButtons = document.querySelectorAll('.chrome-download-link')
             downloadButtons.forEach(button => {
                 button.removeEventListener('click', handleButtonClick)
             })
-            document.removeEventListener('DOMContentLoaded', setupButtonListener)
         }
     }, [])
     
