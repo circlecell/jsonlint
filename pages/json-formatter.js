@@ -27,6 +27,7 @@ export default function Home() {
 					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold chrome-download-link"
 					data-position="top"
 					href="https://chrome.google.com/webstore/detail/json-formatter/ondecobpcidaehknoegeapmclapnkgcl"
+					target="_blank"
 				>
 					Install (free!)
 				</Link>
@@ -114,6 +115,7 @@ export default function Home() {
 					className="no-underline bg-blue-500 text-white px-6 py-3 text-xl font-semibold chrome-download-link"
 					data-position="bottom"
 					href="https://chrome.google.com/webstore/detail/json-formatter/ondecobpcidaehknoegeapmclapnkgcl"
+					target="_blank"
 				>
 					Install (free!)
 				</Link>
