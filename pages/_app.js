@@ -41,12 +41,35 @@ export default function App({ Component, pageProps }) {
 			}, 100)
 		}
 		
+		// Ad blocker detection script
+		const checkAdBlocker = () => {
+			const testDiv = document.createElement('div')
+			testDiv.className = 'head-banner468'
+			document.body.appendChild(testDiv)
+
+			window.setTimeout(function() {
+				const hasAdBlocker = (testDiv.offsetHeight === 0)
+				document.body.removeChild(testDiv)
+				
+				if (!window.fullres) {
+					window.fullres = {}
+				}
+				if (!window.fullres.metadata) {
+					window.fullres.metadata = {}
+				}
+				window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
+				
+			}, 100)
+		}
+		
 		// Call on component mount
-		handleRouteChange()
 		checkExtension()
+		checkAdBlocker()
+		handleRouteChange()
 		router.events.on('routeChangeComplete', () => {
-			handleRouteChange()
 			checkExtension()
+			checkAdBlocker()
+			handleRouteChange()
 		})
 		
 		// clean up the event listener when the component unmounts
