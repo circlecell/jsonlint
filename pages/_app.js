@@ -32,10 +32,14 @@ export default function App({ Component, pageProps }) {
 			window.addEventListener('message', function(event) {
 				if (event.data === 'extensionInstalled') {
 					window.fullres.metadata = { isChromeExtensionInstalled: true }
+					setIsValid(true)
 				}
 			})
-			window.postMessage('isExtensionInstalled', '*');
-		}	
+			
+			setTimeout(() => {
+				window.postMessage('isExtensionInstalled', '*')
+			}, 100)
+		}
 		
 		// Call on component mount
 		handleRouteChange()
