@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }) {
 	
 	useEffect(() => {
 		window.fullres ||= { events: [] }
+		window.fullres.metadata ||= {}
 		
 		const handleRouteChange = () => {
 			const script = document.getElementById('fullres');
@@ -31,7 +32,7 @@ export default function App({ Component, pageProps }) {
 		const checkExtension = () => {
 			window.addEventListener('message', function(event) {
 				if (event.data === 'extensionInstalled') {
-					window.fullres.metadata = { isChromeExtensionInstalled: true }
+					window.fullres.metadata.isChromeExtensionInstalled = true
 					setIsValid(true)
 				}
 			})
@@ -50,15 +51,7 @@ export default function App({ Component, pageProps }) {
 			window.setTimeout(function() {
 				const hasAdBlocker = (testDiv.offsetHeight === 0)
 				document.body.removeChild(testDiv)
-				
-				if (!window.fullres) {
-					window.fullres = {}
-				}
-				if (!window.fullres.metadata) {
-					window.fullres.metadata = {}
-				}
 				window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
-				
 			}, 100)
 		}
 		
