@@ -25,11 +25,25 @@ export default function App({ Component, pageProps }) {
 			newScript.src = 'https://t.fullres.net/jsonlint.js?' + (new Date() - new Date() % 43200000);
 			newScript.id = 'fullres';
 			document.head.appendChild(newScript);
-		}		
+		}
+		
+		// Extension detection script
+		const checkExtension = () => {
+			window.addEventListener('message', function(event) {
+				if (event.data === 'extensionInstalled') {
+					window.fullres.metadata = { isChromeExtensionInstalled: true }
+				}
+			})
+			window.postMessage('isExtensionInstalled', '*');
+		}	
 		
 		// Call on component mount
 		handleRouteChange()
-		router.events.on('routeChangeComplete', handleRouteChange)
+		checkExtension()
+		router.events.on('routeChangeComplete', () => {
+			handleRouteChange()
+			checkExtension()
+		})
 		
 		// clean up the event listener when the component unmounts
 		return () => {
