@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -10,65 +10,90 @@ import '@/styles/globals.css'
 export default function App({ Component, pageProps }) {
 	
 	const [isValid, setIsValid] = useState(null)
+	const [isExtensionInstalled, setIsExtensionInstalled] = useState(null)
+    const [hasAdBlocker, setHasAdBlocker] = useState(null)
 	const router = useRouter()
 	
+	const extensionTimeoutRef = useRef(null)
+    const adBlockerTimeoutRef = useRef(null)
+	
 	useEffect(() => {
-		window.fullres ||= { events: [] }
-		window.fullres.metadata ||= {}
-		
-		const handleRouteChange = () => {
-			const script = document.getElementById('fullres');
-			if (script) {
-				script.remove();
-			}
-			const newScript = document.createElement('script');
-			newScript.async = true;
-			newScript.src = 'https://jsonlint.com/script.js?' + (new Date() - new Date() % 43200000);
-			newScript.id = 'fullres';
-			document.head.appendChild(newScript);
-		}
-		
-		// Extension detection script
-		const checkExtension = () => {
-			window.addEventListener('message', function(event) {
-				if (event.data === 'extensionInstalled') {
-					window.fullres.metadata.isChromeExtensionInstalled = true
-					setIsValid(true)
-				}
-			})
-			
-			setTimeout(() => {
-				window.postMessage('isExtensionInstalled', '*')
-			}, 100)
-		}
-		
-		// Ad blocker detection script
-		const checkAdBlocker = () => {
-			const testDiv = document.createElement('div')
-			testDiv.className = 'head-banner468'
-			document.body.appendChild(testDiv)
+	
+		window.fullres ||= { events: [], metadata: {} }
+        
+        const checkExtension = () => {
+            return new Promise((resolve) => {
+                if (window.fullres.metadata.isChromeExtensionInstalled !== undefined) {
+                    setIsExtensionInstalled(window.fullres.metadata.isChromeExtensionInstalled)
+                    resolve()
+                } else {
+                    const handleMessage = (event) => {
+                        if (event.data === 'extensionInstalled') {
+                            window.fullres.metadata.isChromeExtensionInstalled = true
+                            setIsExtensionInstalled(true)
+                            window.removeEventListener('message', handleMessage)
+                            clearTimeout(extensionTimeoutRef.current)
+                            resolve()
+                        }
+                    }
+                    window.addEventListener('message', handleMessage)
 
-			window.setTimeout(function() {
-				const hasAdBlocker = (testDiv.offsetHeight === 0)
-				document.body.removeChild(testDiv)
-				window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
-			}, 100)
-		}
-		
-		// Call on component mount
-		checkExtension()
-		checkAdBlocker()
-		handleRouteChange()
-		router.events.on('routeChangeComplete', () => {
-			checkExtension()
-			checkAdBlocker()
-			handleRouteChange()
-		})
-		
-		// clean up the event listener when the component unmounts
-		return () => {
-			router.events.off('routeChangeComplete', handleRouteChange)
-		}
+                    extensionTimeoutRef.current = setTimeout(() => {
+                        window.postMessage('isExtensionInstalled', '*')
+                        resolve()
+                    }, 100)
+                }
+            })
+        }
+        
+        const checkAdBlocker = () => {
+            return new Promise((resolve) => {
+                if (window.fullres.metadata.hasAdBlockerInstalled !== undefined) {
+                    setHasAdBlocker(window.fullres.metadata.hasAdBlockerInstalled)
+                    resolve()
+                } else {
+                    const testDiv = document.createElement('div')
+                    testDiv.className = 'head-banner468'
+                    document.body.appendChild(testDiv)
+
+                    adBlockerTimeoutRef.current = setTimeout(() => {
+                        const hasAdBlocker = (testDiv.offsetHeight === 0)
+                        document.body.removeChild(testDiv)
+                        window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
+                        setHasAdBlocker(hasAdBlocker)
+                        resolve()
+                    }, 100)
+                }
+            })
+        }
+        
+        const handleRouteChange = () => {
+            Promise.all([checkExtension(), checkAdBlocker()]).then(() => {
+                const script = document.getElementById('fullres')
+                if (script) {
+                    script.remove()
+                }
+                const newScript = document.createElement('script')
+                newScript.async = true
+                newScript.src = 'https://jsonlint.com/script.js?' + (new Date() - new Date() % 43200000)
+                newScript.id = 'fullres'
+                document.head.appendChild(newScript)
+            })
+        }
+        
+        handleRouteChange()
+        router.events.on('routeChangeComplete', handleRouteChange)
+        
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange)
+			if (extensionTimeoutRef.current) {
+                clearTimeout(extensionTimeoutRef.current)
+            }
+            if (adBlockerTimeoutRef.current) {
+                clearTimeout(adBlockerTimeoutRef.current)
+            }
+        }
+
 	}, [router.events])
 	
 	return (
