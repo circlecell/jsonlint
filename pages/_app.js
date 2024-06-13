@@ -22,31 +22,44 @@ export default function App({ Component, pageProps }) {
 		window.fullres ||= { events: [], metadata: {} }
         
         const checkExtension = () => {
-            return new Promise((resolve) => {
-                if (window.fullres.metadata.isChromeExtensionInstalled !== undefined) {
-                    setIsExtensionInstalled(window.fullres.metadata.isChromeExtensionInstalled)
-                    resolve()
-                } else {
-                    const handleMessage = (event) => {
-                        if (event.data === 'extensionInstalled') {
-                            window.fullres.metadata.isChromeExtensionInstalled = true
-                            setIsExtensionInstalled(true)
-                            window.removeEventListener('message', handleMessage)
-                            clearTimeout(extensionTimeoutRef.current)
-                            resolve()
-                        }
-                    }
-                    window.addEventListener('message', handleMessage)
-
-                    extensionTimeoutRef.current = setTimeout(() => {
-                        window.postMessage('isExtensionInstalled', '*')
-                        resolve()
-                    }, 100)
-                }
-            })
-        }
+		    return
+			return new Promise((resolve) => {
+		        if (window.fullres.metadata.isChromeExtensionInstalled !== undefined) {
+		            console.log('Extension status already determined:', window.fullres.metadata.isChromeExtensionInstalled)
+		            setIsExtensionInstalled(window.fullres.metadata.isChromeExtensionInstalled)
+		            resolve()
+		        } else {
+		            const handleMessage = (event) => {
+		                if (event.data === 'extensionInstalled') {
+		                    console.log('Received extensionInstalled message')
+		                    window.fullres.metadata.isChromeExtensionInstalled = true
+		                    setIsExtensionInstalled(true)
+		                    window.removeEventListener('message', handleMessage)
+		                    clearTimeout(extensionTimeoutRef.current)
+		                    resolve()
+		                }
+		            }
+		            window.addEventListener('message', handleMessage)
+		
+		            extensionTimeoutRef.current = setTimeout(() => {
+		                console.log('Posting message to check for extension')
+		                window.postMessage('isExtensionInstalled', '*')
+		            }, 100)
+		
+		            // Fallback to resolve the promise if no message is received within a reasonable time
+		            setTimeout(() => {
+		                console.log('No response received, assuming extension is not installed')
+		                window.removeEventListener('message', handleMessage)
+		                window.fullres.metadata.isChromeExtensionInstalled = false
+		                setIsExtensionInstalled(false)
+		                resolve()
+		            }, 500) // Adjust timeout as needed
+		        }
+		    })
+		}
         
         const checkAdBlocker = () => {
+			return
             return new Promise((resolve) => {
                 if (window.fullres.metadata.hasAdBlockerInstalled !== undefined) {
                     setHasAdBlocker(window.fullres.metadata.hasAdBlockerInstalled)
