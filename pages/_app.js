@@ -88,8 +88,8 @@ export default function App({ Component, pageProps }) {
                 }
                 const newScript = document.createElement('script')
                 newScript.async = true
-                newScript.src = 'https://jsonlint.com/jsonlint.js?' + (new Date() - new Date() % 43200000)
-                newScript.id = 'fullres'
+                newScript.src = 'https://jsonlint.com/omwRUQbcAI/jsonlint.js?' + (new Date() - new Date() % 43200000)
+                newScript.id = 'omwRUQbcAI'
                 document.head.appendChild(newScript)
             })
         }
