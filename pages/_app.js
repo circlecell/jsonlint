@@ -89,7 +89,7 @@ export default function App({ Component, pageProps }) {
                 const newScript = document.createElement('script')
                 newScript.async = true
                 newScript.src = 'https://jsonlint.com/omwRUQbcAI/jsonlint.js?' + (new Date() - new Date() % 43200000)
-                newScript.siteKeyOverride = 'jsonlint'
+				newScript.setAttribute('siteKeyOverride', 'jsonlint');
                 document.head.appendChild(newScript)
             })
         }
