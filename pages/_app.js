@@ -84,7 +84,7 @@ export default function App({ Component, pageProps }) {
             Promise.all([checkExtension(), checkAdBlocker()]).then(() => {
                 const script = document.getElementById('fullres')
                 if (script) {
-                    script.remove()
+                    return
                 }
                 const newScript = document.createElement('script')
                 newScript.async = true
