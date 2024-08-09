@@ -3,6 +3,8 @@ import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import ValidContext from '../contexts/ValidContext'
+import useAdBlockCheck from '../hooks/useAdBlockCheck'
+import useExtensionCheck from '../hooks/useExtensionCheck'
 import Script from 'next/script'
 
 import '@/styles/globals.css'
@@ -10,105 +12,49 @@ import '@/styles/globals.css'
 export default function App({ Component, pageProps }) {
 	
 	const [isValid, setIsValid] = useState(null)
-	const [isExtensionInstalled, setIsExtensionInstalled] = useState(null)
-    const [hasAdBlocker, setHasAdBlocker] = useState(null)
 	const router = useRouter()
 	
-	const extensionTimeoutRef = useRef(null)
-    const adBlockerTimeoutRef = useRef(null)
+	const hasAdBlocker = useAdBlockCheck()
+	const isExtensionInstalled = useExtensionCheck()
+	
+	const [checksComplete, setChecksComplete] = useState(false)
 	
 	useEffect(() => {
-	
-		window.fullres ||= { events: [], metadata: {} }
-        
-        const checkExtension = () => {
-		    return
-			return new Promise((resolve) => {
-		        if (window.fullres.metadata.isChromeExtensionInstalled !== undefined) {
-		            console.log('Extension status already determined:', window.fullres.metadata.isChromeExtensionInstalled)
-		            setIsExtensionInstalled(window.fullres.metadata.isChromeExtensionInstalled)
-		            resolve()
-		        } else {
-		            const handleMessage = (event) => {
-		                if (event.data === 'extensionInstalled') {
-		                    console.log('Received extensionInstalled message')
-		                    window.fullres.metadata.isChromeExtensionInstalled = true
-		                    setIsExtensionInstalled(true)
-		                    window.removeEventListener('message', handleMessage)
-		                    clearTimeout(extensionTimeoutRef.current)
-		                    resolve()
-		                }
-		            }
-		            window.addEventListener('message', handleMessage)
+		console.log("Ad Blocker Installed:", hasAdBlocker)
+		console.log("Extension Installed:", isExtensionInstalled)
 		
-		            extensionTimeoutRef.current = setTimeout(() => {
-		                console.log('Posting message to check for extension')
-		                window.postMessage('isExtensionInstalled', '*')
-		            }, 100)
-		
-		            // Fallback to resolve the promise if no message is received within a reasonable time
-		            setTimeout(() => {
-		                console.log('No response received, assuming extension is not installed')
-		                window.removeEventListener('message', handleMessage)
-		                window.fullres.metadata.isChromeExtensionInstalled = false
-		                setIsExtensionInstalled(false)
-		                resolve()
-		            }, 500) // Adjust timeout as needed
-		        }
-		    })
+		if (hasAdBlocker !== null && isExtensionInstalled !== null) {
+			setChecksComplete(true);
 		}
-        
-        const checkAdBlocker = () => {
-			return
-            return new Promise((resolve) => {
-                if (window.fullres.metadata.hasAdBlockerInstalled !== undefined) {
-                    setHasAdBlocker(window.fullres.metadata.hasAdBlockerInstalled)
-                    resolve()
-                } else {
-                    const testDiv = document.createElement('div')
-                    testDiv.className = 'head-banner468'
-                    document.body.appendChild(testDiv)
-
-                    adBlockerTimeoutRef.current = setTimeout(() => {
-                        const hasAdBlocker = (testDiv.offsetHeight === 0)
-                        document.body.removeChild(testDiv)
-                        window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
-                        setHasAdBlocker(hasAdBlocker)
-                        resolve()
-                    }, 100)
-                }
-            })
-        }
-        
-        const handleRouteChange = () => {
-            Promise.all([checkExtension(), checkAdBlocker()]).then(() => {
-                const script = document.getElementById('fullres')
-                if (script) {
-                    return
-                }
-                const newScript = document.createElement('script')
-                newScript.async = true
-                newScript.src = 'https://jsonlint.com/omwRUQbcAI/jsonlint.js?' + (new Date() - new Date() % 43200000)
-				newScript.id = 'fullres'
-				newScript.attributes.siteKeyOverride = 'jsonlint'
-                document.head.appendChild(newScript)
-            })
-        }
-        
-        handleRouteChange()
-        router.events.on('routeChangeComplete', handleRouteChange)
-        
-        return () => {
-            router.events.off('routeChangeComplete', handleRouteChange)
-			if (extensionTimeoutRef.current) {
-                clearTimeout(extensionTimeoutRef.current)
-            }
-            if (adBlockerTimeoutRef.current) {
-                clearTimeout(adBlockerTimeoutRef.current)
-            }
-        }
-
-	}, [router.events])
+	}, [hasAdBlocker, isExtensionInstalled])
+	
+	useEffect(() => {
+		if (checksComplete) {
+			window.fullres ||= { events: [], metadata: {} }
+			
+			window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
+			window.fullres.metadata.isChromeExtensionInstalled = isExtensionInstalled
+			
+			const handleRouteChange = () => {
+				const script = document.getElementById('fullres')
+				if (script) return
+			
+				const newScript = document.createElement('script')
+					newScript.async = true
+					newScript.src = 'https://jsonlint.com/omwRUQbcAI/jsonlint.js?' + (new Date() - new Date() % 43200000)
+					newScript.id = 'fullres'
+					newScript.attributes.siteKeyOverride = 'jsonlint'
+				document.head.appendChild(newScript)
+			}
+			
+			handleRouteChange()
+			router.events.on('routeChangeComplete', handleRouteChange)
+			
+			return () => {
+				router.events.off('routeChangeComplete', handleRouteChange)
+			}
+		}
+	}, [checksComplete, hasAdBlocker, isExtensionInstalled, router.events])
 	
 	return (
 		<>
