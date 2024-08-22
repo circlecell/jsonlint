@@ -26,7 +26,7 @@ export default function Bottom() {
 				</h2>
 		        <ul className="tools grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
 					<li>
-		                <a href="https://fullres.com/?ref=json-lint" rel="noopener">Fullres</a>
+		                <a href="https://fr.sh/7ee613" rel="noopener">Fullres</a>
 		                <span className="block">The All-in-one Platform for Creators</span>
 		            </li>
 		            <li>
