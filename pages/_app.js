@@ -56,6 +56,28 @@ export default function App({ Component, pageProps }) {
 		}
 	}, [checksComplete, hasAdBlocker, isExtensionInstalled, router.events])
 	
+	useEffect(() => {
+		const handleHeavyAdRemoved = (event) => {
+			const adDetails = event.data
+		
+			fetch('https://t.fullres.net/track/toddtesting', {
+				method: 'POST',
+				mode: 'no-cors',
+				keepalive: true,
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(adDetails)
+			})
+		}
+		
+		window.addEventListener('heavy-ad-removed', handleHeavyAdRemoved)
+		
+		return () => {
+			window.removeEventListener('heavy-ad-removed', handleHeavyAdRemoved)
+		}
+	}, [])
+	
 	return (
 		<>
 		<Head>
