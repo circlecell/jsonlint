@@ -20,9 +20,6 @@ export default function App({ Component, pageProps }) {
 	const [checksComplete, setChecksComplete] = useState(false)
 	
 	useEffect(() => {
-		console.log("Ad Blocker Installed:", hasAdBlocker)
-		console.log("Extension Installed:", isExtensionInstalled)
-		
 		if (hasAdBlocker !== null && isExtensionInstalled !== null) {
 			setChecksComplete(true);
 		}
@@ -58,7 +55,7 @@ export default function App({ Component, pageProps }) {
 	
 	useEffect(() => {
 		const handleHeavyAdRemoved = (event) => {
-			const adDetails = event.data
+			const adDetails = event.detail
 		
 			fetch('https://t.fullres.net/track/toddtesting', {
 				method: 'POST',
