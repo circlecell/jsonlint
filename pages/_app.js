@@ -3,7 +3,6 @@ import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import ValidContext from '../contexts/ValidContext'
-import useAdBlockCheck from '../hooks/useAdBlockCheck'
 import useExtensionCheck from '../hooks/useExtensionCheck'
 import Script from 'next/script'
 
@@ -14,23 +13,23 @@ export default function App({ Component, pageProps }) {
 	const [isValid, setIsValid] = useState(null)
 	const router = useRouter()
 	
-	const hasAdBlocker = useAdBlockCheck()
 	const isExtensionInstalled = useExtensionCheck()
 	
 	const [checksComplete, setChecksComplete] = useState(false)
 	
 	useEffect(() => {
-		if (hasAdBlocker !== null && isExtensionInstalled !== null) {
+		if (isExtensionInstalled !== null) {
 			setChecksComplete(true);
 		}
-	}, [hasAdBlocker, isExtensionInstalled])
+	}, [isExtensionInstalled])
 	
 	useEffect(() => {
 		if (checksComplete) {
-			window.fullres ||= { events: [], metadata: {} }
+			window.fullres ||= {events:[]}
 			
-			window.fullres.metadata.hasAdBlockerInstalled = hasAdBlocker
-			window.fullres.metadata.isChromeExtensionInstalled = isExtensionInstalled
+			window.fullres.metadata = {
+				isChromeExtensionInstalled: isExtensionInstalled
+			}
 			
 			const handleRouteChange = () => {
 				const script = document.getElementById('fullres')
@@ -51,29 +50,7 @@ export default function App({ Component, pageProps }) {
 				router.events.off('routeChangeComplete', handleRouteChange)
 			}
 		}
-	}, [checksComplete, hasAdBlocker, isExtensionInstalled, router.events])
-	
-	useEffect(() => {
-		const handleHeavyAdRemoved = (event) => {
-			const adDetails = event.detail
-		
-			fetch('https://t.fullres.net/track/toddtesting', {
-				method: 'POST',
-				mode: 'no-cors',
-				keepalive: true,
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(adDetails)
-			})
-		}
-		
-		window.addEventListener('heavy-ad-removed', handleHeavyAdRemoved)
-		
-		return () => {
-			window.removeEventListener('heavy-ad-removed', handleHeavyAdRemoved)
-		}
-	}, [])
+	}, [checksComplete, isExtensionInstalled, router.events])
 	
 	return (
 		<>

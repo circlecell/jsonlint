@@ -1,3 +1,5 @@
+// hooks/useExtensionCheck.js
+
 import { useEffect, useState, useRef } from 'react';
 
 const useExtensionCheck = () => {

@@ -1,3 +1,6 @@
+// hooks/useAdBlockCheck.js
+
+
 import { useEffect, useState } from 'react';
 
 const useAdBlockCheck = () => {
