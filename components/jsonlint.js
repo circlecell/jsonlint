@@ -22,6 +22,8 @@ import 'codemirror/addon/scroll/annotatescrollbar'
 import 'codemirror/addon/search/matchesonscrollbar'
 import 'codemirror/addon/search/jump-to-line'
 
+import CryptoJS from 'crypto-js';
+
 function customStringify(jsonObject, pretty) {
     let jsonString = pretty ? JSON.stringify(jsonObject, null, 4) : JSON.stringify(jsonObject)
     jsonString = jsonString.replace(/\\\\u([\da-fA-F]{4})/g, '\\u$1').replace(/\\\//g, '/')
@@ -58,6 +60,7 @@ const JSONLint = ({ json, url, onClear }) => {
 	const editorRef = useRef(null)
 	const errorMarkerRef = useRef(null)
 	const [copySuccess, setCopySuccess] = useState(false)
+	const [language,  setLanguage] = useState('中文')
 
 	const handleValidate = (jsonToValidate = input) => {
 		if (errorMarkerRef.current) {
@@ -127,6 +130,95 @@ const JSONLint = ({ json, url, onClear }) => {
 		copy(input)
 		setCopySuccess(true)
 		setTimeout(() => setCopySuccess(false), 2000)
+	}
+
+	const handleLanguage = () => {
+		// TODO
+		try {
+			let lan
+			if (language === 'EN') {
+				lan = '中文'
+			} else {
+				lan = 'EN'
+			}
+	        setLanguage(lan)
+	    } catch (error) {
+	        setError(`Failed to format JSON: ${error.message}`)
+	    }
+	}
+
+	const handleBase64_en = () => {
+	    try {
+	        let base64_en_str = btoa(encodeURIComponent(input).replace(/%([0-9A-F]{2})/g, 
+				function toSolidBytes(match, p1) {
+				  return String.fromCharCode('0x' + p1)
+				})
+			  )
+	        setInput(base64_en_str)
+	    } catch (error) {
+	        setError(`Failed to base64_en string: ${error.message}`)
+	    }
+	}
+
+	const handleBase64_de = () => {
+	    try {
+			// 浏览器解码
+	        let base64_de_str = decodeURIComponent(atob(input).split('').map(function(c) {
+				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+			}).join(''))
+	        setInput(base64_de_str)
+	    } catch (error) {
+	        setError(`Failed to base64_de string: ${error.message}`)
+	    }
+	}
+
+	const handleMd5 = () => {
+	    try {
+	        let md5 = CryptoJS.MD5(input).toString();
+	        setInput(md5)
+	    } catch (error) {
+	        setError(`Failed to md5 string: ${error.message}`)
+	    }
+	}
+
+	const handleHtml_pure = () => {
+	    try {
+	        let base64_en_str = Base64.encode(input)
+	        setInput(base64_en_str)
+	    } catch (error) {
+	        setError(`Failed to base64_en string: ${error.message}`)
+	    }
+	}
+
+	const handleMini_css = () => {
+	    try {
+	        let base64_en_str = Base64.encode(input)
+	        setInput(base64_en_str)
+	    } catch (error) {
+	        setError(`Failed to base64_en string: ${error.message}`)
+	    }
+	}
+
+	const handleMini_css1 = () => {
+	    try {
+	        let base64_en_str = btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
+				function toSolidBytes(match, p1) {
+				  return String.fromCharCode('0x' + p1);
+				})
+			  )
+	        setInput(base64_en_str)
+	    } catch (error) {
+	        setError(`Failed to base64_en string: ${error.message}`)
+	    }
+	}
+
+	const handleBlank = () => {
+	    try {
+	        let base64_en_str = Base64.encode(input)
+	        setInput(base64_en_str)
+	    } catch (error) {
+	        setError(`Failed to base64_en string: ${error.message}`)
+	    }
 	}
 	
 	useEffect(() => {
@@ -198,10 +290,21 @@ const JSONLint = ({ json, url, onClear }) => {
 			</button>
 		</div>
 		<div>
-			<button className="primary-button" onClick={() => handleValidate()}>Validate JSON</button>
-			<button className="secondary-button" onClick={handleClear}>Clear</button>
-			<button className="secondary-button" onClick={handleFormatting}>{isPretty ? "Prettify" : "Compress"}</button>
-			
+			<div>
+				<button className="primary-button" onClick={() => handleValidate()}>Validate JSON</button>
+				<button className="secondary-button" onClick={handleClear}>Clear</button>
+				<button className="secondary-button" onClick={handleFormatting}>{isPretty ? "Prettify" : "Compress"}</button>
+				{/* <button className="primary-button" onClick={handleLanguage}>{language === "EN" ? "EN" : "中文"}</button> */}
+			</div>
+			<div className="mt-4 mb-4">
+				<button className="secondary-button" onClick={handleBase64_en}>base64_en</button>
+				<button className="secondary-button" onClick={handleBase64_de}>base64_de</button>
+				<button className="secondary-button" title="不安全，仅在兼容旧系统或非安全场景使用 MD5" onClick={handleMd5}>md5</button>
+				{/* <button className="secondary-button" onClick={handleHtml_pure}>html_pure</button> */}
+				{/* <button className="secondary-button" onClick={handleMini_css}>mini_css</button> */}
+				{/* <button className="secondary-button" onClick={handleMini_css1}>mini_css1</button> */}
+				{/* <button className="secondary-button" onClick={handleBlank}>blank</button> */}
+			</div>
 			{isValid === true && 
 			    <div className="bg-green-100 border border-green-200 text-green-700 px-4 py-2 mt-4">
 			        JSON is valid!

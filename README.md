@@ -26,3 +26,12 @@ We are always looking to make JSONLint even better! If you have any suggestions,
 
 - [Create an Issue](https://github.com/circlecell/jsonlint/issues) or
 - [Submit a Pull Request](https://github.com/circlecell/jsonlint/pulls)
+
+## How to develop and deploy
+1. npm install --legacy-peer-deps
+2. npm run dev =》 start server locally
+3. npm run build =》 build depoly resource such as .next
+4. 注册 Vercel (https://vercel.com)
+5. 导入项目：连接你的 GitHub 账户，选择项目仓库
+6. 自动部署：Vercel 会自动检测是 Next.js 项目并配置构建设置
+7. 完成：每次向 main/master 分支推送代码时都会自动重新部署

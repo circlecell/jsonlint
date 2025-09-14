@@ -4,9 +4,9 @@ import Bottom from './Bottom'
 export default function Layout({ children }) {
   return (
     <>
-      <Top />
+      {/* <Top /> */}
       <main>{children}</main>
-      <Bottom />
+      {/* <Bottom /> */}
     </>
   )
 }

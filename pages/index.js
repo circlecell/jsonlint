@@ -16,9 +16,9 @@ export default function Home() {
     
 	return (
 		<>
-		<div className="mt-8 max-w-8xl mx-auto sticky top-ad-container top-0 z-10 px-8 lg:px-10 flex">
+		{/* <div className="mt-8 max-w-8xl mx-auto sticky top-ad-container top-0 z-10 px-8 lg:px-10 flex">
 			<div id="bsa-zone_1570746984891-3_123456"></div>
-		</div>
+		</div> */}
 		<div className="flex-1 pt-6 max-w-8xl mx-auto dark:text-slate-300 px-8 lg:px-10">
 			
 			<h1 className="text-base mb-4">To format and validate your JSON, just copy + paste it below:</h1>
@@ -28,7 +28,7 @@ export default function Home() {
 				
 					<DynamicJSONLint json={json} url={url} />
 					
-					<div className="block mt-10 mb-20">
+					{/* <div className="block mt-10 mb-20">
 					
 						<div className="custom-slant"></div>
 			
@@ -95,10 +95,10 @@ export default function Home() {
 						<h2>Credits</h2>
 						<p>Maintained by CircleCell. Thanks to <a href="http://www.crockford.com/">Douglas Crockford</a> of JSON and JS Lint, and <a href="http://zaa.ch/">Zach Carter</a>, who built a <a href="https://github.com/zaach/jsonlint">pure JavaScript implementation</a>. You can download the <a href="https://www.github.com/circlecell/jsonlintdotcom" data-ga="sourceLink">JSONLint source code on GitHub</a>.</p>
 					
-					</div>
+					</div> */}
 					
 				</div>
-				<div>
+				{/* <div>
 					
 					<div>
 						<div id="bsa-zone_1605730077127-6_123456"></div>
@@ -159,7 +159,7 @@ export default function Home() {
 						
 					</div>
 					
-				</div>
+				</div> */}
 			</div>
 			
 		</div>
