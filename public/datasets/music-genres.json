@@ -1,0 +1,19 @@
+{
+  "genres": [
+    {"name": "Rock", "origin_decade": "1950s", "parent": null, "subgenres": ["Classic Rock", "Hard Rock", "Punk Rock", "Alternative Rock", "Progressive Rock"]},
+    {"name": "Pop", "origin_decade": "1950s", "parent": null, "subgenres": ["Synth-pop", "Dance-pop", "Electropop", "K-pop", "J-pop"]},
+    {"name": "Hip Hop", "origin_decade": "1970s", "parent": null, "subgenres": ["East Coast", "West Coast", "Trap", "Conscious Hip Hop", "Mumble Rap"]},
+    {"name": "Electronic", "origin_decade": "1970s", "parent": null, "subgenres": ["House", "Techno", "Trance", "Dubstep", "Drum and Bass"]},
+    {"name": "R&B", "origin_decade": "1940s", "parent": null, "subgenres": ["Contemporary R&B", "Neo Soul", "Funk", "Quiet Storm", "New Jack Swing"]},
+    {"name": "Jazz", "origin_decade": "1910s", "parent": null, "subgenres": ["Bebop", "Smooth Jazz", "Free Jazz", "Fusion", "Swing"]},
+    {"name": "Classical", "origin_decade": "1750s", "parent": null, "subgenres": ["Baroque", "Romantic", "Contemporary", "Opera", "Chamber Music"]},
+    {"name": "Country", "origin_decade": "1920s", "parent": null, "subgenres": ["Country Pop", "Bluegrass", "Outlaw Country", "Country Rock", "Americana"]},
+    {"name": "Blues", "origin_decade": "1860s", "parent": null, "subgenres": ["Delta Blues", "Chicago Blues", "Electric Blues", "Blues Rock", "Rhythm and Blues"]},
+    {"name": "Metal", "origin_decade": "1960s", "parent": "Rock", "subgenres": ["Heavy Metal", "Thrash Metal", "Death Metal", "Black Metal", "Power Metal"]},
+    {"name": "Reggae", "origin_decade": "1960s", "parent": null, "subgenres": ["Roots Reggae", "Dub", "Dancehall", "Ska", "Rocksteady"]},
+    {"name": "Folk", "origin_decade": "1800s", "parent": null, "subgenres": ["Contemporary Folk", "Folk Rock", "Indie Folk", "Traditional Folk", "Celtic"]},
+    {"name": "Latin", "origin_decade": "1940s", "parent": null, "subgenres": ["Salsa", "Reggaeton", "Bachata", "Cumbia", "Latin Pop"]},
+    {"name": "Soul", "origin_decade": "1950s", "parent": "R&B", "subgenres": ["Northern Soul", "Southern Soul", "Motown", "Psychedelic Soul", "Blue-Eyed Soul"]},
+    {"name": "Indie", "origin_decade": "1980s", "parent": null, "subgenres": ["Indie Rock", "Indie Pop", "Indie Folk", "Lo-fi", "Shoegaze"]}
+  ]
+}

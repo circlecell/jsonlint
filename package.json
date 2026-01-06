@@ -1,38 +1,47 @@
 {
-	"name": "jsonlint.com",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@tailwindcss/aspect-ratio": "^0.4.2",
-		"@tailwindcss/typography": "^0.5.9",
-		"@uiw/react-codemirror": "^4.21.18",
-		"codemirror": "^5.65.15",
-		"copy-to-clipboard": "^3.3.3",
-		"dotenv": "^16.3.1",
-		"gray-matter": "^4.0.3",
-		"jsonlint-mod": "^1.7.6",
-		"nanoid": "^4.0.2",
-		"next": "^13.4.7",
-		"next-navigation": "^1.0.6",
-		"react": "^18.2.0",
-		"react-codemirror2": "^7.2.1",
-		"react-dom": "^18.2.0",
-		"remark": "^15.0.1",
-		"remark-html": "^16.0.1",
-		"tailwind-merge": "^1.14.0",
-		"tailwindcss-animate": "^1.0.6",
-		"xml2js": "^0.6.2"
-	},
-	"devDependencies": {
-		"autoprefixer": "^10.4.2",
-		"eslint": "^8.7.0",
-		"eslint-config-next": "^12.0.4",
-		"postcss": "^8.4.5",
-		"tailwindcss": "^3.0.15"
-	}
+  "name": "jsonlint.com",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "@shikijs/monaco": "^3.20.0",
+    "@shikijs/rehype": "^3.20.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "ajv": "^8.12.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "copy-to-clipboard": "^3.3.3",
+    "diff": "^5.1.0",
+    "fast-xml-parser": "^4.3.2",
+    "gray-matter": "^4.0.3",
+    "jsonpath-plus": "^7.2.0",
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
+    "remark-html": "^16.0.1",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.20.0",
+    "tailwind-merge": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/diff": "^5.0.9",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.1.0",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  }
 }

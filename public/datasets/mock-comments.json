@@ -1,0 +1,14 @@
+{
+  "comments": [
+    {"id": 1, "post_id": 101, "user_id": 5, "author": "Alice Brown", "content": "Great article! Very informative and well-written.", "created": "2024-01-10T14:30:00Z", "likes": 24, "replies": 3},
+    {"id": 2, "post_id": 101, "user_id": 8, "author": "Bob Wilson", "content": "I disagree with some points, but overall a good read.", "created": "2024-01-10T15:45:00Z", "likes": 8, "replies": 1},
+    {"id": 3, "post_id": 102, "user_id": 3, "author": "Charlie Davis", "content": "This helped me solve my problem. Thanks!", "created": "2024-01-11T09:15:00Z", "likes": 45, "replies": 0},
+    {"id": 4, "post_id": 101, "user_id": 12, "author": "Diana Miller", "content": "Can you elaborate more on the third point?", "created": "2024-01-10T16:20:00Z", "likes": 5, "replies": 2},
+    {"id": 5, "post_id": 103, "user_id": 7, "author": "Edward Lee", "content": "First! Great content as always.", "created": "2024-01-12T08:00:00Z", "likes": 2, "replies": 0},
+    {"id": 6, "post_id": 102, "user_id": 15, "author": "Fiona Garcia", "content": "I've been looking for this information everywhere. Saved!", "created": "2024-01-11T11:30:00Z", "likes": 32, "replies": 1},
+    {"id": 7, "post_id": 104, "user_id": 2, "author": "George Kim", "content": "The code examples are really helpful.", "created": "2024-01-13T10:45:00Z", "likes": 18, "replies": 0},
+    {"id": 8, "post_id": 103, "user_id": 9, "author": "Hannah White", "content": "Would love to see a follow-up on this topic.", "created": "2024-01-12T14:00:00Z", "likes": 15, "replies": 1},
+    {"id": 9, "post_id": 104, "user_id": 11, "author": "Ivan Chen", "content": "There's a typo in paragraph 2, just FYI.", "created": "2024-01-13T12:30:00Z", "likes": 3, "replies": 1},
+    {"id": 10, "post_id": 105, "user_id": 4, "author": "Julia Adams", "content": "Bookmarked for later. Looks comprehensive!", "created": "2024-01-14T09:00:00Z", "likes": 11, "replies": 0}
+  ]
+}

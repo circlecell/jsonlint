@@ -1,0 +1,24 @@
+{
+  "patterns": [
+    {"name": "Email", "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "description": "Validates email addresses", "example": "user@example.com", "flags": "i"},
+    {"name": "URL", "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w .-]*)*\\/?$", "description": "Validates URLs with optional protocol", "example": "https://example.com/path", "flags": "i"},
+    {"name": "Phone (US)", "pattern": "^\\+?1?[-.\\s]?\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$", "description": "US phone numbers in various formats", "example": "(555) 123-4567", "flags": ""},
+    {"name": "Phone (International)", "pattern": "^\\+?[1-9]\\d{1,14}$", "description": "E.164 international phone format", "example": "+14155551234", "flags": ""},
+    {"name": "Credit Card", "pattern": "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13})$", "description": "Visa, Mastercard, or Amex", "example": "4111111111111111", "flags": ""},
+    {"name": "IPv4 Address", "pattern": "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", "description": "IPv4 address validation", "example": "192.168.1.1", "flags": ""},
+    {"name": "IPv6 Address", "pattern": "^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$", "description": "IPv6 address (full format)", "example": "2001:0db8:85a3:0000:0000:8a2e:0370:7334", "flags": "i"},
+    {"name": "Date (YYYY-MM-DD)", "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$", "description": "ISO 8601 date format", "example": "2024-01-15", "flags": ""},
+    {"name": "Time (HH:MM)", "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$", "description": "24-hour time format", "example": "14:30", "flags": ""},
+    {"name": "Hex Color", "pattern": "^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", "description": "CSS hex color code", "example": "#FF5733", "flags": ""},
+    {"name": "Username", "pattern": "^[a-zA-Z0-9_-]{3,16}$", "description": "Alphanumeric username (3-16 chars)", "example": "john_doe123", "flags": ""},
+    {"name": "Password (Strong)", "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", "description": "At least 8 chars, upper, lower, number, special", "example": "Password1!", "flags": ""},
+    {"name": "ZIP Code (US)", "pattern": "^\\d{5}(-\\d{4})?$", "description": "US ZIP code with optional +4", "example": "12345-6789", "flags": ""},
+    {"name": "SSN", "pattern": "^(?!000|666|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0000)\\d{4}$", "description": "US Social Security Number", "example": "123-45-6789", "flags": ""},
+    {"name": "Slug", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "description": "URL-friendly slug", "example": "my-blog-post", "flags": ""},
+    {"name": "UUID", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", "description": "UUID v1-5 format", "example": "550e8400-e29b-41d4-a716-446655440000", "flags": "i"},
+    {"name": "MAC Address", "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", "description": "Network MAC address", "example": "00:1A:2B:3C:4D:5E", "flags": "i"},
+    {"name": "HTML Tag", "pattern": "<([a-z]+)([^<]+)*(?:>(.*)<\\/\\1>|\\s+\\/>)", "description": "Matches HTML tags", "example": "<div class=\"test\">content</div>", "flags": "gi"},
+    {"name": "Whitespace", "pattern": "\\s+", "description": "One or more whitespace characters", "example": "   ", "flags": "g"},
+    {"name": "Integer", "pattern": "^-?\\d+$", "description": "Positive or negative integer", "example": "-42", "flags": ""}
+  ]
+}

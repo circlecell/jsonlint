@@ -1,0 +1,64 @@
+{
+  "strings": {
+    "empty": "",
+    "whitespace": "   ",
+    "unicode": "Hello 世界 🌍 مرحبا",
+    "escaped": "Line1\\nLine2\\tTabbed",
+    "quotes": "He said \"Hello\"",
+    "special_chars": "<script>alert('xss')</script>",
+    "long": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "newlines": "Line 1\nLine 2\nLine 3"
+  },
+  "numbers": {
+    "zero": 0,
+    "negative": -42,
+    "float": 3.14159265359,
+    "scientific": 1.23e10,
+    "negative_scientific": -5.67e-8,
+    "max_safe_integer": 9007199254740991,
+    "min_safe_integer": -9007199254740991,
+    "infinity_note": "JSON does not support Infinity or NaN"
+  },
+  "booleans": {
+    "true_value": true,
+    "false_value": false
+  },
+  "null_value": null,
+  "arrays": {
+    "empty": [],
+    "single": [1],
+    "mixed": [1, "two", true, null, {"nested": "object"}],
+    "nested": [[1, 2], [3, 4], [[5, 6], [7, 8]]]
+  },
+  "objects": {
+    "empty": {},
+    "single": {"key": "value"},
+    "deeply_nested": {
+      "level1": {
+        "level2": {
+          "level3": {
+            "level4": {
+              "value": "deep"
+            }
+          }
+        }
+      }
+    }
+  },
+  "special_keys": {
+    "": "empty key",
+    "with spaces": "key with spaces",
+    "with-dashes": "key with dashes",
+    "with_underscores": "key with underscores",
+    "123numeric": "key starting with number",
+    "camelCase": "camelCase key",
+    "PascalCase": "PascalCase key",
+    "SCREAMING_CASE": "uppercase key"
+  },
+  "dates": {
+    "iso8601": "2024-01-15T14:30:00Z",
+    "iso8601_offset": "2024-01-15T14:30:00+05:30",
+    "date_only": "2024-01-15",
+    "timestamp_ms": 1705329000000
+  }
+}

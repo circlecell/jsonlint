@@ -1,0 +1,16 @@
+{
+  "products": [
+    {"id": 1, "name": "Wireless Headphones", "sku": "WH-1001", "price": 149.99, "currency": "USD", "category": "Electronics", "inStock": true, "rating": 4.5, "reviews": 328},
+    {"id": 2, "name": "Organic Coffee Beans", "sku": "CF-2001", "price": 24.99, "currency": "USD", "category": "Food & Beverage", "inStock": true, "rating": 4.8, "reviews": 542},
+    {"id": 3, "name": "Running Shoes", "sku": "RS-3001", "price": 129.00, "currency": "USD", "category": "Sports", "inStock": true, "rating": 4.3, "reviews": 215},
+    {"id": 4, "name": "Stainless Steel Water Bottle", "sku": "WB-4001", "price": 34.99, "currency": "USD", "category": "Home & Kitchen", "inStock": true, "rating": 4.7, "reviews": 891},
+    {"id": 5, "name": "Bluetooth Speaker", "sku": "BS-5001", "price": 79.99, "currency": "USD", "category": "Electronics", "inStock": false, "rating": 4.4, "reviews": 167},
+    {"id": 6, "name": "Yoga Mat", "sku": "YM-6001", "price": 45.00, "currency": "USD", "category": "Sports", "inStock": true, "rating": 4.6, "reviews": 423},
+    {"id": 7, "name": "Mechanical Keyboard", "sku": "MK-7001", "price": 159.99, "currency": "USD", "category": "Electronics", "inStock": true, "rating": 4.9, "reviews": 756},
+    {"id": 8, "name": "Leather Wallet", "sku": "LW-8001", "price": 59.99, "currency": "USD", "category": "Accessories", "inStock": true, "rating": 4.2, "reviews": 134},
+    {"id": 9, "name": "Smart Watch", "sku": "SW-9001", "price": 299.99, "currency": "USD", "category": "Electronics", "inStock": true, "rating": 4.5, "reviews": 892},
+    {"id": 10, "name": "Desk Lamp", "sku": "DL-1002", "price": 49.99, "currency": "USD", "category": "Home & Kitchen", "inStock": true, "rating": 4.1, "reviews": 203},
+    {"id": 11, "name": "Backpack", "sku": "BP-1102", "price": 89.99, "currency": "USD", "category": "Accessories", "inStock": false, "rating": 4.4, "reviews": 567},
+    {"id": 12, "name": "Protein Powder", "sku": "PP-1202", "price": 54.99, "currency": "USD", "category": "Health", "inStock": true, "rating": 4.3, "reviews": 445}
+  ]
+}

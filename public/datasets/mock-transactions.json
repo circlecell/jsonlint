@@ -1,0 +1,16 @@
+{
+  "transactions": [
+    {"id": "TXN-001", "account_id": "ACC-123", "type": "credit", "amount": 2500.00, "currency": "USD", "description": "Salary deposit", "category": "income", "date": "2024-01-01", "status": "completed"},
+    {"id": "TXN-002", "account_id": "ACC-123", "type": "debit", "amount": 85.50, "currency": "USD", "description": "Grocery store", "category": "food", "date": "2024-01-02", "status": "completed"},
+    {"id": "TXN-003", "account_id": "ACC-123", "type": "debit", "amount": 1200.00, "currency": "USD", "description": "Rent payment", "category": "housing", "date": "2024-01-03", "status": "completed"},
+    {"id": "TXN-004", "account_id": "ACC-123", "type": "debit", "amount": 45.99, "currency": "USD", "description": "Netflix subscription", "category": "entertainment", "date": "2024-01-05", "status": "completed"},
+    {"id": "TXN-005", "account_id": "ACC-123", "type": "debit", "amount": 125.00, "currency": "USD", "description": "Electric bill", "category": "utilities", "date": "2024-01-07", "status": "completed"},
+    {"id": "TXN-006", "account_id": "ACC-123", "type": "credit", "amount": 150.00, "currency": "USD", "description": "Refund - Amazon", "category": "refund", "date": "2024-01-08", "status": "completed"},
+    {"id": "TXN-007", "account_id": "ACC-123", "type": "debit", "amount": 32.50, "currency": "USD", "description": "Gas station", "category": "transportation", "date": "2024-01-09", "status": "completed"},
+    {"id": "TXN-008", "account_id": "ACC-123", "type": "debit", "amount": 250.00, "currency": "USD", "description": "Transfer to savings", "category": "transfer", "date": "2024-01-10", "status": "completed"},
+    {"id": "TXN-009", "account_id": "ACC-123", "type": "debit", "amount": 67.80, "currency": "USD", "description": "Restaurant", "category": "food", "date": "2024-01-12", "status": "completed"},
+    {"id": "TXN-010", "account_id": "ACC-123", "type": "debit", "amount": 499.00, "currency": "USD", "description": "Electronics store", "category": "shopping", "date": "2024-01-14", "status": "pending"},
+    {"id": "TXN-011", "account_id": "ACC-123", "type": "debit", "amount": 15.00, "currency": "USD", "description": "Spotify subscription", "category": "entertainment", "date": "2024-01-15", "status": "completed"},
+    {"id": "TXN-012", "account_id": "ACC-123", "type": "credit", "amount": 500.00, "currency": "USD", "description": "Freelance payment", "category": "income", "date": "2024-01-15", "status": "pending"}
+  ]
+}

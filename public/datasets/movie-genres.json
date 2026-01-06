@@ -1,0 +1,20 @@
+{
+  "genres": [
+    {"id": 1, "name": "Action", "description": "Exciting sequences, physical stunts, chases, fights, and rescues", "examples": ["Die Hard", "Mad Max: Fury Road", "John Wick"]},
+    {"id": 2, "name": "Adventure", "description": "Exciting journeys and explorations, often in exotic locations", "examples": ["Indiana Jones", "The Lord of the Rings", "Jurassic Park"]},
+    {"id": 3, "name": "Animation", "description": "Films created using animation techniques", "examples": ["Toy Story", "Spirited Away", "The Lion King"]},
+    {"id": 4, "name": "Comedy", "description": "Humorous films designed to make audiences laugh", "examples": ["Superbad", "The Hangover", "Bridesmaids"]},
+    {"id": 5, "name": "Crime", "description": "Films centered around criminal activities and investigations", "examples": ["The Godfather", "Pulp Fiction", "Heat"]},
+    {"id": 6, "name": "Documentary", "description": "Non-fiction films about real events, people, or issues", "examples": ["March of the Penguins", "Blackfish", "Free Solo"]},
+    {"id": 7, "name": "Drama", "description": "Serious, narrative-driven films focusing on character development", "examples": ["The Shawshank Redemption", "Forrest Gump", "Schindler's List"]},
+    {"id": 8, "name": "Fantasy", "description": "Films featuring magical and supernatural elements", "examples": ["Harry Potter", "The Princess Bride", "Pan's Labyrinth"]},
+    {"id": 9, "name": "Horror", "description": "Films designed to frighten and create tension", "examples": ["The Exorcist", "Get Out", "Hereditary"]},
+    {"id": 10, "name": "Musical", "description": "Films where songs are integral to the narrative", "examples": ["The Sound of Music", "La La Land", "Grease"]},
+    {"id": 11, "name": "Mystery", "description": "Films centered around solving a puzzle or crime", "examples": ["Knives Out", "Chinatown", "Gone Girl"]},
+    {"id": 12, "name": "Romance", "description": "Films focused on romantic relationships", "examples": ["The Notebook", "Pride and Prejudice", "When Harry Met Sally"]},
+    {"id": 13, "name": "Science Fiction", "description": "Films exploring futuristic concepts and technology", "examples": ["Blade Runner", "The Matrix", "Interstellar"]},
+    {"id": 14, "name": "Thriller", "description": "Suspenseful films designed to keep audiences on edge", "examples": ["Se7en", "The Silence of the Lambs", "No Country for Old Men"]},
+    {"id": 15, "name": "War", "description": "Films depicting warfare and its effects", "examples": ["Saving Private Ryan", "Apocalypse Now", "1917"]},
+    {"id": 16, "name": "Western", "description": "Films set in the American Old West", "examples": ["The Good, the Bad and the Ugly", "Unforgiven", "True Grit"]}
+  ]
+}

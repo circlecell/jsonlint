@@ -1,0 +1,14 @@
+{
+  "notifications": [
+    {"id": 1, "user_id": 1, "type": "like", "message": "Alice liked your post", "read": true, "created": "2024-01-15T10:30:00Z", "link": "/posts/101"},
+    {"id": 2, "user_id": 1, "type": "comment", "message": "Bob commented on your post", "read": true, "created": "2024-01-15T11:45:00Z", "link": "/posts/101#comment-2"},
+    {"id": 3, "user_id": 1, "type": "follow", "message": "Charlie started following you", "read": false, "created": "2024-01-15T14:00:00Z", "link": "/users/charlie"},
+    {"id": 4, "user_id": 2, "type": "mention", "message": "Diana mentioned you in a comment", "read": false, "created": "2024-01-15T15:30:00Z", "link": "/posts/102#comment-6"},
+    {"id": 5, "user_id": 1, "type": "system", "message": "Your account settings were updated", "read": true, "created": "2024-01-14T09:00:00Z", "link": "/settings"},
+    {"id": 6, "user_id": 3, "type": "like", "message": "5 people liked your comment", "read": false, "created": "2024-01-15T16:00:00Z", "link": "/posts/103#comment-5"},
+    {"id": 7, "user_id": 2, "type": "reply", "message": "Edward replied to your comment", "read": true, "created": "2024-01-15T12:15:00Z", "link": "/posts/101#comment-4"},
+    {"id": 8, "user_id": 1, "type": "badge", "message": "You earned the 'Top Contributor' badge!", "read": false, "created": "2024-01-15T08:00:00Z", "link": "/profile/badges"},
+    {"id": 9, "user_id": 4, "type": "system", "message": "New feature: Dark mode is now available", "read": false, "created": "2024-01-15T07:00:00Z", "link": "/settings/appearance"},
+    {"id": 10, "user_id": 2, "type": "share", "message": "Fiona shared your post", "read": true, "created": "2024-01-14T18:30:00Z", "link": "/posts/102"}
+  ]
+}

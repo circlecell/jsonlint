@@ -1,0 +1,406 @@
+'use client';
+
+import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
+import { useTheme } from './ThemeProvider';
+import { useValidation } from './ValidationContext';
+
+const toolsMenu = [
+  { href: '/', label: 'Validator', desc: 'Validate & format JSON' },
+  { href: '/json-minify', label: 'Minify', desc: 'Compress JSON' },
+  { href: '/json-diff', label: 'Diff', desc: 'Compare JSON' },
+  { href: '/json-schema', label: 'Schema', desc: 'Validate schema' },
+  { href: '/json-path', label: 'Path', desc: 'Query with JSONPath' },
+  { href: '/json-tree', label: 'Tree View', desc: 'Visual tree explorer' },
+  { href: '/jwt-decoder', label: 'JWT Decoder', desc: 'Decode JWT tokens' },
+  { href: '/tools', label: 'All Tools →', desc: 'View all 35+ tools' },
+];
+
+const convertersMenu = [
+  { href: '/json-to-csv', label: 'JSON → CSV', desc: 'Export to spreadsheet' },
+  { href: '/json-to-yaml', label: 'JSON → YAML', desc: 'Convert to YAML' },
+  { href: '/json-to-xml', label: 'JSON → XML', desc: 'Convert to XML' },
+  { href: '/json-to-typescript', label: 'JSON → TypeScript', desc: 'Generate types' },
+  { href: '/json-to-python', label: 'JSON → Python', desc: 'Generate classes' },
+  { href: '/json-to-markdown', label: 'JSON → Markdown', desc: 'Create tables' },
+  { href: '/json-base64', label: 'Base64', desc: 'Encode/decode Base64' },
+  { href: '/tools', label: 'All Converters →', desc: 'View all 20+ converters' },
+];
+
+export function Header() {
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { status } = useValidation();
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [showToolsMenu, setShowToolsMenu] = useState(false);
+  const [showConvertersMenu, setShowConvertersMenu] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const themeMenuRef = useRef<HTMLDivElement>(null);
+  const toolsMenuRef = useRef<HTMLDivElement>(null);
+  const convertersMenuRef = useRef<HTMLDivElement>(null);
+
+  const logoColor =
+    status === 'valid'
+      ? 'text-accent-green'
+      : status === 'invalid'
+        ? 'text-accent-red'
+        : 'text-[var(--text-primary)]';
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (themeMenuRef.current && !themeMenuRef.current.contains(event.target as Node)) {
+        setShowThemeMenu(false);
+      }
+      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target as Node)) {
+        setShowToolsMenu(false);
+      }
+      if (convertersMenuRef.current && !convertersMenuRef.current.contains(event.target as Node)) {
+        setShowConvertersMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <header
+      className="sticky top-0 z-50 border-b"
+      style={{
+        background: 'var(--bg-primary)',
+        borderColor: 'var(--border-primary)',
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-14 items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative">
+              <Logo className={`w-7 h-7 transition-colors ${logoColor}`} />
+              {status === 'valid' && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-green rounded-full" />
+              )}
+              {status === 'invalid' && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-red rounded-full" />
+              )}
+            </div>
+            <span
+              className="font-mono font-bold text-lg tracking-tight"
+              style={{ color: 'var(--text-primary)' }}
+            >
+              JSONLint
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            {/* Tools Dropdown */}
+            <div className="relative" ref={toolsMenuRef}>
+              <button
+                onClick={() => { setShowToolsMenu(!showToolsMenu); setShowConvertersMenu(false); }}
+                className="nav-link flex items-center gap-1"
+              >
+                Tools
+                <ChevronIcon className={`w-4 h-4 transition-transform ${showToolsMenu ? 'rotate-180' : ''}`} />
+              </button>
+              {showToolsMenu && (
+                <div
+                  className="absolute left-0 mt-1 w-56 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  style={{
+                    background: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-primary)',
+                  }}
+                >
+                  {toolsMenu.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setShowToolsMenu(false)}
+                      className="flex flex-col px-4 py-2.5 hover:bg-[var(--bg-tertiary)] transition-colors"
+                    >
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {item.label}
+                      </span>
+                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                        {item.desc}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Converters Dropdown */}
+            <div className="relative" ref={convertersMenuRef}>
+              <button
+                onClick={() => { setShowConvertersMenu(!showConvertersMenu); setShowToolsMenu(false); }}
+                className="nav-link flex items-center gap-1"
+              >
+                Convert
+                <ChevronIcon className={`w-4 h-4 transition-transform ${showConvertersMenu ? 'rotate-180' : ''}`} />
+              </button>
+              {showConvertersMenu && (
+                <div
+                  className="absolute left-0 mt-1 w-56 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  style={{
+                    background: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-primary)',
+                  }}
+                >
+                  {convertersMenu.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setShowConvertersMenu(false)}
+                      className="flex flex-col px-4 py-2.5 hover:bg-[var(--bg-tertiary)] transition-colors"
+                    >
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {item.label}
+                      </span>
+                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                        {item.desc}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link href="/learn" className="nav-link">
+              Learn
+            </Link>
+
+            <Link href="/datasets" className="nav-link">
+              Datasets
+            </Link>
+
+            <div className="w-px h-5 mx-2" style={{ background: 'var(--border-primary)' }} />
+
+            <Link
+              href="/json-formatter"
+              className="nav-link flex items-center gap-1.5 text-sm"
+            >
+              <ChromeIcon className="w-4 h-4" />
+              Extension
+            </Link>
+          </nav>
+
+          {/* Right side */}
+          <div className="flex items-center gap-2">
+            {/* Theme Toggle */}
+            <div className="relative" ref={themeMenuRef}>
+              <button
+                onClick={() => setShowThemeMenu(!showThemeMenu)}
+                className="p-2 rounded-md hover:bg-[var(--bg-tertiary)] transition-colors"
+                style={{ color: 'var(--text-secondary)' }}
+                aria-label="Toggle theme"
+              >
+                {resolvedTheme === 'dark' ? (
+                  <MoonIcon className="w-5 h-5" />
+                ) : (
+                  <SunIcon className="w-5 h-5" />
+                )}
+              </button>
+              
+              {showThemeMenu && (
+                <div
+                  className="absolute right-0 mt-1 w-36 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  style={{
+                    background: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-primary)',
+                  }}
+                >
+                  {[
+                    { value: 'light', label: 'Light', icon: SunIcon },
+                    { value: 'dark', label: 'Dark', icon: MoonIcon },
+                    { value: 'system', label: 'System', icon: MonitorIcon },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => { setTheme(option.value as 'light' | 'dark' | 'system'); setShowThemeMenu(false); }}
+                      className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-[var(--bg-tertiary)] ${
+                        theme === option.value ? 'bg-[var(--bg-tertiary)]' : ''
+                      }`}
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      <option.icon className="w-4 h-4" />
+                      {option.label}
+                      {theme === option.value && <CheckIcon className="w-4 h-4 ml-auto" style={{ color: 'var(--accent-green)' }} />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-md hover:bg-[var(--bg-tertiary)] transition-colors"
+              style={{ color: 'var(--text-secondary)' }}
+              aria-label="Open menu"
+            >
+              {mobileMenuOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div 
+            className="md:hidden py-4 border-t animate-fade-in"
+            style={{ borderColor: 'var(--border-primary)' }}
+          >
+            <div className="space-y-1">
+              <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                Tools
+              </div>
+              {toolsMenu.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              
+              <div className="px-2 py-1 mt-3 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                Converters
+              </div>
+              {convertersMenu.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              <div className="pt-3 mt-3 border-t" style={{ borderColor: 'var(--border-primary)' }}>
+                <Link
+                  href="/learn"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Learn JSON
+                </Link>
+                <Link
+                  href="/datasets"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Datasets
+                </Link>
+                <Link
+                  href="/json-formatter"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  <ChromeIcon className="w-4 h-4" />
+                  Chrome Extension
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
+
+function Logo({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M18.571 20C19.833 20 20.857 18.977 20.857 17.714V13.143L22 12L20.857 10.857V6.286C20.857 5.023 19.834 4 18.571 4" />
+      <path d="M5.429 4C4.166 4 3.143 5.023 3.143 6.286V10.857L2 12L3.143 13.143V17.714C3.143 18.977 4.166 20 5.429 20" />
+      <circle cx="7.5" cy="12" r="0.5" fill="currentColor" />
+      <circle cx="12" cy="12" r="0.5" fill="currentColor" />
+      <circle cx="16.5" cy="12" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function SunIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </svg>
+  );
+}
+
+function MoonIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  );
+}
+
+function MonitorIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </svg>
+  );
+}
+
+function CheckIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
+function MenuIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  );
+}
+
+function CloseIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  );
+}
+
+function ChromeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-3.952 6.848a12.014 12.014 0 0 0 9.229-9.575z" />
+    </svg>
+  );
+}

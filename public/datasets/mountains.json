@@ -1,0 +1,24 @@
+{
+  "mountains": [
+    {"name": "Mount Everest", "height_m": 8849, "range": "Himalayas", "country": "Nepal/China", "first_summit": "1953-05-29", "continent": "Asia"},
+    {"name": "K2", "height_m": 8611, "range": "Karakoram", "country": "Pakistan/China", "first_summit": "1954-07-31", "continent": "Asia"},
+    {"name": "Kangchenjunga", "height_m": 8586, "range": "Himalayas", "country": "Nepal/India", "first_summit": "1955-05-25", "continent": "Asia"},
+    {"name": "Lhotse", "height_m": 8516, "range": "Himalayas", "country": "Nepal/China", "first_summit": "1956-05-18", "continent": "Asia"},
+    {"name": "Makalu", "height_m": 8485, "range": "Himalayas", "country": "Nepal/China", "first_summit": "1955-05-15", "continent": "Asia"},
+    {"name": "Cho Oyu", "height_m": 8188, "range": "Himalayas", "country": "Nepal/China", "first_summit": "1954-10-19", "continent": "Asia"},
+    {"name": "Dhaulagiri", "height_m": 8167, "range": "Himalayas", "country": "Nepal", "first_summit": "1960-05-13", "continent": "Asia"},
+    {"name": "Manaslu", "height_m": 8163, "range": "Himalayas", "country": "Nepal", "first_summit": "1956-05-09", "continent": "Asia"},
+    {"name": "Nanga Parbat", "height_m": 8126, "range": "Himalayas", "country": "Pakistan", "first_summit": "1953-07-03", "continent": "Asia"},
+    {"name": "Annapurna", "height_m": 8091, "range": "Himalayas", "country": "Nepal", "first_summit": "1950-06-03", "continent": "Asia"},
+    {"name": "Aconcagua", "height_m": 6961, "range": "Andes", "country": "Argentina", "first_summit": "1897-01-14", "continent": "South America"},
+    {"name": "Denali", "height_m": 6190, "range": "Alaska Range", "country": "United States", "first_summit": "1913-06-07", "continent": "North America"},
+    {"name": "Mount Kilimanjaro", "height_m": 5895, "range": "Eastern Rift", "country": "Tanzania", "first_summit": "1889-10-06", "continent": "Africa"},
+    {"name": "Mount Elbrus", "height_m": 5642, "range": "Caucasus", "country": "Russia", "first_summit": "1874-07-28", "continent": "Europe"},
+    {"name": "Vinson Massif", "height_m": 4892, "range": "Sentinel Range", "country": "Antarctica", "first_summit": "1966-12-17", "continent": "Antarctica"},
+    {"name": "Puncak Jaya", "height_m": 4884, "range": "Sudirman Range", "country": "Indonesia", "first_summit": "1962-02-13", "continent": "Oceania"},
+    {"name": "Mont Blanc", "height_m": 4809, "range": "Alps", "country": "France/Italy", "first_summit": "1786-08-08", "continent": "Europe"},
+    {"name": "Mount Rainier", "height_m": 4392, "range": "Cascades", "country": "United States", "first_summit": "1870-08-17", "continent": "North America"},
+    {"name": "Matterhorn", "height_m": 4478, "range": "Alps", "country": "Switzerland/Italy", "first_summit": "1865-07-14", "continent": "Europe"},
+    {"name": "Mount Fuji", "height_m": 3776, "range": "Fuji Volcanic Zone", "country": "Japan", "first_summit": "663", "continent": "Asia"}
+  ]
+}

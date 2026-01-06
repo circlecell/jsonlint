@@ -1,0 +1,25 @@
+{
+  "holidays": [
+    {"name": "New Year's Day", "date": "January 1", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Martin Luther King Jr. Day", "date": "Third Monday of January", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Presidents' Day", "date": "Third Monday of February", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Memorial Day", "date": "Last Monday of May", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Juneteenth", "date": "June 19", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Independence Day", "date": "July 4", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Labor Day", "date": "First Monday of September", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Columbus Day", "date": "Second Monday of October", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Veterans Day", "date": "November 11", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Thanksgiving Day", "date": "Fourth Thursday of November", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Christmas Day", "date": "December 25", "type": "Federal", "observed": true, "paid": true},
+    {"name": "Valentine's Day", "date": "February 14", "type": "Observance", "observed": false, "paid": false},
+    {"name": "St. Patrick's Day", "date": "March 17", "type": "Observance", "observed": false, "paid": false},
+    {"name": "Easter Sunday", "date": "Variable (March/April)", "type": "Religious", "observed": false, "paid": false},
+    {"name": "Mother's Day", "date": "Second Sunday of May", "type": "Observance", "observed": false, "paid": false},
+    {"name": "Father's Day", "date": "Third Sunday of June", "type": "Observance", "observed": false, "paid": false},
+    {"name": "Halloween", "date": "October 31", "type": "Observance", "observed": false, "paid": false},
+    {"name": "Black Friday", "date": "Day after Thanksgiving", "type": "Shopping", "observed": false, "paid": false},
+    {"name": "Cyber Monday", "date": "Monday after Thanksgiving", "type": "Shopping", "observed": false, "paid": false},
+    {"name": "Christmas Eve", "date": "December 24", "type": "Observance", "observed": false, "paid": false},
+    {"name": "New Year's Eve", "date": "December 31", "type": "Observance", "observed": false, "paid": false}
+  ]
+}

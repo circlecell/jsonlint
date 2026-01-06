@@ -1,244 +1,109 @@
 {
-  "programming_languages": [
+  "languages": [
+    {
+      "name": "JavaScript",
+      "year": 1995,
+      "creator": "Brendan Eich",
+      "paradigm": ["event-driven", "functional", "imperative", "object-oriented"],
+      "typing": "dynamic"
+    },
     {
       "name": "Python",
-      "year_launched": 1991,
-      "founder": "Guido van Rossum",
-      "primary_use_cases": "Web Development, Data Analysis, Artificial Intelligence, Scientific Computing"
+      "year": 1991,
+      "creator": "Guido van Rossum",
+      "paradigm": ["functional", "imperative", "object-oriented", "structured"],
+      "typing": "dynamic"
     },
     {
       "name": "Java",
-      "year_launched": 1995,
-      "founder": "James Gosling",
-      "primary_use_cases": "Web Development, Mobile Applications, Enterprise Systems"
-    },
-    {
-      "name": "JavaScript",
-      "year_launched": 1995,
-      "founder": "Brendan Eich",
-      "primary_use_cases": "Web Development, Backend Development (Node.js), Desktop Applications"
+      "year": 1995,
+      "creator": "James Gosling",
+      "paradigm": ["class-based", "object-oriented", "generic"],
+      "typing": "static"
     },
     {
       "name": "C++",
-      "year_launched": 1985,
-      "founder": "Bjarne Stroustrup",
-      "primary_use_cases": "System Programming, Game Development, Real-Time Simulations"
+      "year": 1985,
+      "creator": "Bjarne Stroustrup",
+      "paradigm": ["procedural", "functional", "object-oriented", "generic"],
+      "typing": "static"
     },
     {
       "name": "C#",
-      "year_launched": 2000,
-      "founder": "Microsoft",
-      "primary_use_cases": "Web Development (ASP.NET), Windows Desktop Applications, Game Development (Unity)"
+      "year": 2000,
+      "creator": "Microsoft",
+      "paradigm": ["structured", "imperative", "object-oriented", "event-driven", "functional", "generic"],
+      "typing": "static"
     },
     {
       "name": "Ruby",
-      "year_launched": 1995,
-      "founder": "Yukihiro Matsumoto",
-      "primary_use_cases": "Web Development (Ruby on Rails), Scripting, System Utilities"
+      "year": 1995,
+      "creator": "Yukihiro Matsumoto",
+      "paradigm": ["multi-paradigm", "object-oriented", "imperative", "functional"],
+      "typing": "dynamic"
     },
     {
       "name": "Go",
-      "year_launched": 2009,
-      "founder": "Robert Griesemer, Rob Pike, Ken Thompson",
-      "primary_use_cases": "Backend Development, Cloud Services, Containerization (Docker)"
+      "year": 2009,
+      "creator": "Robert Griesemer, Rob Pike, Ken Thompson",
+      "paradigm": ["concurrent", "functional", "imperative", "object-oriented"],
+      "typing": "static"
     },
     {
       "name": "Rust",
-      "year_launched": 2010,
-      "founder": "Graydon Hoare",
-      "primary_use_cases": "System Programming, Web Assembly, Embedded Systems"
-    },
-    {
-      "name": "PHP",
-      "year_launched": 1994,
-      "founder": "Rasmus Lerdorf",
-      "primary_use_cases": "Web Development, Server-Side Scripting"
+      "year": 2010,
+      "creator": "Graydon Hoare",
+      "paradigm": ["concurrent", "functional", "generic", "imperative", "structured"],
+      "typing": "static"
     },
     {
       "name": "Swift",
-      "year_launched": 2014,
-      "founder": "Apple Inc.",
-      "primary_use_cases": "iOS Development, macOS Development, Server-Side Development"
-    },
-    {
-      "name": "TypeScript",
-      "year_launched": 2012,
-      "founder": "Microsoft",
-      "primary_use_cases": "Web Development, Large-Scale JavaScript Applications"
+      "year": 2014,
+      "creator": "Apple Inc.",
+      "paradigm": ["multi-paradigm", "protocol-oriented", "object-oriented", "functional", "imperative"],
+      "typing": "static"
     },
     {
       "name": "Kotlin",
-      "year_launched": 2011,
-      "founder": "JetBrains",
-      "primary_use_cases": "Android Development, Backend Development, Web Development"
+      "year": 2011,
+      "creator": "JetBrains",
+      "paradigm": ["multi-paradigm", "object-oriented", "functional", "imperative"],
+      "typing": "static"
     },
     {
-      "name": "Perl",
-      "year_launched": 1987,
-      "founder": "Larry Wall",
-      "primary_use_cases": "Text Processing, Scripting, Web Development"
+      "name": "TypeScript",
+      "year": 2012,
+      "creator": "Microsoft",
+      "paradigm": ["multi-paradigm", "object-oriented", "imperative", "functional"],
+      "typing": "static"
+    },
+    {
+      "name": "PHP",
+      "year": 1995,
+      "creator": "Rasmus Lerdorf",
+      "paradigm": ["imperative", "functional", "object-oriented", "procedural"],
+      "typing": "dynamic"
     },
     {
       "name": "Scala",
-      "year_launched": 2003,
-      "founder": "Martin Odersky",
-      "primary_use_cases": "Functional Programming, Web Development, Apache Spark"
-    },
-    {
-      "name": "Elixir",
-      "year_launched": 2011,
-      "founder": "José Valim",
-      "primary_use_cases": "Web Development, Concurrency, Distributed Systems"
-    },
-    {
-      "name": "Lua",
-      "year_launched": 1993,
-      "founder": "Roberto Ierusalimschy, Luiz Henrique de Figueiredo, Waldemar Celes",
-      "primary_use_cases": "Embeddable Scripting, Game Development"
-    },
-    {
-      "name": "Haskell",
-      "year_launched": 1990,
-      "founder": "Lennart Augustsson, Dave Barton, Brian Boutel, and others",
-      "primary_use_cases": "Functional Programming, Research, Web Development"
-    },
-    {
-      "name": "MATLAB",
-      "year_launched": 1984,
-      "founder": "Cleve Moler",
-      "primary_use_cases": "Numerical Analysis, Machine Learning, Scientific Computing"
+      "year": 2004,
+      "creator": "Martin Odersky",
+      "paradigm": ["multi-paradigm", "concurrent", "functional", "object-oriented"],
+      "typing": "static"
     },
     {
       "name": "R",
-      "year_launched": 1993,
-      "founder": "Ross Ihaka and Robert Gentleman",
-      "primary_use_cases": "Statistics, Data Analysis, Machine Learning"
+      "year": 1993,
+      "creator": "Ross Ihaka, Robert Gentleman",
+      "paradigm": ["multi-paradigm", "array", "object-oriented", "imperative", "functional"],
+      "typing": "dynamic"
     },
     {
-      "name": "Objective-C",
-      "year_launched": 1984,
-      "founder": "Brad Cox and Tom Love",
-      "primary_use_cases": "iOS Development, macOS Development"
-    },
-    {
-      "name": "SQL",
-      "year_launched": 1974,
-      "founder": "Donald D. Chamberlin and Raymond F. Boyce",
-      "primary_use_cases": "Database Queries, Database Management"
-    },
-    {
-      "name": "Prolog",
-      "year_launched": 1972,
-      "founder": "Alain Colmerauer and Philippe Roussel",
-      "primary_use_cases": "Artificial Intelligence, Symbolic Computation, Parsers"
-    },
-    {
-      "name": "Groovy",
-      "year_launched": 2003,
-      "founder": "James Strachan and Bob McWhirter",
-      "primary_use_cases": "Web Development, Scripting, Apache Grails"
-    },
-    {
-      "name": "Dart",
-      "year_launched": 2011,
-      "founder": "Google",
-      "primary_use_cases": "Web Development, Mobile Development (Flutter)"
-    },
-    {
-      "name": "COBOL",
-      "year_launched": 1959,
-      "founder": "Grace Hopper and Jean E. Sammet",
-      "primary_use_cases": "Business, Finance, Administrative Systems"
-    },
-    {
-      "name": "F#",
-      "year_launched": 2005,
-      "founder": "Microsoft Research",
-      "primary_use_cases": "Functional Programming, Web Development, Data Science"
-    },
-    {
-      "name": "Clojure",
-      "year_launched": 2007,
-      "founder": "Rich Hickey",
-      "primary_use_cases": "Functional Programming, Web Development, Concurrent Programming"
-    },
-    {
-      "name": "Fortran",
-      "year_launched": 1957,
-      "founder": "John Backus",
-      "primary_use_cases": "Scientific Computing, Numeric Computation, Engineering"
-    },
-    {
-      "name": "Ada",
-      "year_launched": 1980,
-      "founder": "U.S. Department of Defense",
-      "primary_use_cases": "Embedded Systems, Real-Time Systems, Military Applications"
-    },
-    {
-      "name": "Pascal",
-      "year_launched": 1970,
-      "founder": "Niklaus Wirth",
-      "primary_use_cases": "Education, Early PC Software Development"
-    },
-    {
-      "name": "Scheme",
-      "year_launched": 1975,
-      "founder": "Gerald Jay Sussman and Guy L. Steele Jr.",
-      "primary_use_cases": "Functional Programming, Education, Research"
-    },
-    {
-      "name": "Shell Scripting",
-      "year_launched": 1970,
-      "founder": "Various Unix developers",
-      "primary_use_cases": "System Administration, Automation, Scripting"
-    },
-    {
-      "name": "BASIC",
-      "year_launched": 1964,
-      "founder": "John G. Kemeny and Thomas E. Kurtz",
-      "primary_use_cases": "General-purpose, Educational, Early Microcomputers"
-    },
-    {
-      "name": "APL",
-      "year_launched": 1964,
-      "founder": "Kenneth E. Iverson",
-      "primary_use_cases": "Mathematics, Research, Array Programming"
-    },
-    {
-      "name": "Erlang",
-      "year_launched": 1986,
-      "founder": "Joe Armstrong, Robert Virding, and Mike Williams",
-      "primary_use_cases": "Telecom Systems, Distributed Systems, Concurrency"
-    },
-    {
-      "name": "Smalltalk",
-      "year_launched": 1980,
-      "founder": "Alan Kay, Dan Ingalls, Adele Goldberg",
-      "primary_use_cases": "Object-oriented Programming, Educational, GUI Development"
-    },
-    {
-      "name": "OCaml",
-      "year_launched": 1996,
-      "founder": "Xavier Leroy, Jérôme Vouillon, Damien Doligez, and others",
-      "primary_use_cases": "Functional Programming, Metaprogramming, Research"
-    },
-    {
-      "name": "Logo",
-      "year_launched": 1967,
-      "founder": "Wally Feurzeig, Seymour Papert, and Cynthia Solomon",
-      "primary_use_cases": "Educational, Turtle Graphics, Teaching Programming"
-    },
-    {
-      "name": "Julia",
-      "year_launched": 2012,
-      "founder": "Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman",
-      "primary_use_cases": "Scientific Computing, Data Science, Machine Learning"
-    },
-    {
-      "name": "Lisp",
-      "year_launched": 1958,
-      "founder": "John McCarthy",
-      "primary_use_cases": "Functional Programming, Artificial Intelligence, Symbolic Computing"
+      "name": "Perl",
+      "year": 1987,
+      "creator": "Larry Wall",
+      "paradigm": ["multi-paradigm", "functional", "imperative", "object-oriented"],
+      "typing": "dynamic"
     }
   ]
 }

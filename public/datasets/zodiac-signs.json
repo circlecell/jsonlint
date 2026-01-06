@@ -1,0 +1,16 @@
+{
+  "signs": [
+    {"name": "Aries", "symbol": "♈", "element": "Fire", "quality": "Cardinal", "ruling_planet": "Mars", "start_date": "March 21", "end_date": "April 19"},
+    {"name": "Taurus", "symbol": "♉", "element": "Earth", "quality": "Fixed", "ruling_planet": "Venus", "start_date": "April 20", "end_date": "May 20"},
+    {"name": "Gemini", "symbol": "♊", "element": "Air", "quality": "Mutable", "ruling_planet": "Mercury", "start_date": "May 21", "end_date": "June 20"},
+    {"name": "Cancer", "symbol": "♋", "element": "Water", "quality": "Cardinal", "ruling_planet": "Moon", "start_date": "June 21", "end_date": "July 22"},
+    {"name": "Leo", "symbol": "♌", "element": "Fire", "quality": "Fixed", "ruling_planet": "Sun", "start_date": "July 23", "end_date": "August 22"},
+    {"name": "Virgo", "symbol": "♍", "element": "Earth", "quality": "Mutable", "ruling_planet": "Mercury", "start_date": "August 23", "end_date": "September 22"},
+    {"name": "Libra", "symbol": "♎", "element": "Air", "quality": "Cardinal", "ruling_planet": "Venus", "start_date": "September 23", "end_date": "October 22"},
+    {"name": "Scorpio", "symbol": "♏", "element": "Water", "quality": "Fixed", "ruling_planet": "Pluto", "start_date": "October 23", "end_date": "November 21"},
+    {"name": "Sagittarius", "symbol": "♐", "element": "Fire", "quality": "Mutable", "ruling_planet": "Jupiter", "start_date": "November 22", "end_date": "December 21"},
+    {"name": "Capricorn", "symbol": "♑", "element": "Earth", "quality": "Cardinal", "ruling_planet": "Saturn", "start_date": "December 22", "end_date": "January 19"},
+    {"name": "Aquarius", "symbol": "♒", "element": "Air", "quality": "Fixed", "ruling_planet": "Uranus", "start_date": "January 20", "end_date": "February 18"},
+    {"name": "Pisces", "symbol": "♓", "element": "Water", "quality": "Mutable", "ruling_planet": "Neptune", "start_date": "February 19", "end_date": "March 20"}
+  ]
+}

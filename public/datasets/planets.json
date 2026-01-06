@@ -1,0 +1,12 @@
+{
+  "planets": [
+    {"name": "Mercury", "type": "Terrestrial", "order": 1, "diameter_km": 4879, "mass_kg": 3.3e23, "moons": 0, "orbital_period_days": 88, "distance_from_sun_km": 57900000, "has_rings": false},
+    {"name": "Venus", "type": "Terrestrial", "order": 2, "diameter_km": 12104, "mass_kg": 4.87e24, "moons": 0, "orbital_period_days": 225, "distance_from_sun_km": 108200000, "has_rings": false},
+    {"name": "Earth", "type": "Terrestrial", "order": 3, "diameter_km": 12756, "mass_kg": 5.97e24, "moons": 1, "orbital_period_days": 365, "distance_from_sun_km": 149600000, "has_rings": false},
+    {"name": "Mars", "type": "Terrestrial", "order": 4, "diameter_km": 6792, "mass_kg": 6.42e23, "moons": 2, "orbital_period_days": 687, "distance_from_sun_km": 227900000, "has_rings": false},
+    {"name": "Jupiter", "type": "Gas Giant", "order": 5, "diameter_km": 142984, "mass_kg": 1.9e27, "moons": 95, "orbital_period_days": 4333, "distance_from_sun_km": 778600000, "has_rings": true},
+    {"name": "Saturn", "type": "Gas Giant", "order": 6, "diameter_km": 120536, "mass_kg": 5.68e26, "moons": 146, "orbital_period_days": 10759, "distance_from_sun_km": 1433500000, "has_rings": true},
+    {"name": "Uranus", "type": "Ice Giant", "order": 7, "diameter_km": 51118, "mass_kg": 8.68e25, "moons": 28, "orbital_period_days": 30687, "distance_from_sun_km": 2872500000, "has_rings": true},
+    {"name": "Neptune", "type": "Ice Giant", "order": 8, "diameter_km": 49528, "mass_kg": 1.02e26, "moons": 16, "orbital_period_days": 60190, "distance_from_sun_km": 4495100000, "has_rings": true}
+  ]
+}

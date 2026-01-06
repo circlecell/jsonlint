@@ -1,0 +1,16 @@
+{
+  "orders": [
+    {"id": "ORD-001", "customer_id": 1, "status": "delivered", "total": 149.99, "items": 3, "created": "2024-01-05", "shipped": "2024-01-06", "delivered": "2024-01-08"},
+    {"id": "ORD-002", "customer_id": 2, "status": "shipped", "total": 89.50, "items": 2, "created": "2024-01-10", "shipped": "2024-01-11", "delivered": null},
+    {"id": "ORD-003", "customer_id": 3, "status": "processing", "total": 234.00, "items": 5, "created": "2024-01-12", "shipped": null, "delivered": null},
+    {"id": "ORD-004", "customer_id": 1, "status": "delivered", "total": 45.99, "items": 1, "created": "2024-01-03", "shipped": "2024-01-04", "delivered": "2024-01-06"},
+    {"id": "ORD-005", "customer_id": 4, "status": "cancelled", "total": 199.99, "items": 2, "created": "2024-01-08", "shipped": null, "delivered": null},
+    {"id": "ORD-006", "customer_id": 5, "status": "pending", "total": 67.50, "items": 3, "created": "2024-01-14", "shipped": null, "delivered": null},
+    {"id": "ORD-007", "customer_id": 2, "status": "delivered", "total": 312.00, "items": 4, "created": "2023-12-20", "shipped": "2023-12-21", "delivered": "2023-12-24"},
+    {"id": "ORD-008", "customer_id": 6, "status": "shipped", "total": 78.25, "items": 2, "created": "2024-01-11", "shipped": "2024-01-13", "delivered": null},
+    {"id": "ORD-009", "customer_id": 7, "status": "processing", "total": 156.80, "items": 3, "created": "2024-01-13", "shipped": null, "delivered": null},
+    {"id": "ORD-010", "customer_id": 8, "status": "delivered", "total": 89.99, "items": 1, "created": "2024-01-02", "shipped": "2024-01-03", "delivered": "2024-01-05"},
+    {"id": "ORD-011", "customer_id": 3, "status": "refunded", "total": 245.00, "items": 2, "created": "2023-12-28", "shipped": "2023-12-29", "delivered": "2024-01-02"},
+    {"id": "ORD-012", "customer_id": 9, "status": "pending", "total": 432.50, "items": 6, "created": "2024-01-15", "shipped": null, "delivered": null}
+  ]
+}

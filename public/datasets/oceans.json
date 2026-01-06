@@ -1,0 +1,9 @@
+{
+  "oceans": [
+    {"name": "Pacific Ocean", "area_km2": 168723000, "avg_depth_m": 4188, "max_depth_m": 10928, "max_depth_location": "Mariana Trench", "bordering_continents": ["Asia", "Oceania", "North America", "South America", "Antarctica"]},
+    {"name": "Atlantic Ocean", "area_km2": 85133000, "avg_depth_m": 3646, "max_depth_m": 8376, "max_depth_location": "Puerto Rico Trench", "bordering_continents": ["Europe", "Africa", "North America", "South America", "Antarctica"]},
+    {"name": "Indian Ocean", "area_km2": 70560000, "avg_depth_m": 3741, "max_depth_m": 7906, "max_depth_location": "Java Trench", "bordering_continents": ["Africa", "Asia", "Oceania", "Antarctica"]},
+    {"name": "Southern Ocean", "area_km2": 21960000, "avg_depth_m": 3270, "max_depth_m": 7235, "max_depth_location": "South Sandwich Trench", "bordering_continents": ["Antarctica"]},
+    {"name": "Arctic Ocean", "area_km2": 15558000, "avg_depth_m": 1205, "max_depth_m": 5550, "max_depth_location": "Litke Deep", "bordering_continents": ["Europe", "Asia", "North America"]}
+  ]
+}

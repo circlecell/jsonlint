@@ -1,263 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-	main h1 {
-		@apply text-xl mb-2 font-semibold
-	}
-	main h2 {
-		@apply text-lg mb-2 font-semibold
-	}
-	main h3 {
-		@apply text-lg mb-2 font-semibold
-	}
-	main p {
-		@apply text-base mb-6
-	}
-	main ol {
-		@apply text-base mb-6 list-decimal list-outside pl-4
-	}
-	main ul {
-		@apply text-base mb-6 list-disc list-outside pl-4
-	}
-	main li {
-		@apply text-base pb-3
-	}
-	code {
-		@apply font-['MonoLisa'] bg-white text-fuchsia-600 text-xs rounded-sm border border-slate-200 px-1 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
-	}
-	main a, footer a {
-		@apply underline text-blue-500
-	}
-	footer {
-		@apply dark:text-slate-300
-	}
-	footer a {
-		@apply dark:text-blue-400
-	}
-	main .primary-button {
-		@apply py-3 px-4 inline-flex mt-6 justify-center mr-4 items-center gap-2 border-2 border-green-500 text-white bg-green-500 font-semibold hover:text-white hover:bg-green-500 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800
-	}
-	main .secondary-button {
-		@apply py-3 px-4 inline-flex mt-6 justify-center mr-4 items-center gap-2 border-2 border-slate-200 font-semibold text-slate-500 hover:text-white hover:bg-slate-500 hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-slate-800
-	}
-	.misc-content pre {
-		@apply font-['MonoLisa'] whitespace-pre-wrap shadow-sm break-words bg-white mb-6 py-4 px-4 text-fuchsia-600 text-xs rounded-sm border border-slate-200 dark:bg-slate-600 dark:border-slate-600 dark:text-slate-300
-	}
-	.misc-content code {
-		@apply border-0
-	}
-	
-	body.valid svg.logo {
-		@apply text-green-600
-	}
-	body.invalid svg.logo {
-		@apply text-red-600
-	}
-	footer ul.tools a strong {
-		@apply underline block text-sm font-normal text-blue-500
-	}
-	footer ul.tools span {
-		@apply block text-xs font-normal mt-1
-	}
+  :root {
+    --bg-primary: #0f1115;
+    --bg-secondary: #1a1d23;
+    --bg-tertiary: #22262e;
+    --border-primary: #2d3139;
+    --border-secondary: #3a3f4b;
+    --text-primary: #e4e4e7;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --accent-blue: #3b82f6;
+    --accent-amber: #f59e0b;
+  }
+
+  .light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --border-primary: #e2e8f0;
+    --border-secondary: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+  }
+
+  body {
+    @apply antialiased;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  /* Monaco Editor overrides */
+  .monaco-editor {
+    border-radius: 0 !important;
+  }
+
+  .monaco-editor .margin {
+    background: var(--bg-tertiary) !important;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-secondary);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
 }
 
-@font-face {
-	font-family: 'MonoLisa';
-	src: url('/fonts/MonoLisaVariableNormal.woff2') format('woff2');
-	font-weight: normal;
-	font-style: normal;
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150;
+  }
+
+  .btn-primary {
+    @apply bg-accent-green text-white hover:bg-accent-green/90 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    @apply hover:border-[var(--border-secondary)] active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    color: var(--text-secondary);
+    @apply hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)];
+  }
+
+  .nav-link {
+    @apply px-3 py-2 text-sm font-medium rounded-md transition-colors;
+    color: var(--text-secondary);
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+  }
+
+  .input-base {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    @apply px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-accent-blue/50 focus:border-accent-blue;
+  }
+
+  .card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    @apply rounded-lg;
+  }
+
+  .status-valid {
+    @apply text-accent-green;
+  }
+
+  .status-invalid {
+    @apply text-accent-red;
+  }
+
+  .editor-container {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+  }
+
+  .editor-container.valid {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 1px var(--accent-green);
+  }
+
+  .editor-container.invalid {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 0 1px var(--accent-red);
+  }
+
+  /* Tool nav */
+  .tool-nav-item {
+    @apply px-3 py-1.5 text-sm font-medium transition-colors rounded-md;
+    color: var(--text-muted);
+  }
+
+  .tool-nav-item:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  .tool-nav-item.active {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  /* Prose for content pages */
+  .prose-custom {
+    @apply max-w-none;
+    color: var(--text-primary);
+  }
+
+  .prose-custom h1 {
+    @apply text-2xl font-semibold mb-4;
+  }
+
+  .prose-custom h2 {
+    @apply text-xl font-semibold mb-3 mt-8;
+  }
+
+  .prose-custom h3 {
+    @apply text-lg font-semibold mb-2 mt-6;
+  }
+
+  .prose-custom p {
+    @apply mb-4 leading-relaxed;
+    color: var(--text-secondary);
+  }
+
+  .prose-custom ul, .prose-custom ol {
+    @apply mb-4 pl-6;
+    color: var(--text-secondary);
+  }
+
+  .prose-custom li {
+    @apply mb-2;
+  }
+
+  .prose-custom ul {
+    @apply list-disc;
+  }
+
+  .prose-custom ol {
+    @apply list-decimal;
+  }
+
+  /* Inline code (not in pre blocks) */
+  .prose-custom code:not(pre code) {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded;
+    background: var(--bg-tertiary);
+    color: var(--accent-amber);
+  }
+
+  /* Code blocks - base styles */
+  .prose-custom pre {
+    @apply p-4 rounded-lg mb-4 overflow-x-auto font-mono text-sm;
+    background: var(--bg-tertiary);
+  }
+
+  .prose-custom pre code {
+    @apply p-0 bg-transparent;
+    color: inherit;
+  }
+
+  /* Shiki syntax highlighting - dual theme support */
+  .prose-custom pre.shiki {
+    @apply p-4 rounded-lg mb-4 overflow-x-auto font-mono text-sm;
+  }
+
+  /* Dark theme (default) - use --shiki-dark colors */
+  .prose-custom pre.shiki,
+  .prose-custom pre.shiki code {
+    background-color: var(--shiki-dark-bg, #1a1d23) !important;
+  }
+
+  .prose-custom pre.shiki span {
+    color: var(--shiki-dark) !important;
+  }
+
+  /* Light theme - use --shiki-light colors */
+  .light .prose-custom pre.shiki,
+  .light .prose-custom pre.shiki code {
+    background-color: var(--shiki-light-bg, #ffffff) !important;
+  }
+
+  .light .prose-custom pre.shiki span {
+    color: var(--shiki-light) !important;
+  }
+
+  /* Ensure shiki code blocks have proper styling */
+  .prose-custom pre.shiki code {
+    @apply p-0;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  /* Line numbers and decorations for shiki */
+  .prose-custom pre.shiki .line {
+    @apply inline-block w-full;
+  }
+
+  /* Highlighted lines */
+  .prose-custom pre.shiki .line.highlighted {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .light .prose-custom pre.shiki .line.highlighted {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .prose-custom a {
+    @apply text-accent-blue hover:underline;
+  }
+
+  .prose-custom strong {
+    @apply font-semibold;
+    color: var(--text-primary);
+  }
+
+  .prose-custom table {
+    @apply w-full mb-4 text-sm;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .prose-custom thead {
+    border-bottom: 2px solid var(--border-primary);
+  }
+
+  .prose-custom th {
+    @apply text-left py-2 px-3 font-semibold whitespace-nowrap;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+  }
+
+  .prose-custom td {
+    @apply py-2 px-3;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .prose-custom tbody tr:hover {
+    background: var(--bg-tertiary);
+  }
+
+  .prose-custom tr {
+    display: table-row;
+  }
+
+  .prose-custom thead,
+  .prose-custom tbody {
+    display: table-row-group;
+  }
 }
 
-@font-face {
-	font-family: 'MonoLisa';
-	src: url('/fonts/MonoLisaVariableItalic.woff2') format('woff2');
-	font-weight: normal;
-	font-style: italic;
-}
-
-.cm-error-highlight {
-	background-color: rgba(255, 0, 0, 0.2);
-}
-.CodeMirror {
-	min-height: 500px;
-	resize: vertical;
-	overflow: auto;
-	font-family: 'MonoLisa', monospace !important;
-	font-size: 12px;
-}
-body.dark .CodeMirror {
-	color: rgb(241, 245, 249);
-}
-.cm-s-default .cm-string.cm-property {
-	color: rgb(177, 107, 42) !important;
-}
-.cm-s-default .cm-string {
-	color: green !important;
-}
-.CodeMirror-gutters {
-	background: rgb(241, 245, 249) !important;
-	border-right: 1px solid rgb(226, 232, 240) !important;
-}
-body.dark .CodeMirror-scroll {
-	background: rgb(51, 65, 85) !important;
-}
-body.dark .CodeMirror-gutters {
-	background: rgb(71, 85, 105) !important;
-	border-right: 1px solid rgb(71, 85, 105) !important;
-}
-.subtitle {
-	font-feature-settings: "ss02";
-	font-style: italic;
-}
-
-
+/* BSA Ad Zones */
 @media only screen and (min-width: 0px) and (min-height: 0px) {
-	div[id^="bsa-zone_1570746984891-3_123456"] {
-		min-width: 320px;
-		min-height: 50px;
-	}
-	div[id^="bsa-zone_1605730077127-6_123456"] {
-		min-width: 0px;
-		min-height: 0px;
-	}
+  div[id^="bsa-zone_1570746984891-3_123456"] {
+    min-width: 320px;
+    min-height: 50px;
+  }
+  div[id^="bsa-zone_1605730077127-6_123456"] {
+    min-width: 0px;
+    min-height: 0px;
+  }
 }
+
 @media only screen and (min-width: 770px) and (min-height: 1px) {
-	div[id^="bsa-zone_1570746984891-3_123456"] {
-		min-width: 728px;
-		min-height: 90px;
-	}
+  div[id^="bsa-zone_1570746984891-3_123456"] {
+    min-width: 728px;
+    min-height: 90px;
+  }
 }
+
 @media only screen and (min-width: 1120px) and (min-height: 1px) {
-	div[id^="bsa-zone_1570746984891-3_123456"] {
-		min-width: 728px;
-		min-height: 90px;
-	}
+  div[id^="bsa-zone_1570746984891-3_123456"] {
+    min-width: 728px;
+    min-height: 90px;
+  }
 }
+
 @media only screen and (min-width: 1350px) and (min-height: 1px) {
-	div[id^="bsa-zone_1605730077127-6_123456"] {
-		min-width: 120px;
-		min-height: 600px;
-	}
-}
-@media only screen and (min-width: 1550px) and (min-height: 1px) {
-	div[id^="bsa-zone_1605730077127-6_123456"] {
-		min-width: 120px;
-		min-height: 600px;
-	}
+  div[id^="bsa-zone_1605730077127-6_123456"] {
+    min-width: 120px;
+    min-height: 600px;
+  }
 }
 
-.custom-slant .native-banner {
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	margin-bottom: 36px;
-	padding: 18px;
-	border: 1px solid #e6e8eb;
-	background-color: #fff;
-	box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .05);
-	text-decoration: none;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	
-	align-items: left;
+/* Native ad styling */
+.native-ad {
+  @apply flex flex-col overflow-hidden p-4 border rounded-lg;
+  background: var(--bg-secondary);
+  border-color: var(--border-primary);
 }
 
-.custom-slant .native-sponsor-container {
-	overflow: hidden;
-	border-top-left-radius: 4px;
+.native-ad-sponsor {
+  @apply text-xs uppercase tracking-wider mb-2;
+  color: var(--text-muted);
 }
 
-.custom-slant .native-sponsor {
-	display: inline-flex;
-	margin-bottom: 10px;
-	padding: 0 10px;
-	background-image: linear-gradient(135deg, #6154F8cc, #6154F8);
-	color: #fff;
-	text-transform: uppercase;
-	letter-spacing: .5px;
-	font-size: 12px;
-	transform: skewX(-22deg);
-	transform-origin: top left;
-	pointer-events: none;
-	align-items: center;
+.native-ad-content {
+  @apply flex gap-4;
 }
 
-.custom-slant .native-sponsor:after {
-	position: absolute;
-	top: 4px;
-	right: 5px;
-	width: 3px;
-	height: calc(100% - 8px);
-	background-color: #fff;
-	content: "";
+.native-ad-logo {
+  @apply w-16 h-16 rounded-lg object-contain;
+  background: var(--bg-tertiary);
 }
 
-.custom-slant .native-sponsor > div {
-	padding: 8px 10px;
-	transform: skewX(22deg);
+.native-ad-text {
+  @apply flex-1;
 }
 
-.custom-slant .native-company {
-	border-left: 2px solid #fff;
+.native-ad-tagline {
+  @apply font-semibold mb-1;
+  color: var(--text-primary);
 }
 
-.custom-slant .native-main {
-	display: flex;
+.native-ad-description {
+  @apply text-sm mb-2;
+  color: var(--text-secondary);
 }
 
-.custom-slant .native-logo {
-	display: block;
-	box-sizing: border-box;
-	margin-right: 20px;
-	padding: 20px 30px;
-	width: 180px;
-	height: 100%;
-	border-radius: 8px;
-}
-
-.custom-slant .native-text {
-	display: flex;
-	flex-direction: column;
-	color: #0d0d0d;
-	line-height: 1.4;
-	align-items: flex-start;
-}
-
-.custom-slant .native-tagline {
-	font-weight: 600;
-	font-size: 20px;
-}
-
-.custom-slant .native-description {
-	margin-bottom: 6px;
-	font-size: 16px;
-}
-
-.custom-slant .native-cta {
-	display: flex;
-	padding: 8px 14px;
-	border-radius: 4px;
-	background-color: #323641;
-	color: #fff;
-	text-transform: uppercase;
-	letter-spacing: .4px;
-	font-weight: 600;
-	font-size: 12px;
-}
-
-.top-ad-container {
-	background: rgb(249, 250, 252, 0.85);
-}
-body.dark .top-ad-container {
-	background: rgb(16, 23, 41, 0.85);
-}
-
-.carousel {
-	scroll-snap-type: x mandatory;
-}
-.snap-start {
-	flex: 0 0 auto;
-	width: 100%;
-	scroll-snap-align: start;
+.native-ad-cta {
+  @apply inline-flex px-3 py-1.5 text-xs font-medium rounded-md;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }

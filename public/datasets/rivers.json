@@ -1,0 +1,19 @@
+{
+  "rivers": [
+    {"name": "Nile", "length_km": 6650, "drainage_km2": 3349000, "countries": ["Egypt", "Sudan", "South Sudan", "Ethiopia", "Uganda"], "mouth": "Mediterranean Sea", "continent": "Africa"},
+    {"name": "Amazon", "length_km": 6400, "drainage_km2": 7050000, "countries": ["Brazil", "Peru", "Colombia"], "mouth": "Atlantic Ocean", "continent": "South America"},
+    {"name": "Yangtze", "length_km": 6300, "drainage_km2": 1808500, "countries": ["China"], "mouth": "East China Sea", "continent": "Asia"},
+    {"name": "Mississippi-Missouri", "length_km": 6275, "drainage_km2": 2980000, "countries": ["United States"], "mouth": "Gulf of Mexico", "continent": "North America"},
+    {"name": "Yenisei", "length_km": 5539, "drainage_km2": 2580000, "countries": ["Russia", "Mongolia"], "mouth": "Kara Sea", "continent": "Asia"},
+    {"name": "Yellow River", "length_km": 5464, "drainage_km2": 752546, "countries": ["China"], "mouth": "Bohai Sea", "continent": "Asia"},
+    {"name": "Ob", "length_km": 5410, "drainage_km2": 2990000, "countries": ["Russia", "Kazakhstan", "China"], "mouth": "Gulf of Ob", "continent": "Asia"},
+    {"name": "Paraná", "length_km": 4880, "drainage_km2": 2582672, "countries": ["Brazil", "Paraguay", "Argentina"], "mouth": "Atlantic Ocean", "continent": "South America"},
+    {"name": "Congo", "length_km": 4700, "drainage_km2": 4014500, "countries": ["DR Congo", "Central African Republic", "Angola"], "mouth": "Atlantic Ocean", "continent": "Africa"},
+    {"name": "Amur", "length_km": 4444, "drainage_km2": 1855000, "countries": ["Russia", "China", "Mongolia"], "mouth": "Sea of Okhotsk", "continent": "Asia"},
+    {"name": "Mekong", "length_km": 4350, "drainage_km2": 795000, "countries": ["China", "Myanmar", "Laos", "Thailand", "Cambodia", "Vietnam"], "mouth": "South China Sea", "continent": "Asia"},
+    {"name": "Ganges", "length_km": 2525, "drainage_km2": 1016124, "countries": ["India", "Bangladesh"], "mouth": "Bay of Bengal", "continent": "Asia"},
+    {"name": "Danube", "length_km": 2850, "drainage_km2": 817000, "countries": ["Germany", "Austria", "Hungary", "Serbia", "Romania"], "mouth": "Black Sea", "continent": "Europe"},
+    {"name": "Rhine", "length_km": 1233, "drainage_km2": 185000, "countries": ["Switzerland", "Germany", "France", "Netherlands"], "mouth": "North Sea", "continent": "Europe"},
+    {"name": "Thames", "length_km": 346, "drainage_km2": 12935, "countries": ["United Kingdom"], "mouth": "North Sea", "continent": "Europe"}
+  ]
+}

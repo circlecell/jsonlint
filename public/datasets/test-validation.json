@@ -1,0 +1,58 @@
+{
+  "valid_emails": [
+    "user@example.com",
+    "user.name@example.com",
+    "user+tag@example.co.uk",
+    "user123@sub.domain.org"
+  ],
+  "invalid_emails": [
+    "not-an-email",
+    "@missing-local.com",
+    "missing-domain@",
+    "spaces in@email.com"
+  ],
+  "valid_urls": [
+    "https://example.com",
+    "http://sub.domain.co.uk/path",
+    "https://example.com:8080/path?query=value",
+    "ftp://files.example.com"
+  ],
+  "invalid_urls": [
+    "not a url",
+    "missing://protocol",
+    "http://",
+    "://missing-protocol.com"
+  ],
+  "valid_phone_numbers": [
+    "+1-555-123-4567",
+    "(555) 123-4567",
+    "555.123.4567",
+    "+44 20 7123 4567"
+  ],
+  "valid_credit_cards": [
+    "4111111111111111",
+    "5500000000000004",
+    "340000000000009"
+  ],
+  "valid_ip_addresses": [
+    "192.168.1.1",
+    "10.0.0.0",
+    "255.255.255.255",
+    "0.0.0.0"
+  ],
+  "invalid_ip_addresses": [
+    "256.1.1.1",
+    "192.168.1",
+    "192.168.1.1.1",
+    "abc.def.ghi.jkl"
+  ],
+  "valid_dates": [
+    "2024-01-15",
+    "2024-12-31",
+    "2000-01-01"
+  ],
+  "valid_uuids": [
+    "550e8400-e29b-41d4-a716-446655440000",
+    "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+  ]
+}
