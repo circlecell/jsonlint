@@ -21,7 +21,7 @@ export default function HomePage() {
           To format and validate your JSON, just copy + paste it below:
         </p>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[1fr,280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,280px] gap-6">
           {/* Main editor area */}
           <div className="min-w-0">
             <Suspense fallback={<EditorSkeleton />}>
@@ -36,7 +36,7 @@ export default function HomePage() {
           </div>
 
           {/* Sidebar */}
-          <aside className="hidden xl:block">
+          <aside className="hidden lg:block">
             <div className="sticky top-20">
               {/* Sidebar ad zone */}
               <div className="mb-4">
