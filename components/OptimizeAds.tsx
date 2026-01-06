@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 declare global {
@@ -16,12 +16,19 @@ declare global {
 
 export function OptimizeAds() {
   const pathname = usePathname();
+  const isInitialLoad = useRef(true);
 
   useEffect(() => {
+    // Skip the initial page load - BuySellAds handles that automatically
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+
     // Initialize optimize queue if not already done
     window.optimize = window.optimize || { queue: [] };
     
-    // Push ads on route change
+    // Push ads only on subsequent route changes (SPA navigation)
     window.optimize.queue.push(() => {
       window.optimize.pushAll();
     });
