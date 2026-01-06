@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { ValidationProvider } from '@/components/ValidationContext';
+import { OptimizeAds } from '@/components/OptimizeAds';
 
 export const metadata: Metadata = {
   title: {
@@ -74,6 +75,12 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/images/site.webmanifest" />
         <meta name="theme-color" content="#0f1115" />
+        <Script
+          id="bsaOptimizeQueue"
+          strategy="beforeInteractive"
+        >
+          {`window.optimize = window.optimize || { queue: [] };`}
+        </Script>
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
@@ -84,10 +91,20 @@ export default function RootLayout({
           </ValidationProvider>
         </ThemeProvider>
 
-        {/* BuySellAds */}
-        <Script src="//m.servedby-buysellads.com/monetization.custom.js" />
+        {/* BuySellAds Optimize - handles ad refresh on SPA navigation */}
+        <OptimizeAds />
+        
+        <Script
+          id="bsaOptimizeScript"
+          strategy="afterInteractive"
+          src={`https://cdn4.buysellads.net/pub/jsonlint.js?${Date.now() - (Date.now() % 600000)}`}
+        />
+
+        {/* BuySellAds Native Ads */}
+        <Script src="//m.servedby-buysellads.com/monetization.custom.js" strategy="afterInteractive" />
         <Script
           id="native-ad"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.onload = function() {
@@ -111,20 +128,6 @@ export default function RootLayout({
                   });
                 }
               };
-            `,
-          }}
-        />
-        <Script
-          id="bsa"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                var bsa_optimize=document.createElement('script');
-                bsa_optimize.type='text/javascript';
-                bsa_optimize.async=true;
-                bsa_optimize.src='https://srv.buysellads.com/pub/jsonlint.js?'+(new Date()-new Date()%600000);
-                (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa_optimize);
-              })();
             `,
           }}
         />
