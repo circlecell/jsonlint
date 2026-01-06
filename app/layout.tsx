@@ -97,7 +97,7 @@ export default function RootLayout({
         <Script
           id="bsaOptimizeScript"
           strategy="afterInteractive"
-          src={`https://cdn4.buysellads.net/pub/jsonlint.js?${Date.now() - (Date.now() % 600000)}`}
+          src="https://cdn4.buysellads.net/pub/jsonlint.js"
         />
 
         {/* BuySellAds Native Ads */}
