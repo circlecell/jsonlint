@@ -108,7 +108,7 @@ function FooterSection({
 export function Footer() {
   return (
     <footer
-      className="border-t mt-auto"
+      className="border-t mt-auto pb-24"
       style={{
         background: 'var(--bg-secondary)',
         borderColor: 'var(--border-primary)',
