@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllDatasets, getDatasetSample } from '@/lib/dataset-utils';
+import { Container } from '@/components/Container';
 import { DatasetsSection } from '../learn/DatasetsSection';
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default async function DatasetsPage() {
 
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <Container className="py-8">
         {/* Header */}
         <header className="text-center mb-10">
           <h1
@@ -108,7 +109,7 @@ export default async function DatasetsPage() {
             </a>
           </p>
         </section>
-      </div>
+      </Container>
     </div>
   );
 }

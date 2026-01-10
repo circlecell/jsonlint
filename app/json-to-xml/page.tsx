@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { ToolNav } from '@/components/ToolNav';
+import { Container } from '@/components/Container';
 import { JsonToXmlConverter } from './JsonToXmlConverter';
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default function JsonToXmlPage() {
     <>
       <ToolNav />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <Container className="py-4">
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
@@ -211,7 +212,7 @@ xml = dicttoxml.dicttoxml(data, root=True, attr_type=False)`}</code></pre>
             <div id="bsa-zone_1605730077127-6_123456"></div>
           </aside>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

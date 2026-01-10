@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLayout } from './LayoutProvider';
 
 const tools = [
   { href: '/', label: 'Validate', icon: CheckCircleIcon },
@@ -18,9 +19,10 @@ const tools = [
 
 export function ToolNav() {
   const pathname = usePathname();
+  const { width } = useLayout();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className={`${width === 'fixed' ? 'max-w-7xl' : ''} mx-auto px-4 sm:px-6 lg:px-8`}>
       <nav
         className="border-b border-l border-r rounded-b-lg"
         style={{

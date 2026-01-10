@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { Container } from '@/components/Container';
 
 export const metadata: Metadata = {
   title: 'All JSON Tools - Validators, Converters, Formatters | JSONLint',
@@ -102,8 +103,8 @@ export default function ToolsPage() {
   const totalTools = toolCategories.reduce((sum, cat) => sum + cat.tools.length, 0);
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-primary)' }}>
-      <div className="max-w-7xl mx-auto">
+    <div className="py-8" style={{ background: 'var(--bg-primary)' }}>
+      <Container padding={false}>
         {/* Header */}
         <header className="text-center mb-12">
           <h1
@@ -201,7 +202,7 @@ export default function ToolsPage() {
             Browse Datasets
           </Link>
         </section>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -4,7 +4,9 @@ import '@/styles/globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { LayoutProvider } from '@/components/LayoutProvider';
 import { ValidationProvider } from '@/components/ValidationContext';
+import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 
 export const metadata: Metadata = {
@@ -84,11 +86,13 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
-          <ValidationProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </ValidationProvider>
+          <LayoutProvider>
+            <ValidationProvider>
+              <Header />
+              <MainContent>{children}</MainContent>
+              <Footer />
+            </ValidationProvider>
+          </LayoutProvider>
         </ThemeProvider>
 
         {/* BuySellAds Optimize - handles ad refresh on SPA navigation */}

@@ -3,6 +3,7 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { DatasetPreview } from '@/components/DatasetPreview';
 import { ShareButtons } from '@/components/ShareButtons';
+import { Container } from '@/components/Container';
 import Link from 'next/link';
 
 interface DatasetPageClientProps {
@@ -23,7 +24,7 @@ export function DatasetPageClient({
   otherDatasets,
 }: DatasetPageClientProps) {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <Container className="py-6">
       <div className="grid grid-cols-1 xl:grid-cols-[1fr,280px] gap-6">
         {/* Main content */}
         <div className="min-w-0">
@@ -146,7 +147,7 @@ export function DatasetPageClient({
           </div>
         </aside>
       </div>
-    </div>
+    </Container>
   );
 }
 

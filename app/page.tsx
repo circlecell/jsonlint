@@ -2,13 +2,14 @@ import { Suspense } from 'react';
 import { ToolNav } from '@/components/ToolNav';
 import { JsonValidatorWrapper } from './JsonValidatorWrapper';
 import { SeoContent, ToolsSidebar } from '@/components/SeoContent';
+import { Container } from '@/components/Container';
 
 export default function HomePage() {
   return (
     <>
       <ToolNav />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <Container className="py-4">
         {/* Top ad zone */}
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
@@ -47,7 +48,7 @@ export default function HomePage() {
             </div>
           </aside>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { ToolNav } from '@/components/ToolNav';
+import { Container } from '@/components/Container';
 import { JsonPrettyPrinter } from './JsonPrettyPrinter';
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export default function JsonPrettyPrintPage() {
     <>
       <ToolNav />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <Container className="py-4">
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
@@ -211,7 +212,7 @@ cat data.json | jq -S '.'`}</code></pre>
             <div id="bsa-zone_1605730077127-6_123456"></div>
           </aside>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

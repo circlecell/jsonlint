@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useLayout } from './LayoutProvider';
 
 const footerLinks = {
   tools: [
@@ -106,6 +109,8 @@ function FooterSection({
 }
 
 export function Footer() {
+  const { width } = useLayout();
+
   return (
     <footer
       className="border-t mt-auto pb-24"
@@ -114,7 +119,7 @@ export function Footer() {
         borderColor: 'var(--border-primary)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className={`${width === 'fixed' ? 'max-w-7xl' : ''} mx-auto px-4 sm:px-6 lg:px-8 py-12`}>
         {/* Main footer grid - equal width columns */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10">
           <FooterSection title="Tools" links={footerLinks.tools} viewAllHref="/tools" viewAllLabel="All tools" />

@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllDatasets, getDatasetSample } from '@/lib/dataset-utils';
+import { Container } from '@/components/Container';
 import { DatasetsSection } from './DatasetsSection';
 
 export const metadata: Metadata = {
@@ -95,7 +96,7 @@ export default async function LearnPage() {
 
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <Container className="py-6">
         {/* Header */}
         <header className="text-center mb-12">
           <h1
@@ -256,7 +257,7 @@ export default async function LearnPage() {
             </Link>
           </div>
         </section>
-      </div>
+      </Container>
     </div>
   );
 }
