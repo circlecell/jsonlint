@@ -1,4 +1,122 @@
 /**
+ * Detect if input contains JSONC features (comments, trailing commas)
+ */
+function detectJSONCFeatures(input: string): {
+  hasComments: boolean;
+  hasTrailingCommas: boolean;
+} {
+  // Check for single-line comments (// ...)
+  const hasSingleLineComments = /\/\/[^\n]*/.test(input);
+  // Check for multi-line comments (/* ... */)
+  const hasMultiLineComments = /\/\*[\s\S]*?\*\//.test(input);
+  // Check for trailing commas before } or ]
+  const hasTrailingCommas = /,\s*[}\]]/.test(input);
+
+  return {
+    hasComments: hasSingleLineComments || hasMultiLineComments,
+    hasTrailingCommas,
+  };
+}
+
+/**
+ * Detect common JSON mistakes
+ */
+function detectCommonMistakes(input: string): string | null {
+  // Check for uppercase TRUE, FALSE, NULL (case-insensitive but not lowercase)
+  if (/:\s*(TRUE|True)\b/.test(input)) {
+    return 'Found "TRUE" or "True" - JSON booleans must be lowercase: true';
+  }
+  if (/:\s*(FALSE|False)\b/.test(input)) {
+    return 'Found "FALSE" or "False" - JSON booleans must be lowercase: false';
+  }
+  if (/:\s*(NULL|Null)\b/.test(input)) {
+    return 'Found "NULL" or "Null" - JSON null must be lowercase: null';
+  }
+  // Check for single quotes
+  if (/'[^']*'\s*:/.test(input) || /:\s*'[^']*'/.test(input)) {
+    return 'JSON requires double quotes (") not single quotes (\') for strings and keys.';
+  }
+  // Check for unquoted keys (simple check)
+  if (/{\s*[a-zA-Z_][a-zA-Z0-9_]*\s*:/.test(input) && !/{\s*"/.test(input)) {
+    return 'JSON keys must be wrapped in double quotes: {"key": value}';
+  }
+  return null;
+}
+
+/**
+ * Detect duplicate keys in JSON (valid per spec but usually a mistake)
+ * Returns array of duplicate key names found
+ */
+function detectDuplicateKeys(input: string): string[] {
+  const duplicates: string[] = [];
+  
+  // Use a reviver function to detect duplicates during parsing
+  // This is a simple approach that checks for duplicate keys at each level
+  try {
+    const seen = new Map<string, Set<string>>();
+    let pathStack: string[] = ['$'];
+    
+    // Parse with a custom reviver won't work for duplicate detection
+    // Instead, use regex to find all key occurrences and check for duplicates
+    // This is a simplified check that works for most cases
+    
+    // Match all "key": patterns, tracking depth via brace counting
+    const keyPattern = /"([^"\\]|\\.)*"\s*:/g;
+    const keys: { key: string; depth: number }[] = [];
+    let depth = 0;
+    let lastIndex = 0;
+    
+    // First pass: track depth changes and collect keys with their depths
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i];
+      if (char === '{') {
+        depth++;
+      } else if (char === '}') {
+        depth--;
+      } else if (char === '"') {
+        // Check if this is a key (followed by :)
+        const remaining = input.slice(i);
+        const match = remaining.match(/^"([^"\\]|\\.)*"\s*:/);
+        if (match) {
+          const fullMatch = match[0];
+          const key = fullMatch.slice(1, fullMatch.lastIndexOf('"'));
+          keys.push({ key, depth });
+          i += fullMatch.length - 1;
+        }
+      }
+    }
+    
+    // Group keys by depth and find duplicates
+    const keysByDepth = new Map<number, string[]>();
+    for (const { key, depth } of keys) {
+      if (!keysByDepth.has(depth)) {
+        keysByDepth.set(depth, []);
+      }
+      keysByDepth.get(depth)!.push(key);
+    }
+    
+    // This simple approach has limitations - it doesn't track separate objects at same depth
+    // For a more accurate check, we'd need a full parser
+    // For now, check for obvious duplicates in the top-level object
+    const topLevelKeys = keys.filter(k => k.depth === 1).map(k => k.key);
+    const seenKeys = new Set<string>();
+    for (const key of topLevelKeys) {
+      if (seenKeys.has(key)) {
+        if (!duplicates.includes(key)) {
+          duplicates.push(key);
+        }
+      }
+      seenKeys.add(key);
+    }
+    
+  } catch {
+    // If detection fails, just return empty array
+  }
+  
+  return duplicates;
+}
+
+/**
  * Parse and validate JSON, returning detailed error info
  */
 export function parseJSON(input: string): {
@@ -7,6 +125,8 @@ export function parseJSON(input: string): {
   error?: string;
   line?: number;
   column?: number;
+  hint?: string;
+  warning?: string;
 } {
   if (!input.trim()) {
     return { valid: false, error: 'Input is empty' };
@@ -14,7 +134,15 @@ export function parseJSON(input: string): {
 
   try {
     const data = JSON.parse(input);
-    return { valid: true, data };
+    
+    // Check for duplicate keys (valid JSON but usually a mistake)
+    const duplicateKeys = detectDuplicateKeys(input);
+    let warning: string | undefined;
+    if (duplicateKeys.length > 0) {
+      warning = `Duplicate key${duplicateKeys.length > 1 ? 's' : ''} found: "${duplicateKeys.join('", "')}". The last value will be used.`;
+    }
+    
+    return { valid: true, data, warning };
   } catch (e) {
     const error = e as SyntaxError;
     const match = error.message.match(/at position (\d+)/);
@@ -28,11 +156,27 @@ export function parseJSON(input: string): {
       column = lines[lines.length - 1].length + 1;
     }
 
+    // Detect JSONC features and common mistakes, provide helpful hints
+    const jsoncFeatures = detectJSONCFeatures(input);
+    const commonMistake = detectCommonMistakes(input);
+    let hint: string | undefined;
+
+    if (jsoncFeatures.hasComments && jsoncFeatures.hasTrailingCommas) {
+      hint = 'Your JSON contains comments and trailing commas (JSONC format). Use "Try Fix" to remove them, or use our JSONC to JSON tool.';
+    } else if (jsoncFeatures.hasComments) {
+      hint = 'Your JSON contains comments which are not allowed in standard JSON. Use "Try Fix" to remove them, or use our JSONC to JSON tool.';
+    } else if (jsoncFeatures.hasTrailingCommas) {
+      hint = 'Your JSON contains trailing commas which are not allowed in standard JSON. Use "Try Fix" to remove them.';
+    } else if (commonMistake) {
+      hint = commonMistake;
+    }
+
     return {
       valid: false,
       error: error.message,
       line,
       column,
+      hint,
     };
   }
 }

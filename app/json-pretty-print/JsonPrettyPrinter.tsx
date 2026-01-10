@@ -8,7 +8,7 @@ export function JsonPrettyPrinter() {
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [indent, setIndent] = useState(2);
+  const [indent, setIndent] = useState<number | 'tab'>(2);
   const [sortKeys, setSortKeys] = useState(false);
 
   // Sort object keys recursively
@@ -35,7 +35,9 @@ export function JsonPrettyPrinter() {
         parsed = sortObjectKeys(parsed);
       }
       
-      setOutput(JSON.stringify(parsed, null, indent));
+      // Use tab character or number of spaces
+      const indentValue = indent === 'tab' ? '\t' : indent;
+      setOutput(JSON.stringify(parsed, null, indentValue));
       setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Invalid JSON');
@@ -146,7 +148,10 @@ export function JsonPrettyPrinter() {
           </label>
           <select
             value={indent}
-            onChange={(e) => setIndent(Number(e.target.value))}
+            onChange={(e) => {
+              const val = e.target.value;
+              setIndent(val === 'tab' ? 'tab' : Number(val));
+            }}
             className="px-2 py-1 rounded text-sm"
             style={{
               background: 'var(--bg-primary)',
@@ -156,6 +161,7 @@ export function JsonPrettyPrinter() {
           >
             <option value={2}>2 spaces</option>
             <option value={4}>4 spaces</option>
+            <option value="tab">Tab</option>
             <option value={1}>1 space</option>
           </select>
         </div>

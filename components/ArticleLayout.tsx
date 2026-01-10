@@ -3,6 +3,7 @@
 import { Breadcrumbs } from './Breadcrumbs';
 import { TableOfContents } from './TableOfContents';
 import { ShareButtons } from './ShareButtons';
+import { useLayout } from './LayoutProvider';
 
 interface ArticleLayoutProps {
   title: string;
@@ -19,9 +20,11 @@ export function ArticleLayout({
   readingTime,
   relatedArticles,
 }: ArticleLayoutProps) {
+  const { width } = useLayout();
+
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div className={`${width === 'fixed' ? 'max-w-7xl' : ''} mx-auto py-6 px-4 sm:px-6 lg:px-8`}>
         <div className="grid grid-cols-1 xl:grid-cols-[1fr,280px] gap-6">
           {/* Main content */}
           <article className="min-w-0 max-w-none">

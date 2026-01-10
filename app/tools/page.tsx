@@ -20,6 +20,8 @@ const toolCategories = [
     color: 'var(--accent-green)',
     tools: [
       { name: 'JSON Validator', href: '/', description: 'Validate and format JSON with error highlighting' },
+      { name: 'JSON Repair', href: '/json-repair', description: 'Auto-fix broken JSON from LLMs and copy-paste' },
+      { name: 'Error Analyzer', href: '/json-error-analyzer', description: 'Understand errors with detailed explanations' },
       { name: 'Pretty Print', href: '/json-pretty-print', description: 'Format JSON with customizable indentation' },
       { name: 'Minify', href: '/json-minify', description: 'Compress JSON by removing whitespace' },
       { name: 'Sort Keys', href: '/json-sort', description: 'Alphabetically sort object keys' },
@@ -38,6 +40,8 @@ const toolCategories = [
       { name: 'Table Viewer', href: '/json-to-table', description: 'Display arrays as sortable tables' },
       { name: 'JSON Diff', href: '/json-diff', description: 'Compare two JSON objects side-by-side' },
       { name: 'JSON Path', href: '/json-path', description: 'Query data using JSONPath expressions' },
+      { name: 'JSON Search', href: '/json-search', description: 'Find keys and values with text search' },
+      { name: 'Size Analyzer', href: '/json-size-analyzer', description: 'Analyze JSON size, depth, and structure' },
       { name: 'Flatten', href: '/json-flatten', description: 'Convert nested JSON to dot notation' },
     ],
   },
@@ -95,6 +99,8 @@ const toolCategories = [
     tools: [
       { name: 'Base64 Encode/Decode', href: '/json-base64', description: 'Encode or decode JSON as Base64' },
       { name: 'JWT Decoder', href: '/jwt-decoder', description: 'Decode and inspect JWT tokens' },
+      { name: 'JSONC to JSON', href: '/jsonc-to-json', description: 'Strip comments from JSONC/JSON5 files' },
+      { name: 'Token Counter', href: '/json-token-counter', description: 'Count tokens for GPT-4, Claude, and other LLMs' },
     ],
   },
 ];
@@ -103,7 +109,7 @@ export default function ToolsPage() {
   const totalTools = toolCategories.reduce((sum, cat) => sum + cat.tools.length, 0);
 
   return (
-    <div className="py-8" style={{ background: 'var(--bg-primary)' }}>
+    <div className="py-8 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-primary)' }}>
       <Container padding={false}>
         {/* Header */}
         <header className="text-center mb-12">

@@ -215,6 +215,17 @@ export function JsonEditor({
           smoothScrolling: true,
           padding: { top: 8, bottom: 8 },
           lineNumbersMinChars: 3,
+          // IME support for Chinese (Bopomofo/Zhuyin), Japanese, Korean input methods
+          // Disable features that can interfere with IME composition
+          quickSuggestions: false,
+          suggestOnTriggerCharacters: false,
+          acceptSuggestionOnCommitCharacter: false,
+          wordBasedSuggestions: 'off',
+          // Allow unicode characters without highlighting them as suspicious
+          unicodeHighlight: {
+            ambiguousCharacters: false,
+            invisibleCharacters: false,
+          },
         }}
         beforeMount={(monaco) => {
           // Define fallback themes in case Shiki hasn't loaded yet
