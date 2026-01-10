@@ -14,22 +14,30 @@ The JSON Validator, Formatter, and Toolkit for Developers
 
 ## Features
 
-### Core Tools (35+ Total)
+### Core Tools (40+ Total)
 
 **Validators & Formatters**
-- **JSON Validator** — Real-time validation with precise error locations and line highlighting
+- **JSON Validator** — Real-time validation with precise error locations, line highlighting, and helpful hints for common mistakes
 - **Pretty Print** — Format JSON with customizable indentation (2/4 spaces, tabs)
 - **Minify** — Compress JSON by removing all whitespace
 - **JSON Sorter** — Sort object keys alphabetically (ascending/descending)
 - **Escape/Unescape** — Escape JSON for embedding in strings or unescape stringified JSON
 - **Stringify** — Convert JSON to escaped string format
+- **JSON Repair** — Auto-fix broken JSON (trailing commas, single quotes, comments, truncated data)
+- **JSONC to JSON** — Strip comments and trailing commas from JSONC/JSON5 files
+- **Error Analyzer** — Detailed error explanations with suggestions and auto-fix
 
 **Viewers & Query Tools**
 - **Tree Viewer** — Interactive collapsible tree visualization with color-coded types
 - **Table Viewer** — Display JSON arrays as sortable HTML tables
 - **JSON Diff** — Compare two JSON objects with highlighted differences
 - **JSON Path Query** — Extract data using JSONPath expressions
+- **JSON Search** — Find keys and values with full-text search
+- **Size Analyzer** — Analyze JSON size, depth, and structure complexity
 - **Flatten/Unflatten** — Convert nested JSON to dot notation and back
+
+**LLM & AI Tools**
+- **Token Counter** — Count tokens for GPT-4, Claude, and other LLMs
 
 **Encoding Tools**
 - **Base64 Encode/Decode** — Encode JSON to Base64 or decode Base64 to JSON
@@ -82,7 +90,18 @@ Browse all datasets at [jsonlint.com/datasets](https://jsonlint.com/datasets)
 - Copy to clipboard
 - Keyboard shortcuts (Ctrl/Cmd+Enter to validate, Ctrl/Cmd+Shift+F to format)
 - Dark/light theme with system detection
+- Full-width toggle for larger workspaces
+- IME support for Chinese (Bopomofo/Zhuyin), Japanese, and Korean input
 - Mobile responsive
+
+### Smart Validation
+
+The validator provides intelligent feedback beyond basic syntax checking:
+
+- **Helpful hints** for common mistakes (uppercase TRUE/FALSE/NULL, single quotes, unquoted keys)
+- **JSONC detection** — Recognizes comments and trailing commas, suggests conversion tools
+- **Duplicate key warnings** — Alerts when duplicate keys are found (valid but usually unintentional)
+- **Preserves formatting** — Validation doesn't modify your input (no more 1.0 → 1 conversion)
 
 ## Privacy
 
@@ -95,7 +114,7 @@ Browse all datasets at [jsonlint.com/datasets](https://jsonlint.com/datasets)
 - **Styling**: Tailwind CSS
 - **Editor**: Monaco Editor with Shiki syntax highlighting
 - **Validation**: Ajv (JSON Schema)
-- **Utilities**: jsonpath-plus, fast-xml-parser, diff, xlsx
+- **Utilities**: jsonpath-plus, fast-xml-parser, diff, xlsx, jsonrepair
 
 ## Local Development
 
