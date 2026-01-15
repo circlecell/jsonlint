@@ -8,6 +8,7 @@ import { LayoutProvider } from '@/components/LayoutProvider';
 import { ValidationProvider } from '@/components/ValidationContext';
 import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
+import { DelayedAdLoader } from '@/components/DelayedAdLoader';
 
 export const metadata: Metadata = {
   title: {
@@ -98,55 +99,8 @@ export default function RootLayout({
         {/* BuySellAds Optimize - handles ad refresh on SPA navigation */}
         <OptimizeAds />
         
-        <Script
-          id="bsaOptimizeScript"
-          strategy="afterInteractive"
-          src="https://cdn4.buysellads.net/pub/jsonlint.js"
-        />
-
-        {/* BuySellAds Native Ads */}
-        <Script src="//m.servedby-buysellads.com/monetization.custom.js" strategy="afterInteractive" />
-        <Script
-          id="native-ad"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.onload = function() {
-                if (typeof _bsa !== 'undefined' && _bsa) {
-                  _bsa.init('custom', 'CVADT27Y', 'placement:jsonlintcom', {
-                    target: '.native-ad-container',
-                    template: \`
-                      <a href="##link##" class="native-ad" rel="noopener sponsored">
-                        <div class="native-ad-sponsor">
-                          <span>Sponsored by ##company##</span>
-                        </div>
-                        <div class="native-ad-content">
-                          <img class="native-ad-logo" src="##logo##" style="background-color: ##backgroundColor##" alt="##company##">
-                          <div class="native-ad-text">
-                            <div class="native-ad-tagline">##tagline##</div>
-                            <div class="native-ad-description">##description##</div>
-                            <div class="native-ad-cta">##callToAction##</div>
-                          </div>
-                        </div>
-                      </a>\`
-                  });
-                }
-              };
-            `,
-          }}
-        />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=UA-69209117-1" />
-        <Script
-          id="gajs"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'UA-69209117-1');
-            `,
-          }}
-        />
+        {/* Delayed Ad Loading - waits for page load + 6.5s delay to improve page speed */}
+        <DelayedAdLoader delay={6500} />
       </body>
     </html>
   );
