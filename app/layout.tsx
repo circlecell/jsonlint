@@ -84,6 +84,17 @@ export default function RootLayout({
         >
           {`window.optimize = window.optimize || { queue: [] };`}
         </Script>
+        <Script
+          id="fullres-analytics"
+          strategy="afterInteractive"
+        >
+          {`(function(){
+            var fullres = document.createElement('script');
+            fullres.async = true;
+            fullres.src = 'https://t.fullres.net/jsonlint.js?'+(new Date()-new Date()%43200000);
+            document.head.appendChild(fullres);
+          })();`}
+        </Script>
       </head>
       <body className="min-h-screen flex flex-col">
         <ThemeProvider>
