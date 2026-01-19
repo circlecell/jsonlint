@@ -292,7 +292,7 @@ export function JsonSearcher() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Input */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               JSON Input
             </label>
@@ -307,7 +307,7 @@ export function JsonSearcher() {
 
         {/* Results */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Search Results
               {query && (
@@ -364,7 +364,7 @@ export function JsonSearcher() {
                     style={{ background: 'var(--bg-primary)' }}
                   >
                     {/* Path */}
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="editor-panel-header">
                       <code
                         className="text-xs font-mono truncate flex-1"
                         style={{ color: 'var(--accent-blue)' }}

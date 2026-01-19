@@ -98,7 +98,7 @@ export function JsonToXmlConverter() {
     <div className="space-y-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               JSON Input
             </label>
@@ -112,7 +112,7 @@ export function JsonToXmlConverter() {
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               XML Output
             </label>

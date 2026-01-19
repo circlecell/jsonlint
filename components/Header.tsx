@@ -40,12 +40,7 @@ export function Header() {
   const toolsMenuRef = useRef<HTMLDivElement>(null);
   const convertersMenuRef = useRef<HTMLDivElement>(null);
 
-  const logoColor =
-    status === 'valid'
-      ? 'text-accent-green'
-      : status === 'invalid'
-        ? 'text-accent-red'
-        : 'text-[var(--text-primary)]';
+  // Logo status is passed directly to the Logo component now
 
   // Close menus when clicking outside
   useEffect(() => {
@@ -75,21 +70,13 @@ export function Header() {
       <div className={`${width === 'fixed' ? 'max-w-7xl' : ''} mx-auto px-4 sm:px-6 lg:px-8`}>
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative">
-              <Logo className={`w-7 h-7 transition-colors ${logoColor}`} />
-              {status === 'valid' && (
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-green rounded-full" />
-              )}
-              {status === 'invalid' && (
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-red rounded-full" />
-              )}
-            </div>
+          <Link href="/" className="flex items-center gap-3 group">
+            <Logo className="w-8 h-8" status={status} />
             <span
-              className="font-mono font-bold text-lg tracking-tight"
-              style={{ color: 'var(--text-primary)' }}
+              className="font-bold text-lg tracking-tight"
+              style={{ color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif", letterSpacing: '-0.02em' }}
             >
-              JSONLint
+              JSON<span style={{ color: '#0A84FF' }}>Lint</span>
             </span>
           </Link>
 
@@ -332,22 +319,54 @@ export function Header() {
   );
 }
 
-function Logo({ className }: { className?: string }) {
+function Logo({ className, status }: { className?: string; status?: 'valid' | 'invalid' | 'idle' | null }) {
+  // New brand logo: Blue rounded rectangle with {} and status badge
   return (
     <svg
-      viewBox="0 0 24 24"
+      viewBox="0 0 64 64"
       fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       className={className}
     >
-      <path d="M18.571 20C19.833 20 20.857 18.977 20.857 17.714V13.143L22 12L20.857 10.857V6.286C20.857 5.023 19.834 4 18.571 4" />
-      <path d="M5.429 4C4.166 4 3.143 5.023 3.143 6.286V10.857L2 12L3.143 13.143V17.714C3.143 18.977 4.166 20 5.429 20" />
-      <circle cx="7.5" cy="12" r="0.5" fill="currentColor" />
-      <circle cx="12" cy="12" r="0.5" fill="currentColor" />
-      <circle cx="16.5" cy="12" r="0.5" fill="currentColor" />
+      {/* Blue rounded rectangle background */}
+      <rect width="64" height="64" rx="14" fill="#0A84FF" />
+      
+      {/* {} text */}
+      <text
+        x="32"
+        y="44"
+        textAnchor="middle"
+        fill="white"
+        fontFamily="'SF Mono', 'JetBrains Mono', monospace"
+        fontWeight="600"
+        fontSize="32"
+      >
+        {"{}"}
+      </text>
+      
+      {/* Status badge - green checkmark for valid/idle, red X for invalid */}
+      {status === 'invalid' ? (
+        <>
+          <circle cx="52" cy="12" r="10" fill="#FF453A" />
+          <path
+            d="M48 8L56 16M56 8L48 16"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </>
+      ) : (
+        <>
+          <circle cx="52" cy="12" r="10" fill="#32D74B" />
+          <path
+            d="M47 12L50.5 15.5L57 9"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </>
+      )}
     </svg>
   );
 }

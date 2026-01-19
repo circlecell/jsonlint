@@ -187,7 +187,7 @@ export function JsonFlattener() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Input */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               {mode === 'flatten' ? 'Nested JSON' : 'Flattened JSON'}
             </label>
@@ -206,14 +206,14 @@ export function JsonFlattener() {
 
         {/* Output */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               {mode === 'flatten' ? 'Flattened JSON' : 'Nested JSON'}
             </label>
             <button
               onClick={handleCopy}
               disabled={!output}
-              className="btn btn-secondary text-xs disabled:opacity-50"
+              className="btn-inline"
             >
               Copy
             </button>
