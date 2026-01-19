@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,36 +6,64 @@
 
 @layer base {
   :root {
-    --bg-primary: #0f1115;
-    --bg-secondary: #1a1d23;
-    --bg-tertiary: #22262e;
-    --border-primary: #2d3139;
-    --border-secondary: #3a3f4b;
-    --text-primary: #e4e4e7;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --accent-green: #10b981;
-    --accent-red: #ef4444;
-    --accent-blue: #3b82f6;
-    --accent-amber: #f59e0b;
+    /* Brand Colors - Dark Theme */
+    --bg-primary: #0D0D0D;      /* Black */
+    --bg-secondary: #1A1A1A;    /* Charcoal */
+    --bg-tertiary: #2D2D2D;     /* Graphite */
+    --border-primary: #3a3f4b;
+    --border-secondary: #4A4A4A; /* Slate */
+    --text-primary: #FAFAFA;    /* White */
+    --text-secondary: #B8B8B8;  /* Silver */
+    --text-muted: #8A8A8A;      /* Gray */
+    
+    /* Primary Brand Color */
+    --accent-primary: #0A84FF;  /* Ocean Blue */
+    --accent-primary-dark: #0066CC;
+    --accent-primary-light: #4DA3FF;
+    
+    /* Semantic Colors */
+    --accent-green: #32D74B;    /* Valid */
+    --accent-red: #FF453A;      /* Error */
+    --accent-amber: #FF9F0A;    /* Warning */
+    --accent-blue: #0A84FF;     /* Primary/Links */
+    
+    /* Syntax Highlighting */
+    --syntax-string: #32D74B;
+    --syntax-number: #FF9F0A;
+    --syntax-boolean: #BF5AF2;
+    --syntax-null: #FF453A;
+    --syntax-key: #64D2FF;
+    
+    /* Status Background Colors */
+    --status-valid-bg: rgba(50, 215, 75, 0.1);
+    --status-error-bg: rgba(255, 69, 58, 0.1);
+    --status-warning-bg: rgba(255, 159, 10, 0.1);
+    --status-valid-text: #1B7D32;
+    --status-error-text: #C62828;
+    --status-warning-text: #E65100;
   }
 
   .light {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --bg-tertiary: #f1f5f9;
-    --border-primary: #e2e8f0;
-    --border-secondary: #cbd5e1;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
+    --bg-primary: #FAFAFA;      /* White */
+    --bg-secondary: #E5E5E5;    /* Pearl */
+    --bg-tertiary: #F5F5F5;
+    --border-primary: #E5E5E5;  /* Pearl */
+    --border-secondary: #B8B8B8; /* Silver */
+    --text-primary: #0D0D0D;    /* Black */
+    --text-secondary: #4A4A4A;  /* Slate */
+    --text-muted: #8A8A8A;      /* Gray */
+    
+    /* Status Background Colors - Light Theme */
+    --status-valid-bg: #E8F9EC;
+    --status-error-bg: #FFEBEE;
+    --status-warning-bg: #FFF8E1;
   }
 
   body {
     @apply antialiased;
     background: var(--bg-primary);
     color: var(--text-primary);
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   }
 
   /* Monaco Editor overrides */
@@ -69,23 +97,44 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-150;
+    @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-150;
+    /* Ensure consistent height regardless of border */
+    box-sizing: border-box;
   }
 
   .btn-primary {
-    @apply bg-accent-green text-white hover:bg-accent-green/90 active:scale-[0.98];
+    background: var(--accent-primary);
+    color: white;
+    border: 1px solid var(--accent-primary);
+    @apply hover:opacity-90 active:scale-[0.98];
   }
 
   .btn-secondary {
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-primary);
+    background: transparent;
+    border: 1px solid var(--border-secondary);
     color: var(--text-primary);
-    @apply hover:border-[var(--border-secondary)] active:scale-[0.98];
+    @apply hover:bg-[var(--bg-tertiary)] active:scale-[0.98];
+  }
+
+  .btn-dark {
+    background: var(--bg-secondary);
+    color: white;
+    border: 1px solid var(--bg-secondary);
+    @apply hover:opacity-90 active:scale-[0.98];
   }
 
   .btn-ghost {
-    color: var(--text-secondary);
-    @apply hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)];
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid transparent;
+    @apply hover:opacity-80;
+  }
+
+  .btn-clear {
+    background: var(--border-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-secondary);
+    @apply hover:opacity-80 active:scale-[0.98];
   }
 
   .nav-link {
@@ -111,12 +160,95 @@
     @apply rounded-lg;
   }
 
+  /* Editor panel header - ensures consistent height for alignment */
+  .editor-panel-header {
+    @apply flex items-center justify-between mb-2;
+    min-height: 32px;
+  }
+
+  /* Small inline button for editor headers */
+  .btn-inline {
+    @apply px-3 py-1 text-xs font-medium rounded-md transition-colors;
+    background: transparent;
+    border: 1px solid var(--border-secondary);
+    color: var(--text-primary);
+  }
+
+  .btn-inline:hover {
+    background: var(--bg-tertiary);
+  }
+
+  .btn-inline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .status-valid {
     @apply text-accent-green;
   }
 
   .status-invalid {
     @apply text-accent-red;
+  }
+
+  /* New Brand Status Indicators */
+  .status-indicator {
+    @apply inline-flex items-center gap-2.5 px-5 py-3 rounded-lg text-sm font-medium;
+  }
+
+  .status-indicator-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-indicator-valid {
+    background: var(--status-valid-bg);
+    border: 1px solid rgba(50, 215, 75, 0.25);
+    color: var(--status-valid-text);
+  }
+
+  .status-indicator-valid .status-indicator-dot {
+    background: var(--accent-green);
+  }
+
+  .status-indicator-error {
+    background: var(--status-error-bg);
+    border: 1px solid rgba(255, 69, 58, 0.25);
+    color: var(--status-error-text);
+  }
+
+  .status-indicator-error .status-indicator-dot {
+    background: var(--accent-red);
+  }
+
+  .status-indicator-warning {
+    background: var(--status-warning-bg);
+    border: 1px solid rgba(255, 159, 10, 0.25);
+    color: var(--status-warning-text);
+  }
+
+  .status-indicator-warning .status-indicator-dot {
+    background: var(--accent-amber);
+  }
+
+  /* Dark mode overrides for status indicators */
+  :root .status-indicator-valid {
+    color: #4ADE80;
+  }
+  :root .status-indicator-error {
+    color: #F87171;
+  }
+  :root .status-indicator-warning {
+    color: #FBBF24;
+  }
+
+  .light .status-indicator-valid {
+    color: var(--status-valid-text);
+  }
+  .light .status-indicator-error {
+    color: var(--status-error-text);
+  }
+  .light .status-indicator-warning {
+    color: var(--status-warning-text);
   }
 
   .editor-container {

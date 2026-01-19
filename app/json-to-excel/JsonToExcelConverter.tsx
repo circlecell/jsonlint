@@ -198,7 +198,7 @@ export function JsonToExcelConverter() {
     <div className="space-y-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               JSON Input (array of objects)
             </label>
@@ -212,7 +212,7 @@ export function JsonToExcelConverter() {
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Preview (first 5 rows)
             </label>

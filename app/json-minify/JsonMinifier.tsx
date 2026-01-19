@@ -63,7 +63,7 @@ export function JsonMinifier() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Input */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               JSON Input
             </label>
@@ -87,7 +87,7 @@ export function JsonMinifier() {
 
         {/* Output */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="editor-panel-header">
             <label className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
               Minified Output
             </label>
@@ -101,14 +101,14 @@ export function JsonMinifier() {
                 <button
                   onClick={handleCopy}
                   disabled={!output}
-                  className="btn btn-secondary text-xs disabled:opacity-50"
+                  className="btn-inline"
                 >
                   Copy
                 </button>
                 <button
                   onClick={handleDownload}
                   disabled={!output}
-                  className="btn btn-secondary text-xs disabled:opacity-50"
+                  className="btn-inline"
                 >
                   Download
                 </button>
