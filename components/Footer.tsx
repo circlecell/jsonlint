@@ -42,6 +42,7 @@ const footerLinks = {
   ],
   friends: [
     { href: 'https://fr.sh/7ee613', label: 'Fullres', external: true },
+    { href: 'https://chartkit.dev', label: 'ChartKit', external: true },
     { href: 'https://markdowneditor.org', label: 'Markdown Editor', external: true },
     { href: 'https://jscompress.com/', label: 'JSCompress', external: true },
     { href: 'https://randomkeygen.com/', label: 'RandomKeygen', external: true },
