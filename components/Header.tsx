@@ -171,6 +171,14 @@ export function Header() {
               <ChromeIcon className="w-4 h-4" />
               Extension
             </Link>
+
+            <Link
+              href="/pro"
+              className="nav-link flex items-center gap-1.5 text-sm"
+            >
+              <AppleIcon className="w-4 h-4" />
+              Mac App
+            </Link>
           </nav>
 
           {/* Right side */}

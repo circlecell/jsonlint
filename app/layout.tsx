@@ -77,7 +77,7 @@ export default function RootLayout({
           href="/images/favicon-16x16.png"
         />
         <link rel="manifest" href="/images/site.webmanifest" />
-        <meta name="theme-color" content="#0f1115" />
+        <meta name="theme-color" content="#0D0D0D" />
         <Script
           id="bsaOptimizeQueue"
           strategy="beforeInteractive"

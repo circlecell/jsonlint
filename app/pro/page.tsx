@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'JSONLint Pro - Native JSON Editor for macOS | JSONLint',
   description:
-    'Professional-grade JSON toolkit for macOS. Validate, format, repair, and convert JSON with native performance. Works offline, handles large files, integrates with your workflow.',
+    'Professional JSON toolkit for macOS. Validate, format, repair, and convert JSON with native performance. Works offline, handles large files, available on the Mac App Store.',
   keywords: [
     'json validator mac',
     'json editor macos',
@@ -16,11 +16,21 @@ export const metadata: Metadata = {
     'macos developer tools',
     'native json app',
     'json desktop app',
+    'mac app store',
   ],
   openGraph: {
     title: 'JSONLint Pro - Native JSON Editor for macOS',
-    description: 'Professional-grade JSON toolkit for macOS. Works offline, blazing fast, native performance.',
+    description: 'Professional JSON toolkit for macOS. Works offline, blazing fast, native performance. Download on the Mac App Store.',
     images: ['/images/jsonlint-pro-og.png'],
+    url: 'https://jsonlint.com/pro',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'JSONLint Pro - Native JSON Editor for macOS',
+    description: 'Professional JSON toolkit for macOS. Works offline, blazing fast, native performance.',
+  },
+  other: {
+    'apple-itunes-app': 'app-id=6757896437',
   },
 };
 
@@ -41,17 +51,11 @@ export default function ProPage() {
           <div className="text-center">
             {/* App Icon */}
             <div className="mb-8 flex justify-center">
-              <div 
-                className="w-32 h-32 rounded-[28px] shadow-2xl flex items-center justify-center"
-                style={{ 
-                  background: 'linear-gradient(135deg, #1a1d23 0%, #2d3748 100%)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                }}
-              >
-                <span className="text-5xl font-bold" style={{ color: 'var(--accent-green)' }}>
-                  {'{}'}
-                </span>
-              </div>
+              <img 
+                src="/images/jsonlint-pro-icon.webp" 
+                alt="JSONLint Pro App Icon"
+                className="w-32 h-32 rounded-[28px] shadow-2xl"
+              />
             </div>
 
             <h1 
@@ -77,62 +81,38 @@ export default function ProPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <a
-                href="#download"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105"
+                href="https://apps.apple.com/us/app/jsonlint-pro/id6757896437?mt=12"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
                 style={{
-                  background: 'var(--accent-blue)',
-                  color: 'white',
+                  background: 'var(--text-primary)',
+                  color: 'var(--bg-primary)',
                 }}
               >
-                <AppleIcon className="w-6 h-6" />
-                Download for Mac
+                <AppleIcon className="w-8 h-8" />
+                <div className="text-left">
+                  <div className="text-xs opacity-70">Download on the</div>
+                  <div className="text-xl font-bold -mt-0.5">Mac App Store</div>
+                </div>
               </a>
-              <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
-                macOS 12.0+ &bull; Universal Binary
-              </span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 text-sm mb-8" style={{ color: 'var(--text-muted)' }}>
+              <span>macOS 12.0+</span>
+              <span>&bull;</span>
+              <span>Apple Silicon & Intel</span>
+              <span>&bull;</span>
+              <span>$6.99</span>
             </div>
 
-            {/* App Screenshot Placeholder */}
-            <div 
-              className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl border"
-              style={{ 
-                borderColor: 'var(--border-primary)',
-                background: 'var(--bg-secondary)',
-              }}
-            >
-              <div 
-                className="h-8 flex items-center gap-2 px-4"
-                style={{ background: 'var(--bg-tertiary)' }}
-              >
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="ml-4 text-xs" style={{ color: 'var(--text-muted)' }}>
-                  JSONLint Pro
-                </span>
-              </div>
-              <div className="p-6 font-mono text-sm text-left">
-                <pre style={{ color: 'var(--text-secondary)' }}>
-{`{
-  `}<span style={{ color: 'var(--accent-green)' }}>"name"</span>{`: `}<span style={{ color: 'var(--accent-blue)' }}>"JSONLint Pro"</span>{`,
-  `}<span style={{ color: 'var(--accent-green)' }}>"platform"</span>{`: `}<span style={{ color: 'var(--accent-blue)' }}>"macOS"</span>{`,
-  `}<span style={{ color: 'var(--accent-green)' }}>"features"</span>{`: [`}<span style={{ color: 'var(--accent-blue)' }}>"validate"</span>{`, `}<span style={{ color: 'var(--accent-blue)' }}>"format"</span>{`, `}<span style={{ color: 'var(--accent-blue)' }}>"repair"</span>{`, `}<span style={{ color: 'var(--accent-blue)' }}>"convert"</span>{`],
-  `}<span style={{ color: 'var(--accent-green)' }}>"offline"</span>{`: `}<span style={{ color: 'var(--accent-purple)' }}>true</span>{`,
-  `}<span style={{ color: 'var(--accent-green)' }}>"native"</span>{`: `}<span style={{ color: 'var(--accent-purple)' }}>true</span>{`,
-  `}<span style={{ color: 'var(--accent-green)' }}>"blazingFast"</span>{`: `}<span style={{ color: 'var(--accent-purple)' }}>true</span>{`
-}`}
-                </pre>
-                <div 
-                  className="mt-4 pt-4 border-t flex items-center gap-2"
-                  style={{ borderColor: 'var(--border-primary)' }}
-                >
-                  <CheckCircleIcon className="w-5 h-5 text-accent-green" />
-                  <span style={{ color: 'var(--accent-green)' }}>Valid JSON</span>
-                  <span className="ml-auto text-xs" style={{ color: 'var(--text-muted)' }}>
-                    186 bytes &bull; 7 keys &bull; depth 2
-                  </span>
-                </div>
-              </div>
+            {/* App Screenshot */}
+            <div className="max-w-5xl mx-auto">
+              <img 
+                src="/images/jsonlint-pro-screenshot.png" 
+                alt="JSONLint Pro - Native JSON Editor for macOS showing diff comparison view"
+                className="rounded-xl shadow-2xl border"
+                style={{ borderColor: 'var(--border-primary)' }}
+              />
             </div>
           </div>
         </div>
@@ -444,19 +424,19 @@ export default function ProPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <a
-              href="https://apps.apple.com/app/jsonlint-pro"
+              href="https://apps.apple.com/us/app/jsonlint-pro/id6757896437?mt=12"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105"
               style={{
                 background: 'var(--text-primary)',
                 color: 'var(--bg-primary)',
               }}
             >
-              <AppleIcon className="w-7 h-7" />
+              <AppleIcon className="w-8 h-8" />
               <div className="text-left">
-                <div className="text-xs opacity-80">Download on the</div>
-                <div className="text-lg font-bold -mt-1">Mac App Store</div>
+                <div className="text-xs opacity-70">Download on the</div>
+                <div className="text-xl font-bold -mt-0.5">Mac App Store</div>
               </div>
             </a>
           </div>
@@ -471,11 +451,11 @@ export default function ProPage() {
             </span>
             <span className="flex items-center gap-2">
               <CheckIcon className="w-4 h-4 text-accent-green" />
-              Universal Binary
+              Apple Silicon & Intel
             </span>
             <span className="flex items-center gap-2">
               <CheckIcon className="w-4 h-4 text-accent-green" />
-              ~5 MB Download
+              $6.99 one-time
             </span>
           </div>
         </div>
@@ -516,12 +496,11 @@ export default function ProPage() {
                 <ComparisonRow feature="Works offline" pro={true} web={false} />
                 <ComparisonRow feature="Large file support (10MB+)" pro={true} web={false} />
                 <ComparisonRow feature="Native keyboard shortcuts" pro={true} web={false} />
-                <ComparisonRow feature="Data stays on device" pro={true} web="Varies" />
                 <ComparisonRow feature="macOS Services integration" pro={true} web={false} />
                 <ComparisonRow feature="Tab-based workflow" pro={true} web="Some" />
                 <ComparisonRow feature="Drag & drop files" pro={true} web={true} />
                 <ComparisonRow feature="Format conversions" pro={true} web={true} />
-                <ComparisonRow feature="Free to use" pro={true} web={true} />
+                <ComparisonRow feature="Ad-free experience" pro={true} web={false} />
               </tbody>
             </table>
           </div>
@@ -565,9 +544,9 @@ function FeatureCard({
     >
       <div 
         className="w-12 h-12 rounded-lg flex items-center justify-center mb-4"
-        style={{ background: 'var(--bg-tertiary)' }}
+        style={{ background: 'var(--bg-tertiary)', color: 'var(--accent-blue)' }}
       >
-        <span style={{ color: 'var(--accent-blue)' }}>{icon}</span>
+        <div className="w-6 h-6">{icon}</div>
       </div>
       <h3 
         className="text-lg font-semibold mb-2"

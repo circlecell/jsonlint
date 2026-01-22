@@ -149,7 +149,7 @@ export function Footer() {
               </a>
             </span>
           </div>
-          <div className="flex items-center gap-6 text-sm">
+          <div className="flex items-center gap-6 text-sm flex-wrap justify-center sm:justify-end">
             <Link
               href="/about"
               className="hover:text-[var(--accent-blue)] transition-colors"
@@ -171,6 +171,14 @@ export function Footer() {
             >
               Chrome Extension
             </Link>
+            <a
+              href="https://apps.apple.com/us/app/jsonlint-pro/id6757896437?mt=12"
+              rel="noopener noreferrer"
+              className="hover:text-[var(--accent-blue)] transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Mac App
+            </a>
             <a
               href="https://github.com/circlecell/jsonlint"
               rel="noopener noreferrer"
