@@ -1,0 +1,77 @@
+# JSONLint
+
+> The JSON Validator - Validate, format, and repair JSON online
+
+JSONLint.com is a free web-based JSON validator and formatter. It helps developers validate JSON syntax, find errors, format messy JSON, and convert between JSON and other data formats.
+
+## Core Tools
+
+- [JSON Validator](https://jsonlint.com/) - Validate JSON syntax with detailed error messages and duplicate key detection
+- [JSON Formatter](https://jsonlint.com/json-formatter) - Format and beautify JSON with customizable indentation
+- [JSON Diff](https://jsonlint.com/json-diff) - Compare two JSON documents and highlight differences
+- [JSON Path](https://jsonlint.com/json-path) - Query JSON using JSONPath expressions
+- [JSON Tree](https://jsonlint.com/json-tree) - Visualize JSON as an interactive tree structure
+- [JSON Search](https://jsonlint.com/json-search) - Search for keys and values within JSON
+- [JSON Repair](https://jsonlint.com/json-repair) - Automatically fix common JSON syntax errors
+- [JSON Error Analyzer](https://jsonlint.com/json-error-analyzer) - Get detailed explanations for JSON parsing errors
+
+## Code Generators
+
+Convert JSON to typed code in various programming languages:
+
+- [JSON to TypeScript](https://jsonlint.com/json-to-typescript) - Generate TypeScript interfaces from JSON
+- [JSON to Python](https://jsonlint.com/json-to-python) - Generate Python dataclasses from JSON
+- [JSON to Go](https://jsonlint.com/json-to-go) - Generate Go structs from JSON
+- [JSON to Java](https://jsonlint.com/json-to-java) - Generate Java classes from JSON
+- [JSON to Kotlin](https://jsonlint.com/json-to-kotlin) - Generate Kotlin data classes from JSON
+- [JSON to Swift](https://jsonlint.com/json-to-swift) - Generate Swift Codable structs from JSON
+- [JSON to Rust](https://jsonlint.com/json-to-rust) - Generate Rust structs with serde from JSON
+- [JSON to C#](https://jsonlint.com/json-to-csharp) - Generate C# classes from JSON
+- [JSON to PHP](https://jsonlint.com/json-to-php) - Generate PHP classes from JSON
+- [JSON to SQL](https://jsonlint.com/json-to-sql) - Generate SQL INSERT statements from JSON
+
+## Format Converters
+
+Convert between JSON and other data formats:
+
+- [JSON to CSV](https://jsonlint.com/json-to-csv) / [CSV to JSON](https://jsonlint.com/csv-to-json)
+- [JSON to YAML](https://jsonlint.com/json-to-yaml) / [YAML to JSON](https://jsonlint.com/yaml-to-json)
+- [JSON to XML](https://jsonlint.com/json-to-xml) / [XML to JSON](https://jsonlint.com/xml-to-json)
+- [JSON to Excel](https://jsonlint.com/json-to-excel) / [Excel to JSON](https://jsonlint.com/excel-to-json)
+- [JSON to Markdown](https://jsonlint.com/json-to-markdown) - Convert JSON to Markdown tables
+- [JSON to Table](https://jsonlint.com/json-to-table) - Display JSON as HTML tables
+- [SQL to JSON](https://jsonlint.com/sql-to-json) - Convert SQL results to JSON
+- [JSONC to JSON](https://jsonlint.com/jsonc-to-json) - Strip comments from JSONC
+
+## Utility Tools
+
+- [JSON Minify](https://jsonlint.com/json-minify) - Compress JSON by removing whitespace
+- [JSON Pretty Print](https://jsonlint.com/json-pretty-print) - Format JSON with readable indentation
+- [JSON Sort](https://jsonlint.com/json-sort) - Sort JSON keys alphabetically
+- [JSON Flatten](https://jsonlint.com/json-flatten) - Flatten nested JSON to dot notation
+- [JSON Escape](https://jsonlint.com/json-escape) / [JSON Unescape](https://jsonlint.com/json-unescape) - Escape/unescape JSON strings
+- [JSON Stringify](https://jsonlint.com/json-stringify) - Convert values to JSON string format
+- [JSON Base64](https://jsonlint.com/json-base64) - Encode/decode JSON as Base64
+- [JSON Token Counter](https://jsonlint.com/json-token-counter) - Count tokens for LLM context limits
+- [JSON Size Analyzer](https://jsonlint.com/json-size-analyzer) - Analyze JSON structure and size
+- [JSON Schema Generator](https://jsonlint.com/json-schema-generator) - Generate JSON Schema from JSON
+- [JSON Schema Validator](https://jsonlint.com/json-schema) - Validate JSON against a schema
+- [JWT Decoder](https://jsonlint.com/jwt-decoder) - Decode and inspect JWT tokens
+
+## Resources
+
+- [Learn JSON](https://jsonlint.com/learn) - Tutorial on JSON syntax and best practices
+- [All Tools](https://jsonlint.com/tools) - Complete list of all JSONLint tools
+- [Sample Datasets](https://jsonlint.com/datasets) - Example JSON datasets for testing
+- [About](https://jsonlint.com/about) - About JSONLint
+
+## Mac App
+
+[JSONLint Pro](https://apps.apple.com/us/app/jsonlint-pro/id6757896437?mt=12) - Native Mac app with offline validation, no ads, and all the power of JSONLint on your desktop. Available on the Mac App Store for $6.99.
+
+## Technical Details
+
+- All processing happens client-side in the browser
+- No data is sent to servers
+- Works offline after initial page load
+- Free to use with no account required
