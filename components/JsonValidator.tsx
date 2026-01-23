@@ -30,6 +30,8 @@ const SAMPLE_JSON = `{
   ]
 }`;
 
+type IndentOption = '2' | '4' | 'tab';
+
 interface JsonValidatorProps {
   initialJson?: string;
   initialUrl?: string;
@@ -41,6 +43,7 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
   const [copied, setCopied] = useState(false);
   const [errorHint, setErrorHint] = useState<string | null>(null);
   const [warning, setWarning] = useState<string | null>(null);
+  const [indentOption, setIndentOption] = useState<IndentOption>('2');
   const containerRef = useRef<HTMLDivElement>(null);
   const { status, setStatus, errorMessage, setErrorMessage, errorLine, setErrorLine } =
     useValidation();
@@ -129,8 +132,13 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
         setInput(minifyJSON(input));
         setIsFormatted(false);
       } else {
-        setInput(formatJSON(input));
-        setIsFormatted(true);
+        // Format with selected indent option
+        const result = parseJSON(input);
+        if (result.valid) {
+          const indent = indentOption === 'tab' ? '\t' : parseInt(indentOption, 10);
+          setInput(JSON.stringify(result.data, null, indent));
+          setIsFormatted(true);
+        }
       }
     } catch (e) {
       // Ignore formatting errors
@@ -211,6 +219,23 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
         >
           {isFormatted ? 'Compress' : 'Prettify'}
         </button>
+        {!isFormatted && status === 'valid' && (
+          <select
+            value={indentOption}
+            onChange={(e) => setIndentOption(e.target.value as IndentOption)}
+            className="px-2 py-1.5 text-sm rounded-lg"
+            style={{
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-primary)',
+              color: 'var(--text-primary)',
+            }}
+            title="Indentation style for Prettify"
+          >
+            <option value="2">2 spaces</option>
+            <option value="4">4 spaces</option>
+            <option value="tab">Tab</option>
+          </select>
+        )}
         <button
           className="btn btn-secondary"
           onClick={handleSort}
