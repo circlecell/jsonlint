@@ -50,63 +50,82 @@ function detectCommonMistakes(input: string): string | null {
 function detectDuplicateKeys(input: string): string[] {
   const duplicates: string[] = [];
   
-  // Use a reviver function to detect duplicates during parsing
-  // This is a simple approach that checks for duplicate keys at each level
   try {
-    const seen = new Map<string, Set<string>>();
-    let pathStack: string[] = ['$'];
+    // Track keys per object using a stack of Sets
+    // Each time we enter an object {, push a new Set
+    // Each time we exit an object }, pop the Set
+    const objectKeyStack: Set<string>[] = [];
+    let inString = false;
+    let escapeNext = false;
+    let currentKey = '';
+    let collectingKey = false;
+    let expectingColon = false;
     
-    // Parse with a custom reviver won't work for duplicate detection
-    // Instead, use regex to find all key occurrences and check for duplicates
-    // This is a simplified check that works for most cases
-    
-    // Match all "key": patterns, tracking depth via brace counting
-    const keyPattern = /"([^"\\]|\\.)*"\s*:/g;
-    const keys: { key: string; depth: number }[] = [];
-    let depth = 0;
-    let lastIndex = 0;
-    
-    // First pass: track depth changes and collect keys with their depths
     for (let i = 0; i < input.length; i++) {
       const char = input[i];
-      if (char === '{') {
-        depth++;
+      
+      if (escapeNext) {
+        if (collectingKey) currentKey += char;
+        escapeNext = false;
+        continue;
+      }
+      
+      if (char === '\\' && inString) {
+        escapeNext = true;
+        if (collectingKey) currentKey += char;
+        continue;
+      }
+      
+      if (char === '"') {
+        if (!inString) {
+          // Starting a string - might be a key
+          inString = true;
+          if (objectKeyStack.length > 0 && !expectingColon) {
+            collectingKey = true;
+            currentKey = '';
+          }
+        } else {
+          // Ending a string
+          inString = false;
+          if (collectingKey) {
+            collectingKey = false;
+            expectingColon = true;
+          }
+        }
+        continue;
+      }
+      
+      if (inString) {
+        if (collectingKey) currentKey += char;
+        continue;
+      }
+      
+      // Outside of strings
+      if (char === ':' && expectingColon) {
+        // This confirms the string we collected was a key
+        expectingColon = false;
+        if (objectKeyStack.length > 0) {
+          const currentObjectKeys = objectKeyStack[objectKeyStack.length - 1];
+          if (currentObjectKeys.has(currentKey)) {
+            if (!duplicates.includes(currentKey)) {
+              duplicates.push(currentKey);
+            }
+          }
+          currentObjectKeys.add(currentKey);
+        }
+        currentKey = '';
+      } else if (char === '{') {
+        // Entering a new object
+        objectKeyStack.push(new Set<string>());
+        expectingColon = false;
       } else if (char === '}') {
-        depth--;
-      } else if (char === '"') {
-        // Check if this is a key (followed by :)
-        const remaining = input.slice(i);
-        const match = remaining.match(/^"([^"\\]|\\.)*"\s*:/);
-        if (match) {
-          const fullMatch = match[0];
-          const key = fullMatch.slice(1, fullMatch.lastIndexOf('"'));
-          keys.push({ key, depth });
-          i += fullMatch.length - 1;
-        }
+        // Exiting an object
+        objectKeyStack.pop();
+        expectingColon = false;
+      } else if (char === '[' || char === ']' || char === ',') {
+        // Array boundaries or comma - reset key expectation
+        expectingColon = false;
       }
-    }
-    
-    // Group keys by depth and find duplicates
-    const keysByDepth = new Map<number, string[]>();
-    for (const { key, depth } of keys) {
-      if (!keysByDepth.has(depth)) {
-        keysByDepth.set(depth, []);
-      }
-      keysByDepth.get(depth)!.push(key);
-    }
-    
-    // This simple approach has limitations - it doesn't track separate objects at same depth
-    // For a more accurate check, we'd need a full parser
-    // For now, check for obvious duplicates in the top-level object
-    const topLevelKeys = keys.filter(k => k.depth === 1).map(k => k.key);
-    const seenKeys = new Set<string>();
-    for (const key of topLevelKeys) {
-      if (seenKeys.has(key)) {
-        if (!duplicates.includes(key)) {
-          duplicates.push(key);
-        }
-      }
-      seenKeys.add(key);
     }
     
   } catch {
