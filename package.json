@@ -17,7 +17,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "copy-to-clipboard": "^3.3.3",
-    "diff": "^5.1.0",
+    "diff": "^5.2.2",
     "fast-xml-parser": "^4.3.2",
     "gray-matter": "^4.0.3",
     "js-tiktoken": "^1.0.21",
@@ -46,5 +46,8 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
+  },
+  "overrides": {
+    "glob": "^10.5.0"
   }
 }
