@@ -9,6 +9,7 @@ import { ValidationProvider } from '@/components/ValidationContext';
 import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 import { DelayedAdLoader } from '@/components/DelayedAdLoader';
+import { BidAnalytics } from '@/components/BidAnalytics';
 
 export const metadata: Metadata = {
   title: {
@@ -112,6 +113,9 @@ export default function RootLayout({
         
         {/* Delayed Ad Loading - waits for page load + 6.5s delay to improve page speed */}
         <DelayedAdLoader delay={6500} />
+
+        {/* Bid stream analytics - Phase 1 instrumentation */}
+        <BidAnalytics />
       </body>
     </html>
   );
