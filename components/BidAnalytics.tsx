@@ -184,7 +184,7 @@ export function BidAnalytics() {
         if (!bid.adUnitCode || !isJsonlintAdUnit(bid.adUnitCode)) return;
         queueEvent('noBid', {
           auctionId: bid.auctionId,
-          bidderCode: bid.bidderCode,
+          bidderCode: bid.bidderCode || bid.bidder || '',
           adUnitCode: bid.adUnitCode,
         });
       });
@@ -198,7 +198,7 @@ export function BidAnalytics() {
           if (!bid.adUnitCode || !isJsonlintAdUnit(bid.adUnitCode)) return;
           queueEvent('bidTimeout', {
             auctionId: bid.auctionId,
-            bidderCode: bid.bidderCode,
+            bidderCode: bid.bidderCode || bid.bidder || '',
             adUnitCode: bid.adUnitCode,
             timeoutMs: bid.timeout,
           });
