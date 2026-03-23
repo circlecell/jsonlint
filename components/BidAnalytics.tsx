@@ -38,8 +38,9 @@ interface PageContext {
   dayOfWeek: number;
   sessionId: string;
   configVersion: string;
-  experimentId: string;
-  variant: number;
+  experimentId: string;  // primary experiment (first one) for backward compat
+  variant: number;       // primary experiment variant
+  experiments: string;   // JSON-encoded array of {id, variant}
 }
 
 interface AuctionConfig {
@@ -52,8 +53,11 @@ interface AuctionConfig {
     byAdUnit: Record<string, number>;
     byCountry: Record<string, number>;
   };
-  variant: number;
-  experimentId: string;
+  // v2: multiple experiments
+  experiments: { id: string; variant: number }[];
+  // v1 compat (deprecated)
+  variant?: number;
+  experimentId?: string;
 }
 
 function getPageContext(sessionId: string): PageContext {
@@ -72,6 +76,7 @@ function getPageContext(sessionId: string): PageContext {
     configVersion: '',
     experimentId: '',
     variant: 0,
+    experiments: '[]',
   };
 }
 
@@ -157,8 +162,20 @@ export function BidAnalytics() {
       if (config && contextRef.current) {
         configRef.current = config;
         contextRef.current.configVersion = config.version;
-        contextRef.current.experimentId = config.experimentId;
-        contextRef.current.variant = config.variant;
+        // v2: multiple experiments
+        if (config.experiments && config.experiments.length > 0) {
+          contextRef.current.experiments = JSON.stringify(config.experiments);
+          // Primary experiment (first one) for backward compat
+          contextRef.current.experimentId = config.experiments[0].id;
+          contextRef.current.variant = config.experiments[0].variant;
+        } else if (config.experimentId) {
+          // v1 compat
+          contextRef.current.experimentId = config.experimentId;
+          contextRef.current.variant = config.variant ?? 0;
+          contextRef.current.experiments = JSON.stringify([
+            { id: config.experimentId, variant: config.variant ?? 0 },
+          ]);
+        }
       }
     });
 
