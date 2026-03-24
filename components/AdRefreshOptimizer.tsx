@@ -42,14 +42,22 @@ export function AdRefreshOptimizer() {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Wait for GPT and ad slots to be available
+    // Wait for GPT, ad slots, AND the feature flag to be available
     const startTime = Date.now();
 
     function setupObserver() {
+      // Check if the viewability_refresh flag is enabled for this session
+      // The flag is set by BidAnalytics after fetching config
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const bidAnalyticsFlags = (window as any).__bid_analytics_flags;
+      if (bidAnalyticsFlags && !bidAnalyticsFlags.viewability_refresh) {
+        // Flag is OFF for this session — don't optimize refreshes
+        return;
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const googletag = (window as any).googletag;
       if (!googletag || !googletag.pubads) {
-        // Retry until GPT is loaded (BSA loads it after 6.5s delay)
         if (Date.now() - startTime < 30000) {
           setTimeout(setupObserver, 2000);
         }

@@ -41,8 +41,9 @@ interface PageContext {
   experimentId: string;
   variant: number;
   experiments: string;
-  proxyEnabled: number;    // 1 if script loaded via proxy, 0 if direct
-  auctionCount: number;    // Number of auctions observed this session
+  proxyEnabled: number;
+  auctionCount: number;
+  flags: string;           // comma-separated list of enabled flag names
 }
 
 interface AuctionConfig {
@@ -57,6 +58,8 @@ interface AuctionConfig {
   };
   // v2: multiple experiments
   experiments: { id: string; variant: number }[];
+  // Feature flags for A/B testing optimizations
+  flags: Record<string, boolean>;
   // v1 compat (deprecated)
   variant?: number;
   experimentId?: string;
@@ -79,9 +82,9 @@ function getPageContext(sessionId: string): PageContext {
     experimentId: '',
     variant: 0,
     experiments: '[]',
-    // Detect if BSA script was loaded via our proxy (check for injected marker)
     proxyEnabled: typeof (window as any).pbjs_bidder_overrides !== 'undefined' ? 1 : 0,
     auctionCount: 0,
+    flags: '',
   };
 }
 
@@ -115,17 +118,21 @@ async function fetchConfig(sessionId: string): Promise<AuctionConfig | null> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function applyConfig(bsapb: any, config: AuctionConfig): void {
   try {
-    // Enable bid caching: losing bids are stored and resubmitted to GAM
-    // on subsequent auction cycles if they haven't expired (within their TTL).
-    // This increases competition on refresh cycles — cached $0.87 OMS bids
-    // and $0.71 GumGum bids can compete alongside new bids, potentially
-    // increasing the winning CPM.
-    bsapb.setConfig({
-      useBidCache: true,
-      // Also enable sending all bids to GAM (not just the winner)
-      // This lets GAM's auction consider all Prebid bids, not just the top one
-      enableSendAllBids: true,
-    });
+    const flags = config.flags || {};
+
+    // Feature flag: bid caching
+    // Only enable if the flag is on for this session
+    if (flags.bid_cache) {
+      bsapb.setConfig({ useBidCache: true });
+    }
+
+    // Feature flag: send all bids to GAM
+    if (flags.send_all_bids) {
+      bsapb.setConfig({ enableSendAllBids: true });
+    }
+
+    // Feature flag: cost-based floors (applied via the floors config below)
+    // If flag is OFF, we skip the floor config entirely
 
     // Apply global timeout override
     if (config.bidderTimeout && config.bidderTimeout !== 2500) {
@@ -142,8 +149,8 @@ function applyConfig(bsapb: any, config: AuctionConfig): void {
       }
     }
 
-    // Apply floor prices if Prebid supports it
-    if (config.floors && config.floors.default > 0) {
+    // Apply floor prices — only if cost_floors flag is enabled
+    if (flags.cost_floors && config.floors && config.floors.default > 0) {
       bsapb.setConfig({
         floors: {
           enforcement: { floorDeals: false },
@@ -192,6 +199,15 @@ export function BidAnalytics() {
           contextRef.current.experiments = JSON.stringify([
             { id: config.experimentId, variant: config.variant ?? 0 },
           ]);
+        }
+        // Store active flags
+        if (config.flags) {
+          contextRef.current.flags = Object.entries(config.flags)
+            .filter(([, v]) => v)
+            .map(([k]) => k)
+            .join(',');
+          // Expose flags on window for other components (e.g., AdRefreshOptimizer)
+          (window as any).__bid_analytics_flags = config.flags;
         }
       }
     });
