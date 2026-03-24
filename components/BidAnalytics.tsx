@@ -38,9 +38,11 @@ interface PageContext {
   dayOfWeek: number;
   sessionId: string;
   configVersion: string;
-  experimentId: string;  // primary experiment (first one) for backward compat
-  variant: number;       // primary experiment variant
-  experiments: string;   // JSON-encoded array of {id, variant}
+  experimentId: string;
+  variant: number;
+  experiments: string;
+  proxyEnabled: number;    // 1 if script loaded via proxy, 0 if direct
+  auctionCount: number;    // Number of auctions observed this session
 }
 
 interface AuctionConfig {
@@ -77,6 +79,9 @@ function getPageContext(sessionId: string): PageContext {
     experimentId: '',
     variant: 0,
     experiments: '[]',
+    // Detect if BSA script was loaded via our proxy (check for injected marker)
+    proxyEnabled: typeof (window as any).pbjs_bidder_overrides !== 'undefined' ? 1 : 0,
+    auctionCount: 0,
   };
 }
 
@@ -284,6 +289,29 @@ export function BidAnalytics() {
           });
         });
       });
+
+      // Track auction end events to measure total auction duration
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      bsapb.onEvent('auctionEnd', (auctionData: any) => {
+        if (!contextRef.current) return;
+        contextRef.current.auctionCount++;
+        const duration = auctionData.auctionEnd
+          ? auctionData.auctionEnd - auctionData.auctionStart
+          : 0;
+        if (duration > 0) {
+          queueEvent('auctionEnd', {
+            auctionId: auctionData.auctionId,
+            adUnitCode: auctionData.adUnitCodes?.[0] || '',
+            responseTimeMs: Math.round(duration),
+          });
+        }
+      });
+
+      // Update proxy detection after BSA script has loaded
+      if (contextRef.current) {
+        contextRef.current.proxyEnabled =
+          typeof (window as any).pbjs_bidder_overrides !== 'undefined' ? 1 : 0;
+      }
 
       return true;
     }
