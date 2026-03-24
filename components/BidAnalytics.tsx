@@ -115,6 +115,18 @@ async function fetchConfig(sessionId: string): Promise<AuctionConfig | null> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function applyConfig(bsapb: any, config: AuctionConfig): void {
   try {
+    // Enable bid caching: losing bids are stored and resubmitted to GAM
+    // on subsequent auction cycles if they haven't expired (within their TTL).
+    // This increases competition on refresh cycles — cached $0.87 OMS bids
+    // and $0.71 GumGum bids can compete alongside new bids, potentially
+    // increasing the winning CPM.
+    bsapb.setConfig({
+      useBidCache: true,
+      // Also enable sending all bids to GAM (not just the winner)
+      // This lets GAM's auction consider all Prebid bids, not just the top one
+      enableSendAllBids: true,
+    });
+
     // Apply global timeout override
     if (config.bidderTimeout && config.bidderTimeout !== 2500) {
       bsapb.setConfig({ bidderTimeout: config.bidderTimeout });
