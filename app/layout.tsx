@@ -10,6 +10,7 @@ import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 import { DelayedAdLoader } from '@/components/DelayedAdLoader';
 import { BidAnalytics } from '@/components/BidAnalytics';
+import { AdRefreshOptimizer } from '@/components/AdRefreshOptimizer';
 
 export const metadata: Metadata = {
   title: {
@@ -116,6 +117,9 @@ export default function RootLayout({
 
         {/* Bid stream analytics - Phase 1 instrumentation */}
         <BidAnalytics />
+        
+        {/* Viewability-aware ad refresh optimization */}
+        <AdRefreshOptimizer />
       </body>
     </html>
   );
