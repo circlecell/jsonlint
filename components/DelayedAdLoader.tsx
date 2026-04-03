@@ -80,20 +80,10 @@ export function DelayedAdLoader({ delay = 6500 }: DelayedAdLoaderProps) {
         }}
       />
 
-      {/* Google Analytics */}
-      <Script 
-        id="ga-script"
-        src="https://www.googletagmanager.com/gtag/js?id=UA-69209117-1"
-        onLoad={() => {
-          if (typeof window !== 'undefined') {
-            const w = window as any;
-            w.dataLayer = w.dataLayer || [];
-            const gtag = (...args: any[]) => w.dataLayer.push(args);
-            gtag('js', new Date());
-            gtag('config', 'UA-69209117-1');
-          }
-        }}
-      />
+      {/* NOTE: Legacy Universal Analytics (UA-69209117-1) removed.
+         UA was sunset by Google in July 2024 and no longer collects data.
+         If GA4 tracking is needed, add the GA4 measurement ID here instead.
+         See: https://support.google.com/analytics/answer/11583528 */}
     </>
   );
 }

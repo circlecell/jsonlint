@@ -16,8 +16,8 @@ import { useEffect, useRef } from 'react';
 const ANALYTICS_ENDPOINT = 'https://bid-analytics.toddynho-544.workers.dev/bid-event';
 const CONFIG_ENDPOINT = 'https://bid-config.toddynho-544.workers.dev/config';
 
-const BATCH_INTERVAL_MS = 2000;
-const MAX_BATCH_SIZE = 50;
+const BATCH_INTERVAL_MS = 30000; // 30s — flush periodically as safety net
+const MAX_BATCH_SIZE = 200;     // Allow larger batches since we flush less often
 
 const JSONLINT_AD_UNITS = [
   'bsa-zone_1570746984891-3',
@@ -246,6 +246,19 @@ export function BidAnalytics() {
 
     const flushInterval = setInterval(flushEvents, BATCH_INTERVAL_MS);
 
+    // Lightweight heartbeat every 60s so the dashboard knows the pipeline is alive
+    // This is a single tiny request vs the old ~15 batch flushes per session
+    const heartbeatInterval = setInterval(() => {
+      if (!contextRef.current) return;
+      try {
+        navigator.sendBeacon(ANALYTICS_ENDPOINT, JSON.stringify([{
+          event: 'heartbeat',
+          timestamp: Date.now(),
+          context: contextRef.current,
+        }]));
+      } catch { /* best effort */ }
+    }, 60000);
+
     function handleVisibilityChange() {
       if (document.visibilityState === 'hidden') flushEvents();
     }
@@ -360,6 +373,7 @@ export function BidAnalytics() {
 
     return () => {
       clearInterval(flushInterval);
+      clearInterval(heartbeatInterval);
       clearTimeout(pollTimeout);
       window.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('pagehide', handlePageHide);

@@ -9,8 +9,7 @@ import { ValidationProvider } from '@/components/ValidationContext';
 import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 import { DelayedAdLoader } from '@/components/DelayedAdLoader';
-import { BidAnalytics } from '@/components/BidAnalytics';
-import { AdRefreshOptimizer } from '@/components/AdRefreshOptimizer';
+import { DeferredAdComponents } from '@/components/DeferredAdComponents';
 
 export const metadata: Metadata = {
   title: {
@@ -82,7 +81,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#0D0D0D" />
         <Script
           id="bsaOptimizeQueue"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         >
           {`window.optimize = window.optimize || { queue: [] };`}
         </Script>
@@ -115,11 +114,8 @@ export default function RootLayout({
         {/* Delayed Ad Loading - waits for page load + 6.5s delay to improve page speed */}
         <DelayedAdLoader delay={6500} />
 
-        {/* Bid stream analytics - Phase 1 instrumentation */}
-        <BidAnalytics />
-        
-        {/* Viewability-aware ad refresh optimization */}
-        <AdRefreshOptimizer />
+        {/* Bid analytics + ad refresh — deferred until first user interaction */}
+        <DeferredAdComponents />
       </body>
     </html>
   );

@@ -43,9 +43,9 @@ interface JsonEditorProps {
 let shikiInitialized = false;
 let shikiInitPromise: Promise<void> | null = null;
 
-async function initializeShikiForMonaco(monaco: Monaco): Promise<void> {
+async function initializeShikiForMonaco(monaco: Monaco, language: SupportedLanguage = 'json'): Promise<void> {
   if (shikiInitialized) return;
-  
+
   if (shikiInitPromise) {
     await shikiInitPromise;
     return;
@@ -54,26 +54,27 @@ async function initializeShikiForMonaco(monaco: Monaco): Promise<void> {
   shikiInitPromise = (async () => {
     try {
       // Dynamic imports to avoid SSR issues
-      const [{ getHighlighter }, { shikiToMonaco }] = await Promise.all([
+      const [{ getHighlighter, loadLanguage }, { shikiToMonaco }] = await Promise.all([
         import('@/lib/shiki'),
         import('@shikijs/monaco')
       ]);
-      
+
+      // Load only the requested language (json by default) — not all 17
+      if (language !== 'json' && language !== 'plaintext') {
+        await loadLanguage(language);
+      }
+
       const highlighter = await getHighlighter();
-      
-      // Register languages with Monaco
-      const languages = [
-        'json', 'javascript', 'typescript', 'python', 'java', 'go', 
-        'csharp', 'bash', 'xml', 'yaml', 'sql', 'html', 'css',
-        'swift', 'kotlin', 'php', 'rust', 'plaintext'
-      ];
-      languages.forEach(lang => {
+
+      // Register only the languages we've loaded so far
+      const langsToRegister = language === 'json' ? ['json', 'plaintext'] : ['json', language, 'plaintext'];
+      langsToRegister.forEach(lang => {
         monaco.languages.register({ id: lang });
       });
-      
+
       // Apply Shiki highlighting to Monaco
       shikiToMonaco(highlighter, monaco);
-      
+
       shikiInitialized = true;
     } catch (error) {
       console.error('Failed to initialize Shiki for Monaco:', error);
@@ -103,18 +104,18 @@ export function JsonEditor({
   // Initialize Shiki when Monaco is ready
   useEffect(() => {
     if (monacoRef.current && !isShikiReady) {
-      initializeShikiForMonaco(monacoRef.current).then(() => {
+      initializeShikiForMonaco(monacoRef.current, language).then(() => {
         setIsShikiReady(true);
       });
     }
-  }, [isShikiReady]);
+  }, [isShikiReady, language]);
 
   const handleMount: OnMount = useCallback(async (editor, monaco) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
-    
-    // Initialize Shiki highlighting
-    await initializeShikiForMonaco(monaco);
+
+    // Initialize Shiki highlighting — only loads the needed language grammar
+    await initializeShikiForMonaco(monaco, language);
     setIsShikiReady(true);
     
     // Set up error highlighting

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { JsonEditor } from './JsonEditor';
+import { LazyJsonEditor as JsonEditor } from './LazyJsonEditor';
 import { useValidation } from './ValidationContext';
 import {
   parseJSON,
