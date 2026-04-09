@@ -9,7 +9,6 @@ import { ValidationProvider } from '@/components/ValidationContext';
 import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 import { DelayedAdLoader } from '@/components/DelayedAdLoader';
-import { DeferredAdComponents } from '@/components/DeferredAdComponents';
 
 export const metadata: Metadata = {
   title: {
@@ -112,10 +111,9 @@ export default function RootLayout({
         <OptimizeAds />
         
         {/* Delayed Ad Loading - waits for page load + 6.5s delay to improve page speed */}
+        {/* The proxied BSA script (via bid-proxy worker) includes all BidTune
+            functionality inline: analytics, config, viewability optimization */}
         <DelayedAdLoader delay={6500} />
-
-        {/* Bid analytics + ad refresh — deferred until first user interaction */}
-        <DeferredAdComponents />
       </body>
     </html>
   );
