@@ -46,10 +46,10 @@ export function DelayedAdLoader({ delay = 6500 }: DelayedAdLoaderProps) {
 
   return (
     <>
-      {/* BuySellAds Optimize — loaded via proxy for dead bidder optimization */}
+      {/* BuySellAds Optimize — served via BidTune script proxy */}
       <Script
         id="bsaOptimizeScript"
-        src={`https://bid-proxy.toddynho-544.workers.dev/_bsa/jsonlint.js?${Date.now() - (Date.now() % 600000)}`}
+        src="https://s.bidtune.net/jsonlint/p.js"
       />
 
       {/* BuySellAds Native Ads */}
