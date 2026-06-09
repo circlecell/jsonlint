@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
 /**
- * Delays ad script loading until after page load + configurable delay.
- * This improves initial page load performance by deferring non-critical ad scripts.
- * 
+ * Loads the primary BSA/Prebid stack immediately through BidTune, then delays
+ * native ad rendering until after page load to preserve initial page speed.
+ *
  * @see https://www.aaronpeters.nl/blog/why-loading-third-party-scripts-async-is-not-good-enough/
  */
 
@@ -40,23 +40,20 @@ export function DelayedAdLoader({ delay = 6500 }: DelayedAdLoaderProps) {
     };
   }, [delay]);
 
-  if (!shouldLoad) {
-    return null;
-  }
-
   return (
     <>
-      {/* BuySellAds Optimize — served via BidTune script proxy */}
+      {/* BuySellAds Optimize / Prebid — served via BidTune script proxy */}
       <Script
         id="bsaOptimizeScript"
         src="https://s.bidtune.net/jsonlint/p.js"
+        strategy="afterInteractive"
       />
 
-      {/* BuySellAds Native Ads */}
-      <Script 
-        id="bsaMonetization"
-        src="//m.servedby-buysellads.com/monetization.custom.js"
-        onLoad={() => {
+      {shouldLoad && (
+        <Script
+          id="bsaMonetization"
+          src="//m.servedby-buysellads.com/monetization.custom.js"
+          onLoad={() => {
           // Initialize native ad after monetization script loads
           if (typeof window !== 'undefined' && (window as any)._bsa) {
             (window as any)._bsa.init('custom', 'CVADT27Y', 'placement:jsonlintcom', {
@@ -78,7 +75,8 @@ export function DelayedAdLoader({ delay = 6500 }: DelayedAdLoaderProps) {
             });
           }
         }}
-      />
+        />
+      )}
 
       {/* NOTE: Legacy Universal Analytics (UA-69209117-1) removed.
          UA was sunset by Google in July 2024 and no longer collects data.

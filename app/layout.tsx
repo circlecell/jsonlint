@@ -110,9 +110,8 @@ export default function RootLayout({
         {/* BuySellAds Optimize - handles ad refresh on SPA navigation */}
         <OptimizeAds />
         
-        {/* Delayed Ad Loading - waits for page load + 6.5s delay to improve page speed */}
-        {/* The proxied BSA script (via bid-proxy worker) includes all BidTune
-            functionality inline: analytics, config, viewability optimization */}
+        {/* The primary BSA/Prebid stack loads immediately via BidTune; native
+            ad rendering is still delayed to preserve initial page speed. */}
         <DelayedAdLoader delay={6500} />
       </body>
     </html>
