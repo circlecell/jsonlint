@@ -12,6 +12,9 @@ count, and engine latency. The document itself never leaves the browser.
   dataset. Whitelists + clamps every field.
 - **Analysis:** [`QUERIES.md`](./QUERIES.md) — code frequency, latency
   percentiles, valid/invalid split, first-error distribution.
+- **Query helper:** [`query.sh`](./query.sh) — runs those queries against the
+  Analytics Engine SQL API. `export CF_TOKEN=<Account Analytics: Read token>`
+  then `./query.sh 2` (or `list`, or `raw "SELECT ..."`).
 
 ## What is sent
 
