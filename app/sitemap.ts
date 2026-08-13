@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
+import { getAllErrorCodes } from '@/lib/error-codes';
 
 function getAllMarkdownSlugs(dir: string, basePath: string = ''): string[] {
   if (!fs.existsSync(dir)) return [];
@@ -98,5 +99,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...contentEntries, ...datasetEntries];
+  // Error-code reference pages
+  const errorEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/errors`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    ...getAllErrorCodes().map((e) => ({
+      url: `${baseUrl}/errors/${e.code}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  ];
+
+  return [
+    ...staticEntries,
+    ...contentEntries,
+    ...datasetEntries,
+    ...errorEntries,
+  ];
 }

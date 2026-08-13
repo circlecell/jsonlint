@@ -219,7 +219,24 @@ export function SeoContent() {
 
       <h2>Credits</h2>
       <p>
-        Maintained by CircleCell. Thanks to{' '}
+        Maintained by{' '}
+        <a href="https://x.com/toddo" target="_blank" rel="noopener">
+          Todd Garland
+        </a>
+        . Validation is now powered by{' '}
+        <a
+          href="https://github.com/toddynho/jsonlint-core"
+          target="_blank"
+          rel="noopener"
+        >
+          @jsonlint/core
+        </a>
+        , our open-source single-pass JSON engine that reports every error and
+        warning at once — install it with{' '}
+        <code>npm install @jsonlint/core</code>.
+      </p>
+      <p>
+        Thanks to{' '}
         <a href="http://www.crockford.com/" target="_blank" rel="noopener">
           Douglas Crockford
         </a>{' '}
@@ -227,15 +244,15 @@ export function SeoContent() {
         <a href="http://zaa.ch/" target="_blank" rel="noopener">
           Zach Carter
         </a>
-        , who built a{' '}
+        , who built the original{' '}
         <a
           href="https://github.com/zaach/jsonlint"
           target="_blank"
           rel="noopener"
         >
           pure JavaScript implementation
-        </a>
-        . You can download the{' '}
+        </a>{' '}
+        that powered this site for years. You can download the{' '}
         <a
           href="https://www.github.com/circlecell/jsonlintdotcom"
           target="_blank"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import Link from 'next/link';
 import { LazyJsonEditor as JsonEditor } from './LazyJsonEditor';
 import { useValidation } from './ValidationContext';
 import {
@@ -12,6 +13,8 @@ import {
   sortJSONKeys,
   tryFixJSON,
 } from '@/lib/json-utils';
+import { lint, type LintDiagnostic } from '@/lib/jsonlint-core-integration';
+import { recordValidationSample } from '@/lib/shadow-telemetry';
 
 const SAMPLE_JSON = `{
   "name": "John Doe",
@@ -41,8 +44,7 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
   const [input, setInput] = useState('');
   const [isFormatted, setIsFormatted] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [errorHint, setErrorHint] = useState<string | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
+  const [diagnostics, setDiagnostics] = useState<LintDiagnostic[]>([]);
   const [indentOption, setIndentOption] = useState<IndentOption>('2');
   const containerRef = useRef<HTMLDivElement>(null);
   const { status, setStatus, errorMessage, setErrorMessage, errorLine, setErrorLine } =
@@ -97,28 +99,33 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
         setStatus('idle');
         setErrorMessage(null);
         setErrorLine(null);
-        setErrorHint(null);
-        setWarning(null);
+        setDiagnostics([]);
         return;
       }
 
-      const result = parseJSON(jsonToValidate);
+      // Validated by @jsonlint/core: a single pass returns every error and
+      // warning at once, each with a precise line/column. See
+      // lib/jsonlint-core-integration.ts.
+      const result = lint(jsonToValidate);
+      setDiagnostics(result.diagnostics);
 
-      if (result.valid) {
+      // Sampled, document-free telemetry (code frequency + engine latency).
+      // See lib/shadow-telemetry.ts.
+      recordValidationSample(result, jsonToValidate.length);
+
+      const firstError = result.diagnostics.find((d) => d.severity === 'error');
+
+      if (result.ok) {
         setStatus('valid');
         setErrorMessage(null);
         setErrorLine(null);
-        setErrorHint(null);
-        setWarning(result.warning || null);
         // Don't auto-format - preserve original input to maintain number formatting (e.g., 1.0 vs 1)
         // User can click "Prettify" to format if desired
         setIsFormatted(detectFormat(jsonToValidate) === 'formatted');
       } else {
         setStatus('invalid');
-        setErrorMessage(result.error || 'Invalid JSON');
-        setErrorLine(result.line || null);
-        setErrorHint(result.hint || null);
-        setWarning(null);
+        setErrorMessage(firstError?.message || 'Invalid JSON');
+        setErrorLine(firstError?.line || null);
       }
     },
     [input, setStatus, setErrorMessage, setErrorLine]
@@ -150,6 +157,7 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
     setStatus('idle');
     setErrorMessage(null);
     setErrorLine(null);
+    setDiagnostics([]);
   };
 
   const handleSort = () => {
@@ -184,6 +192,8 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
 
   const stats = status === 'valid' ? getJSONStats(input) : null;
   const format = detectFormat(input);
+  const errors = diagnostics.filter((d) => d.severity === 'error');
+  const warnings = diagnostics.filter((d) => d.severity === 'warning');
 
   return (
     <div className="space-y-3">
@@ -294,15 +304,14 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
               </span>
             )}
           </div>
-          {warning && (
+          {warnings.length > 0 && (
             <div
-              className="flex items-start gap-2 px-3 py-2 rounded-md text-sm animate-fade-in"
-              style={{
-                background: 'rgba(245, 158, 11, 0.1)',
-              }}
+              className="space-y-3 px-3 py-2 rounded-md animate-fade-in"
+              style={{ background: 'rgba(245, 158, 11, 0.1)' }}
             >
-              <WarningIcon className="w-4 h-4 text-accent-amber flex-shrink-0 mt-0.5" />
-              <span style={{ color: 'var(--text-secondary)' }}>{warning}</span>
+              {warnings.map((d, i) => (
+                <DiagnosticCard key={`w${i}`} d={d} sourceText={input} />
+              ))}
             </div>
           )}
         </div>
@@ -310,54 +319,134 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
 
       {status === 'invalid' && (
         <div
-          className="px-3 py-2 rounded-md animate-fade-in"
+          className="space-y-3 px-3 py-2 rounded-md animate-fade-in"
           style={{
             background: 'rgba(239, 68, 68, 0.1)',
           }}
         >
-          <div className="flex items-start gap-2">
-            <XCircleIcon className="w-4 h-4 text-accent-red flex-shrink-0 mt-0.5" />
-            <div className="min-w-0">
-              <span className="font-medium text-accent-red text-sm">Invalid JSON</span>
-              {errorMessage && (
-                <pre
-                  className="mt-1 text-xs font-mono overflow-x-auto"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  {errorMessage}
-                  {errorLine && (
-                    <span className="text-accent-amber ml-2">
-                      (Line {errorLine})
-                    </span>
-                  )}
-                </pre>
-              )}
-              {errorHint && (
-                <p
-                  className="mt-2 text-xs"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  <LightBulbIcon className="w-3.5 h-3.5 inline-block mr-1 text-accent-amber" />
-                  {errorHint.includes('JSONC to JSON tool') ? (
-                    <>
-                      {errorHint.replace('JSONC to JSON tool', '')}
-                      <a
-                        href="/jsonc-to-json"
-                        className="text-accent-blue hover:underline"
-                      >
-                        JSONC to JSON tool
-                      </a>
-                      .
-                    </>
-                  ) : (
-                    errorHint
-                  )}
-                </p>
-              )}
-            </div>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <XCircleIcon className="w-4 h-4 text-accent-red flex-shrink-0" />
+            <span className="font-medium text-accent-red text-sm">Invalid JSON</span>
+            <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+              {errors.length} error{errors.length === 1 ? '' : 's'}
+              {warnings.length > 0 &&
+                ` • ${warnings.length} warning${warnings.length === 1 ? '' : 's'}`}
+            </span>
+          </div>
+          <div className="space-y-3">
+            {errors.map((d, i) => (
+              <DiagnosticCard key={`e${i}`} d={d} sourceText={input} />
+            ))}
+            {warnings.map((d, i) => (
+              <DiagnosticCard key={`w${i}`} d={d} sourceText={input} />
+            ))}
           </div>
         </div>
       )}
+
+      {/* Powered by @jsonlint/core — the engine behind this validator */}
+      <div
+        className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs pt-1"
+        style={{ color: 'var(--text-muted)' }}
+      >
+        <span>
+          Validated by{' '}
+          <a
+            href="https://github.com/toddynho/jsonlint-core"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            @jsonlint/core
+          </a>
+        </span>
+        <span aria-hidden="true">·</span>
+        <code
+          className="px-1.5 py-0.5 rounded font-mono"
+          style={{ background: 'var(--bg-tertiary)' }}
+        >
+          npm install @jsonlint/core
+        </code>
+        <span aria-hidden="true">·</span>
+        <Link
+          href="/errors"
+          className="hover:underline"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          Error code reference
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+const JSONC_CODES = new Set(['E008', 'E020', 'E021']);
+
+function DiagnosticCard({
+  d,
+  sourceText,
+}: {
+  d: LintDiagnostic;
+  sourceText: string;
+}) {
+  const isError = d.severity === 'error';
+  const color = isError ? 'text-accent-red' : 'text-accent-amber';
+  const srcLine = sourceText.split(/\r\n|\r|\n/)[d.line - 1] ?? '';
+  const caret =
+    ' '.repeat(Math.min(Math.max(d.column - 1, 0), 200)) + '^';
+
+  return (
+    <div className="flex items-start gap-2">
+      {isError ? (
+        <XCircleIcon className={`w-4 h-4 ${color} flex-shrink-0 mt-0.5`} />
+      ) : (
+        <WarningIcon className={`w-4 h-4 ${color} flex-shrink-0 mt-0.5`} />
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm">
+          <Link
+            href={`/errors/${d.code}`}
+            className={`font-mono text-xs px-1.5 py-0.5 rounded hover:underline ${color}`}
+            style={{ background: 'var(--bg-tertiary)' }}
+            title={`What does ${d.code} mean?`}
+          >
+            {d.code}
+          </Link>
+          <span style={{ color: 'var(--text-secondary)' }}>{d.message}</span>
+          <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+            line {d.line}, col {d.column}
+          </span>
+        </div>
+        {srcLine && (
+          <pre
+            className="mt-1 text-xs font-mono overflow-x-auto"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            {srcLine.slice(0, 200)}
+            {'\n'}
+            {caret}
+          </pre>
+        )}
+        {d.related && (
+          <p className="mt-1 text-xs" style={{ color: 'var(--text-muted)' }}>
+            first occurrence at line {d.related.line}, col {d.related.column}
+          </p>
+        )}
+        {d.hint && (
+          <p className="mt-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
+            <LightBulbIcon className="w-3.5 h-3.5 inline-block mr-1 text-accent-amber" />
+            {d.hint}
+          </p>
+        )}
+        {JSONC_CODES.has(d.code) && (
+          <p className="mt-1 text-xs">
+            <a href="/jsonc-to-json" className="text-accent-blue hover:underline">
+              Convert with the JSONC to JSON tool
+            </a>
+          </p>
+        )}
+      </div>
     </div>
   );
 }
