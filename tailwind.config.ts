@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
-        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Developer-focused palette
@@ -20,11 +20,13 @@ const config: Config = {
           border: '#2d3139',
           hover: '#353a45',
         },
+        // Aligned to the JSONLint brand tokens (redesign). Keep in sync with
+        // the CSS variables in styles/globals.css.
         accent: {
           green: '#10b981',
           red: '#ef4444',
-          blue: '#3b82f6',
-          amber: '#f59e0b',
+          blue: '#0A84FF',
+          amber: '#FF9F0A',
           purple: '#8b5cf6',
         },
       },

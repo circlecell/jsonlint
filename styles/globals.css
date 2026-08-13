@@ -41,22 +41,46 @@
     --status-valid-text: #1B7D32;
     --status-error-text: #C62828;
     --status-warning-text: #E65100;
+
+    /* Redesign chrome tokens (dark adaptation) */
+    --bg-footer: #1A1A1A;
+    --bg-pressed: #2D2D2D;
+    --bg-menu-hover: #22262e;
+    --bg-editor-gutter: #1a1d23;
+    --border-hairline: #2d3139;
+    --border-button: #4A4A4A;
+    --border-footer: #2D2D2D;
+    --text-nav: #B8B8B8;
+    --text-disabled: #6b7280;
+    --menu-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   }
 
   .light {
-    --bg-primary: #FAFAFA;      /* White */
-    --bg-secondary: #E5E5E5;    /* Pearl */
-    --bg-tertiary: #F5F5F5;
-    --border-primary: #E5E5E5;  /* Pearl */
-    --border-secondary: #B8B8B8; /* Silver */
+    --bg-primary: #FAFAFA;      /* Page background */
+    --bg-secondary: #FFFFFF;    /* Cards / surfaces */
+    --bg-tertiary: #F5F5F5;     /* Hovers / subtle fills */
+    --border-primary: #E5E5E5;  /* Primary border */
+    --border-secondary: #DCDCDC; /* Button border */
     --text-primary: #0D0D0D;    /* Black */
     --text-secondary: #4A4A4A;  /* Slate */
     --text-muted: #8A8A8A;      /* Gray */
-    
+
     /* Status Background Colors - Light Theme */
     --status-valid-bg: #E8F9EC;
     --status-error-bg: #FFEBEE;
     --status-warning-bg: #FFF8E1;
+
+    /* Redesign chrome tokens (light — the reference design) */
+    --bg-footer: #F0F0F0;
+    --bg-pressed: #F0F0F0;
+    --bg-menu-hover: #F5F7FA;
+    --bg-editor-gutter: #fafbfc;
+    --border-hairline: #EFEFEF;
+    --border-button: #DCDCDC;
+    --border-footer: #E0E0E0;
+    --text-nav: #4A4A4A;
+    --text-disabled: #B8B8B8;
+    --menu-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
   }
 
   body {
