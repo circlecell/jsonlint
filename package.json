@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@jsonlint/core": "^0.1.0",
     "@monaco-editor/react": "^4.6.0",
     "@shikijs/monaco": "^3.20.0",
     "@shikijs/rehype": "^3.20.0",

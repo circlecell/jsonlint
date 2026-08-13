@@ -1,0 +1,15 @@
+name = "jsonlint-shadow"
+main = "shadow-worker.js"
+compatibility_date = "2024-11-01"
+
+# Route the collector at the same origin as the site so the browser beacon is a
+# plain same-origin POST (no CORS preflight). Adjust the zone if needed.
+routes = [
+  { pattern = "jsonlint.com/api/shadow", zone_name = "jsonlint.com" }
+]
+
+# Analytics Engine dataset the worker writes to. Query it via the SQL API
+# (see QUERIES.md). No database to provision; free at this volume.
+[[analytics_engine_datasets]]
+binding = "SHADOW"
+dataset = "jsonlint_shadow"
