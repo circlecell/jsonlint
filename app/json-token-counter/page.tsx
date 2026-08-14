@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { TokenCounter } from './TokenCounter';
 
 export const metadata: Metadata = {
-  title: 'JSON Token Counter - Count Tokens for GPT & Claude | JSONLint',
+  title: 'JSON Token Counter - Count Tokens for GPT & Claude',
   description:
     'Count tokens in JSON for OpenAI GPT-4, GPT-3.5, and Anthropic Claude. Optimize your prompts and reduce API costs with token-aware JSON formatting.',
   keywords: [
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     title: 'JSON Token Counter for LLMs',
     description: 'Count and optimize JSON tokens for GPT-4, Claude, and other LLMs.',
   },
+  alternates: { canonical: '/json-token-counter' },
 };
 
 export default function TokenCounterPage() {

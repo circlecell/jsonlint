@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { SizeAnalyzer } from './SizeAnalyzer';
 
 export const metadata: Metadata = {
-  title: 'JSON Size Analyzer - Analyze JSON Structure & Complexity | JSONLint',
+  title: 'JSON Size Analyzer - Analyze JSON Structure & Complexity',
   description:
     'Analyze JSON size, structure, and complexity. See type distribution, depth analysis, largest nodes, and optimization opportunities.',
   keywords: [
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     title: 'JSON Size & Structure Analyzer',
     description: 'Analyze JSON size, structure, depth, and find optimization opportunities.',
   },
+  alternates: { canonical: '/json-size-analyzer' },
 };
 
 export default function JsonSizeAnalyzerPage() {

@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonEscaper } from './JsonEscaper';
 
 export const metadata: Metadata = {
-  title: 'JSON Escape - Escape Special Characters Online | JSONLint',
+  title: 'JSON Escape - Escape Special Characters Online',
   description:
     'Escape special characters for JSON strings. Convert newlines, quotes, backslashes, and tabs to their escaped equivalents. Free online tool.',
+  alternates: { canonical: '/json-escape' },
 };
 
 export default function JsonEscapePage() {

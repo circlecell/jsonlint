@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { CsvToJsonConverter } from './CsvToJsonConverter';
 
 export const metadata: Metadata = {
-  title: 'CSV to JSON Converter - Convert CSV to JSON Online | JSONLint',
+  title: 'CSV to JSON Converter - Convert CSV to JSON Online',
   description:
     'Convert CSV to JSON array instantly. Handles headers, custom delimiters, and automatic type detection. Free online tool.',
+  alternates: { canonical: '/csv-to-json' },
 };
 
 export default function CsvToJsonPage() {
@@ -18,6 +19,10 @@ export default function CsvToJsonPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          CSV to JSON Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your CSV below to convert it to JSON:

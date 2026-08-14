@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonPrettyPrinter } from './JsonPrettyPrinter';
 
 export const metadata: Metadata = {
-  title: 'JSON Pretty Print - Format & Beautify JSON Online | JSONLint',
+  title: 'JSON Pretty Print - Format & Beautify JSON Online',
   description:
     'Pretty print JSON instantly with our free online formatter. Customize indentation, sort keys, and beautify minified JSON. No signup required.',
+  alternates: { canonical: '/json-pretty-print' },
 };
 
 export default function JsonPrettyPrintPage() {

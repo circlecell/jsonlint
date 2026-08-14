@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToRustConverter } from './JsonToRustConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Rust Converter - Generate Serde Structs Online | JSONLint',
+  title: 'JSON to Rust Converter - Generate Serde Structs Online',
   description:
     'Convert JSON to Rust structs with Serde derive macros. Generate type-safe Rust code with automatic field renaming.',
+  alternates: { canonical: '/json-to-rust' },
 };
 
 export default function JsonToRustPage() {

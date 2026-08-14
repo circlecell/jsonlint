@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToSqlConverter } from './JsonToSqlConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to SQL Converter - Generate INSERT Statements Online | JSONLint',
+  title: 'JSON to SQL Converter - Generate INSERT Statements Online',
   description:
     'Convert JSON to SQL INSERT statements and CREATE TABLE scripts. Supports PostgreSQL, MySQL, SQLite, and SQL Server with proper type inference.',
+  alternates: { canonical: '/json-to-sql' },
 };
 
 export default function JsonToSqlPage() {

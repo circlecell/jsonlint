@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { JsonSearcher } from './JsonSearcher';
 
 export const metadata: Metadata = {
-  title: 'JSON Search - Find Keys & Values in JSON | JSONLint',
+  title: 'JSON Search - Find Keys & Values in JSON',
   description:
     'Search and find keys and values in JSON documents. Full-text search with case sensitivity, exact match, and path extraction. Free online JSON search tool.',
   keywords: [
@@ -18,9 +18,10 @@ export const metadata: Metadata = {
     'json path finder',
   ],
   openGraph: {
-    title: 'JSON Search Tool | JSONLint',
+    title: 'JSON Search Tool',
     description: 'Search for keys and values in JSON documents with full-text search capabilities.',
   },
+  alternates: { canonical: '/json-search' },
 };
 
 export default function JsonSearchPage() {
@@ -33,6 +34,10 @@ export default function JsonSearchPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Search
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Search for keys and values in your JSON. Results show the full path for easy extraction:

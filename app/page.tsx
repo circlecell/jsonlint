@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ToolNav } from '@/components/ToolNav';
 import { JsonValidatorWrapper } from './JsonValidatorWrapper';
 import { SeoContent, ToolsSidebar } from '@/components/SeoContent';
 import { Container } from '@/components/Container';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (

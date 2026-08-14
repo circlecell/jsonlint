@@ -8,9 +8,10 @@ import { Container } from '@/components/Container';
 import { DatasetsSection } from './DatasetsSection';
 
 export const metadata: Metadata = {
-  title: 'Learn JSON - Guides, Tutorials & Datasets | JSONLint',
+  title: 'Learn JSON - Guides, Tutorials & Datasets',
   description:
     'Everything you need to master JSON. Guides, tutorials, best practices, and free datasets.',
+  alternates: { canonical: '/learn' },
 };
 
 const contentDirectory = path.join(process.cwd(), 'docs/content/completed');

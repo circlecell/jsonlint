@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToXmlConverter } from './JsonToXmlConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to XML Converter - Free Online Tool | JSONLint',
+  title: 'JSON to XML Converter - Free Online Tool',
   description:
     'Convert JSON to XML instantly with our free online converter. Supports nested objects, arrays, custom root elements, and formatted output. No installation required.',
+  alternates: { canonical: '/json-to-xml' },
 };
 
 export default function JsonToXmlPage() {

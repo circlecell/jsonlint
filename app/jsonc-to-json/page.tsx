@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { JsoncConverter } from './JsoncConverter';
 
 export const metadata: Metadata = {
-  title: 'JSONC to JSON Converter - Remove Comments from JSON | JSONLint',
+  title: 'JSONC to JSON Converter - Remove Comments from JSON',
   description:
     'Convert JSONC (JSON with Comments) and JSON5 to standard JSON. Strip comments, remove trailing commas, and fix syntax for production use.',
   keywords: [
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     title: 'JSONC to JSON Converter - Remove Comments',
     description: 'Convert JSON with comments to standard JSON for production use.',
   },
+  alternates: { canonical: '/jsonc-to-json' },
 };
 
 export default function JsoncToJsonPage() {

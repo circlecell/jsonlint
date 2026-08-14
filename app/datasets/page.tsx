@@ -5,14 +5,15 @@ import { Container } from '@/components/Container';
 import { DatasetsSection } from '../learn/DatasetsSection';
 
 export const metadata: Metadata = {
-  title: 'Free JSON Datasets - Download Open Source Data | JSONLint',
+  title: 'Free JSON Datasets - Download Open Source Data',
   description:
     'Browse and download free JSON datasets for testing, learning, and development. Curated collections of countries, languages, programming data, and more.',
   openGraph: {
-    title: 'Free JSON Datasets - Download Open Source Data | JSONLint',
+    title: 'Free JSON Datasets - Download Open Source Data',
     description:
       'Browse and download free JSON datasets for testing, learning, and development.',
   },
+  alternates: { canonical: '/datasets' },
 };
 
 export default async function DatasetsPage() {

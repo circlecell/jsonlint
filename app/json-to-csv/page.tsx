@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToCsvConverter } from './JsonToCsvConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to CSV Converter - Convert JSON to CSV Online | JSONLint',
+  title: 'JSON to CSV Converter - Convert JSON to CSV Online',
   description:
     'Convert JSON to CSV instantly. Handles nested objects, arrays, and custom delimiters. Download or copy the result.',
+  alternates: { canonical: '/json-to-csv' },
 };
 
 export default function JsonToCsvPage() {
@@ -18,6 +19,10 @@ export default function JsonToCsvPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON to CSV Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your JSON below to convert it to CSV format:

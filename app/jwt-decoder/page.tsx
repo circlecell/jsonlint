@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JwtDecoder } from './JwtDecoder';
 
 export const metadata: Metadata = {
-  title: 'JWT Decoder - Decode JSON Web Tokens Online | JSONLint',
+  title: 'JWT Decoder - Decode JSON Web Tokens Online',
   description:
     'Decode and inspect JWT tokens instantly. View header, payload, and check expiration status. Free online JWT decoder tool.',
+  alternates: { canonical: '/jwt-decoder' },
 };
 
 export default function JwtDecoderPage() {

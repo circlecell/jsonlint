@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'JSONLint Pro - Native JSON Editor for macOS | JSONLint',
+  title: 'JSONLint Pro - Native JSON Editor for macOS',
   description:
     'Professional JSON toolkit for macOS. Validate, format, repair, and convert JSON with native performance. Works offline, handles large files, available on the Mac App Store.',
   keywords: [
@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   other: {
     'apple-itunes-app': 'app-id=6757896437',
   },
+  alternates: { canonical: '/pro' },
 };
 
 export default function ProPage() {

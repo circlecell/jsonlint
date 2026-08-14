@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToCSharpConverter } from './JsonToCSharpConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to C# Converter - Generate Classes Online | JSONLint',
+  title: 'JSON to C# Converter - Generate Classes Online',
   description:
     'Convert JSON to C# classes instantly. Generate POCO classes or records with JsonProperty attributes. Supports Newtonsoft.Json and System.Text.Json.',
+  alternates: { canonical: '/json-to-csharp' },
 };
 
 export default function JsonToCSharpPage() {

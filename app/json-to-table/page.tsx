@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonTableViewer } from './JsonTableViewer';
 
 export const metadata: Metadata = {
-  title: 'JSON to Table - View JSON as HTML Table | JSONLint',
+  title: 'JSON to Table - View JSON as HTML Table',
   description:
     'Convert JSON arrays to HTML tables. View JSON data in a readable table format and export as HTML. Free online tool.',
+  alternates: { canonical: '/json-to-table' },
 };
 
 export default function JsonToTablePage() {
@@ -18,6 +19,10 @@ export default function JsonToTablePage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON to Table Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your JSON below to view it as a table:

@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { XmlToJsonConverter } from './XmlToJsonConverter';
 
 export const metadata: Metadata = {
-  title: 'XML to JSON Converter - Transform XML Data Online | JSONLint',
+  title: 'XML to JSON Converter - Transform XML Data Online',
   description:
     'Convert XML to JSON instantly. Handles attributes, namespaces, and nested elements. Preview the result and copy or download the converted JSON.',
+  alternates: { canonical: '/xml-to-json' },
 };
 
 export default function XmlToJsonPage() {
@@ -19,6 +20,10 @@ export default function XmlToJsonPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          XML to JSON Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your XML below to convert it to JSON:

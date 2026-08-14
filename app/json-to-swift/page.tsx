@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToSwiftConverter } from './JsonToSwiftConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Swift Converter - Generate Codable Structs Online | JSONLint',
+  title: 'JSON to Swift Converter - Generate Codable Structs Online',
   description:
     'Convert JSON to Swift structs with Codable support. Generate CodingKeys automatically for snake_case to camelCase mapping.',
+  alternates: { canonical: '/json-to-swift' },
 };
 
 export default function JsonToSwiftPage() {

@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonStringifier } from './JsonStringifier';
 
 export const metadata: Metadata = {
-  title: 'JSON Stringify - Escape JSON for Embedding | JSONLint',
+  title: 'JSON Stringify - Escape JSON for Embedding',
   description:
     'Convert JSON to an escaped string for embedding in code, databases, or other JSON. Handles quotes, newlines, and special characters.',
+  alternates: { canonical: '/json-stringify' },
 };
 
 export default function JsonStringifyPage() {
@@ -19,6 +20,10 @@ export default function JsonStringifyPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Stringify
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste JSON to escape it as a string, or paste an escaped string to unescape it:

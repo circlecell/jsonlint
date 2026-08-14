@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToTypescriptConverter } from './JsonToTypescriptConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to TypeScript - Generate TypeScript Interfaces | JSONLint',
+  title: 'JSON to TypeScript - Generate TypeScript Interfaces',
   description:
     'Convert JSON to TypeScript interfaces instantly. Generate type-safe interfaces from API responses and JSON data. Free online tool.',
+  alternates: { canonical: '/json-to-typescript' },
 };
 
 export default function JsonToTypescriptPage() {
@@ -18,6 +19,10 @@ export default function JsonToTypescriptPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON to TypeScript Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your JSON below to generate TypeScript interfaces:

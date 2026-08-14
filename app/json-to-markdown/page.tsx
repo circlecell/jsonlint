@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { MarkdownConverter } from './MarkdownConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Markdown Table - Convert JSON Arrays to Tables | JSONLint',
+  title: 'JSON to Markdown Table - Convert JSON Arrays to Tables',
   description:
     'Convert JSON arrays to Markdown tables instantly. Perfect for documentation, README files, and GitHub. Free online converter.',
+  alternates: { canonical: '/json-to-markdown' },
 };
 
 export default function JsonToMarkdownPage() {

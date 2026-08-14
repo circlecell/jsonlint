@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonSorter } from './JsonSorter';
 
 export const metadata: Metadata = {
-  title: 'JSON Sorter - Sort Keys Alphabetically Online | JSONLint',
+  title: 'JSON Sorter - Sort Keys Alphabetically Online',
   description:
     'Sort JSON keys alphabetically with our free online tool. Supports nested objects, ascending/descending order, and case-insensitive sorting.',
+  alternates: { canonical: '/json-sort' },
 };
 
 export default function JsonSortPage() {

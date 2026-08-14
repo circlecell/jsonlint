@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToKotlinConverter } from './JsonToKotlinConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Kotlin Converter - Generate Data Classes Online | JSONLint',
+  title: 'JSON to Kotlin Converter - Generate Data Classes Online',
   description:
     'Convert JSON to Kotlin data classes with kotlinx.serialization, Moshi, or Gson support. Generate type-safe Kotlin code instantly.',
+  alternates: { canonical: '/json-to-kotlin' },
 };
 
 export default function JsonToKotlinPage() {

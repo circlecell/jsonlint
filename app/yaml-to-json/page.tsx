@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { YamlToJsonConverter } from './YamlToJsonConverter';
 
 export const metadata: Metadata = {
-  title: 'YAML to JSON Converter - Convert YAML to JSON Online | JSONLint',
+  title: 'YAML to JSON Converter - Convert YAML to JSON Online',
   description:
     'Convert YAML to JSON instantly. Transform Kubernetes configs, Docker Compose files, and CI/CD configs to JSON format. Free online tool.',
+  alternates: { canonical: '/yaml-to-json' },
 };
 
 export default function YamlToJsonPage() {
@@ -18,6 +19,10 @@ export default function YamlToJsonPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          YAML to JSON Converter
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your YAML below to convert it to JSON:

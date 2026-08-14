@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonUnescaper } from './JsonUnescaper';
 
 export const metadata: Metadata = {
-  title: 'JSON Unescape - Unescape JSON Strings Online | JSONLint',
+  title: 'JSON Unescape - Unescape JSON Strings Online',
   description:
     'Unescape JSON strings instantly. Convert escaped backslashes, quotes, and special characters back to readable JSON. Free online tool.',
+  alternates: { canonical: '/json-unescape' },
 };
 
 export default function JsonUnescapePage() {
@@ -18,6 +19,10 @@ export default function JsonUnescapePage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Unescape
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your escaped JSON string below to convert it back to readable JSON:
