@@ -22,17 +22,10 @@ function getAllMarkdownSlugs(dir: string, basePath: string = ''): string[] {
   return slugs;
 }
 
-// Real content-modification date for a file, so `lastModified` reflects
-// actual changes rather than the moment the sitemap was regenerated.
-// Returns undefined (field omitted) when the file can't be stat'd.
-function fileModified(absPath: string): Date | undefined {
-  try {
-    return fs.statSync(absPath).mtime;
-  } catch {
-    return undefined;
-  }
-}
-
+// NOTE: `lastModified` is intentionally omitted. Filesystem mtimes are reset
+// on most deploys (fresh checkout), so stamping them would make every URL
+// look freshly modified after each deploy — a worse signal than none. If
+// real per-page dates become available (frontmatter or Git), add them here.
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://jsonlint.com';
 
@@ -91,9 +84,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map((page) => ({
     url: `${baseUrl}${page}`,
-    lastModified: fileModified(
-      path.join(process.cwd(), 'app', page.replace(/^\//, ''), 'page.tsx')
-    ),
     changeFrequency: page === '' ? 'daily' : 'weekly',
     priority: page === '' ? 1 : page.includes('json-to-') ? 0.8 : 0.9,
   }));
@@ -105,7 +95,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((slug) => slug !== 'privacy')
     .map((slug) => ({
       url: `${baseUrl}/${slug}`,
-      lastModified: fileModified(path.join(contentDir, `${slug}.md`)),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
@@ -115,25 +104,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const datasetSlugs = getAllMarkdownSlugs(datasetsDir);
   const datasetEntries: MetadataRoute.Sitemap = datasetSlugs.map((slug) => ({
     url: `${baseUrl}/datasets/${slug}`,
-    lastModified: fileModified(path.join(datasetsDir, `${slug}.md`)),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
 
   // Error-code reference pages
-  const errorCodesModified = fileModified(
-    path.join(process.cwd(), 'lib/error-codes.ts')
-  );
   const errorEntries: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/errors`,
-      lastModified: errorCodesModified,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     ...getAllErrorCodes().map((e) => ({
       url: `${baseUrl}/errors/${e.code}`,
-      lastModified: errorCodesModified,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
