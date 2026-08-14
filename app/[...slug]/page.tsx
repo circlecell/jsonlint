@@ -7,6 +7,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeShiki from '@shikijs/rehype';
 import rehypeStringify from 'rehype-stringify';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { ArticlePageClient } from './ArticlePageClient';
 import { DatasetPageClient } from './DatasetPageClient';
 
@@ -169,9 +170,10 @@ async function getMarkdownContent(slug: string[]) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
-  const data = await getMarkdownContent(params.slug);
+  const { slug } = await params;
+  const data = await getMarkdownContent(slug);
 
   if (!data) {
     return { title: 'Not Found' };
@@ -180,29 +182,20 @@ export async function generateMetadata({
   return {
     title: data.title,
     description: data.description,
+    alternates: { canonical: `/${slug.join('/')}` },
   };
 }
 
 export default async function MarkdownPage({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
-  const data = await getMarkdownContent(params.slug);
+  const { slug } = await params;
+  const data = await getMarkdownContent(slug);
 
   if (!data) {
-    return (
-      <div className="max-w-3xl mx-auto py-12 px-4">
-        <h1 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-          Page Not Found
-        </h1>
-        <p style={{ color: 'var(--text-secondary)' }}>
-          <a href="/" className="text-[var(--accent-blue)] hover:underline">
-            Go back to home
-          </a>
-        </p>
-      </div>
-    );
+    notFound();
   }
 
   const isDatasetPage = data.slug.startsWith('datasets/');

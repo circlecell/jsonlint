@@ -10,15 +10,16 @@ import {
 } from '@/lib/error-codes';
 
 interface PageProps {
-  params: { code: string };
+  params: Promise<{ code: string }>;
 }
 
 export function generateStaticParams() {
   return getAllErrorCodes().map((e) => ({ code: e.code }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const entry = getErrorCode(params.code);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { code } = await params;
+  const entry = getErrorCode(code);
   if (!entry) {
     return { title: 'Unknown JSON error code' };
   }
@@ -37,7 +38,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
       'json validator',
     ],
     openGraph: { title, description },
-    alternates: { canonical: `https://jsonlint.com/errors/${entry.code}` },
+    alternates: { canonical: `/errors/${entry.code}` },
   };
 }
 
@@ -66,8 +67,9 @@ function CodeBlock({
   );
 }
 
-export default function ErrorCodePage({ params }: PageProps) {
-  const entry: ErrorCodeEntry | null = getErrorCode(params.code);
+export default async function ErrorCodePage({ params }: PageProps) {
+  const { code } = await params;
+  const entry: ErrorCodeEntry | null = getErrorCode(code);
   if (!entry) notFound();
 
   const isError = entry.severity === 'error';
