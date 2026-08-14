@@ -20,6 +20,12 @@ export default function HomePage() {
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
 
+        <h1
+          className="text-2xl font-bold mb-1"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          JSON Validator and Formatter
+        </h1>
         <p
           className="text-sm mb-3"
           style={{ color: 'var(--text-muted)' }}

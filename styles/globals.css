@@ -355,6 +355,10 @@
     @apply font-mono text-sm px-1.5 py-0.5 rounded;
     background: var(--bg-tertiary);
     color: var(--accent-amber);
+    /* Long inline values (e.g. example URLs) must wrap instead of forcing
+       horizontal page scroll on narrow viewports. */
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   /* Code blocks - base styles */

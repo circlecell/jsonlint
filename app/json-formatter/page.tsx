@@ -34,8 +34,9 @@ export default function JsonFormatterPage() {
           className="text-sm mb-3"
           style={{ color: 'var(--text-muted)' }}
         >
-          Format, beautify, and validate JSON online — paste your JSON below and
-          it&apos;s formatted instantly.
+          Format, beautify, and validate JSON online. Paste your JSON below,
+          then click <strong style={{ color: 'var(--text-secondary)' }}>Prettify</strong>{' '}
+          (or press ⌘/Ctrl&nbsp;+&nbsp;Shift&nbsp;+&nbsp;F) to format it.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr,280px] gap-6">

@@ -9,6 +9,7 @@ interface ArticleLayoutProps {
   title: string;
   content: string;
   breadcrumbs: { label: string; href?: string }[];
+  url: string;
   readingTime: number;
   relatedArticles?: { title: string; href: string; description?: string }[];
 }
@@ -17,6 +18,7 @@ export function ArticleLayout({
   title,
   content,
   breadcrumbs,
+  url,
   readingTime,
   relatedArticles,
 }: ArticleLayoutProps) {
@@ -51,7 +53,7 @@ export function ArticleLayout({
                 </div>
                 
                 <div className="ml-auto">
-                  <ShareButtons title={title} />
+                  <ShareButtons title={title} url={url} />
                 </div>
               </div>
             </header>

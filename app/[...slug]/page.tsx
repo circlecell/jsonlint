@@ -122,9 +122,14 @@ async function getMarkdownContent(slug: string[]) {
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  
+
+  // Strip a leading Markdown H1 — the article layout already renders the
+  // title as the single <h1>, so a title heading in the body would create
+  // a duplicate H1 (bad for SEO/accessibility).
+  const bodyWithoutTitle = content.replace(/^\s*#\s+.*(?:\r?\n)+/, '');
+
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonlint.com';
-  const contentWithEnv = content.replace(/%%NEXT_PUBLIC_BASE_URL%%/g, baseUrl);
+  const contentWithEnv = bodyWithoutTitle.replace(/%%NEXT_PUBLIC_BASE_URL%%/g, baseUrl);
   
   // Process markdown with Shiki syntax highlighting
   const processedContent = await remark()
@@ -237,6 +242,7 @@ export default async function MarkdownPage({
         title={data.title}
         content={data.content}
         breadcrumbs={breadcrumbs}
+        url={`https://jsonlint.com/${data.slug}`}
         datasetPath={`/datasets/${datasetSlug}.json`}
         datasetName={datasetSlug}
         otherDatasets={otherDatasets}
@@ -249,6 +255,7 @@ export default async function MarkdownPage({
       title={data.title}
       content={data.content}
       breadcrumbs={breadcrumbs}
+      url={`https://jsonlint.com/${data.slug}`}
       readingTime={data.readingTime}
       relatedArticles={relatedArticles}
     />
