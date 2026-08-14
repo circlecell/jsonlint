@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ToolNav } from '@/components/ToolNav';
 import { JsonValidatorWrapper } from './JsonValidatorWrapper';
 import { SeoContent, ToolsSidebar } from '@/components/SeoContent';
 import { Container } from '@/components/Container';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (
@@ -15,6 +20,12 @@ export default function HomePage() {
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
 
+        <h1
+          className="text-2xl font-bold mb-1"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          JSON Validator and Formatter
+        </h1>
         <p
           className="text-sm mb-3"
           style={{ color: 'var(--text-muted)' }}

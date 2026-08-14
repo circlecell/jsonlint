@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToPhpConverter } from './JsonToPhpConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to PHP Converter - Generate PHP Classes Online | JSONLint',
+  title: 'JSON to PHP Converter - Generate PHP Classes Online',
   description:
     'Convert JSON to PHP classes with typed properties and constructor promotion. Generate PHP 8+ compatible code from JSON data.',
+  alternates: { canonical: '/json-to-php' },
 };
 
 export default function JsonToPhpPage() {

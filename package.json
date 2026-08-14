@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@jsonlint/core": "^0.1.0",
@@ -25,7 +25,7 @@
     "jsonpath-plus": "^10.3.0",
     "jsonrepair": "^3.13.1",
     "monaco-editor": "^0.55.1",
-    "next": "^14.1.0",
+    "next": "^15.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rehype-stringify": "^10.0.1",
@@ -44,13 +44,15 @@
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
-    "eslint-config-next": "^14.1.0",
-    "postcss": "^8.4.33",
+    "eslint-config-next": "^15.5.0",
+    "postcss": "^8.5.26",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   },
   "overrides": {
     "glob": "^10.5.0",
+    "sharp": "^0.35.0",
+    "postcss": "^8.5.26",
     "dompurify": "3.4.13",
     "fast-uri": "3.1.5",
     "nanoid": "3.3.18",

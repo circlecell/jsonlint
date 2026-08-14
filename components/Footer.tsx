@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { InstallCommand } from './InstallCommand';
 import { useLayout } from './LayoutProvider';
 
 const footerLinks = {
@@ -130,6 +131,56 @@ export function Footer() {
           <FooterSection title="Friends" links={footerLinks.friends} />
         </div>
 
+        {/* Open source engine */}
+        <div
+          className="mt-12 pt-8 border-t flex flex-col md:flex-row md:items-center gap-4 md:gap-6"
+          style={{ borderColor: 'var(--border-primary)' }}
+        >
+          <div className="min-w-0">
+            <h3
+              className="font-mono text-xs font-semibold uppercase tracking-wider mb-1"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              Open source
+            </h3>
+            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+              JSONLint&apos;s validator runs on{' '}
+              <a
+                href="https://github.com/toddynho/jsonlint-core"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[var(--accent-blue)] transition-colors"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                @jsonlint/core
+              </a>
+              {' '}— the same engine, free to use in your own projects.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 md:ml-auto">
+            <InstallCommand command="npm install @jsonlint/core" />
+            <a
+              href="https://github.com/toddynho/jsonlint-core"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm hover:text-[var(--accent-blue)] transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              GitHub ↗
+            </a>
+            <a
+              href="https://www.npmjs.com/package/@jsonlint/core"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm hover:text-[var(--accent-blue)] transition-colors"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              npm ↗
+            </a>
+          </div>
+        </div>
+
         {/* Bottom bar */}
         <div
           className="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4"
@@ -165,7 +216,7 @@ export function Footer() {
               Privacy
             </Link>
             <Link
-              href="/json-formatter"
+              href="/json-formatter/chrome-extension"
               className="hover:text-[var(--accent-blue)] transition-colors"
               style={{ color: 'var(--text-muted)' }}
             >

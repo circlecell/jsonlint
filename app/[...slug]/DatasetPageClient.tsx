@@ -10,6 +10,7 @@ interface DatasetPageClientProps {
   title: string;
   content: string;
   breadcrumbs: { label: string; href?: string }[];
+  url: string;
   datasetPath: string;
   datasetName: string;
   otherDatasets: { name: string; href: string }[];
@@ -19,6 +20,7 @@ export function DatasetPageClient({
   title,
   content,
   breadcrumbs,
+  url,
   datasetPath,
   datasetName,
   otherDatasets,
@@ -40,7 +42,7 @@ export function DatasetPageClient({
                 {title}
               </h1>
               <div className="flex-shrink-0 mt-1">
-                <ShareButtons title={title} />
+                <ShareButtons title={title} url={url} />
               </div>
             </div>
             

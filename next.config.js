@@ -6,6 +6,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   reactStrictMode: true,
 
+  // ESLint runs as a separate step (`npm run lint`); don't couple it to
+  // production builds. There is a backlog of pre-existing lint errors
+  // (unescaped entities, <a> vs <Link>) to clear separately.
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   // Tree-shake heavy libraries that re-export everything from a barrel file
   experimental: {
     optimizePackageImports: [

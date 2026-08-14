@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { ExcelToJsonConverter } from './ExcelToJsonConverter';
 
 export const metadata: Metadata = {
-  title: 'Excel to JSON Converter - Convert XLSX to JSON Online | JSONLint',
+  title: 'Excel to JSON Converter - Convert XLSX to JSON Online',
   description:
     'Convert Excel spreadsheets to JSON format online. Upload .xlsx, .xls, or .csv files or paste data directly. Free, private, browser-based conversion.',
+  alternates: { canonical: '/excel-to-json' },
 };
 
 export default function ExcelToJsonPage() {

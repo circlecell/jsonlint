@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonTreeViewer } from './JsonTreeViewer';
 
 export const metadata: Metadata = {
-  title: 'JSON Tree Viewer - Visualize JSON Structure Online | JSONLint',
+  title: 'JSON Tree Viewer - Visualize JSON Structure Online',
   description:
     'Visualize JSON data as an interactive tree structure. Expand/collapse nodes, explore nested objects, and understand complex JSON hierarchies.',
+  alternates: { canonical: '/json-tree' },
 };
 
 export default function JsonTreePage() {

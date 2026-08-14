@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonDiff } from './JsonDiff';
 
 export const metadata: Metadata = {
-  title: 'JSON Diff - Compare Two JSON Objects | JSONLint',
+  title: 'JSON Diff - Compare Two JSON Objects',
   description:
     'Compare two JSON documents and see exactly what changed. Highlights additions, deletions, and modifications with line-by-line diff view.',
+  alternates: { canonical: '/json-diff' },
 };
 
 export default function JsonDiffPage() {
@@ -19,6 +20,10 @@ export default function JsonDiffPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Diff
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste two JSON documents below to see exactly what's different:

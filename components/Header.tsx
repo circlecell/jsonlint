@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
 import { useValidation } from './ValidationContext';
 import { useLayout } from './LayoutProvider';
+import { GithubStar } from './GithubStar';
 
 const toolsMenu = [
   { href: '/', label: 'Validator', desc: 'Validate & format JSON' },
@@ -165,7 +166,7 @@ export function Header() {
             <div className="w-px h-5 mx-2" style={{ background: 'var(--border-primary)' }} />
 
             <Link
-              href="/json-formatter"
+              href="/json-formatter/chrome-extension"
               className="nav-link flex items-center gap-1.5 text-sm"
             >
               <ChromeIcon className="w-4 h-4" />
@@ -183,6 +184,9 @@ export function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            {/* Star the open-source engine */}
+            <GithubStar />
+
             {/* Width Toggle */}
             <button
               onClick={toggleWidth}
@@ -310,7 +314,7 @@ export function Header() {
                   Datasets
                 </Link>
                 <Link
-                  href="/json-formatter"
+                  href="/json-formatter/chrome-extension"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
                   style={{ color: 'var(--text-primary)' }}

@@ -5,7 +5,7 @@ import { getAllErrorCodes } from '@/lib/error-codes';
 
 function getAllMarkdownSlugs(dir: string, basePath: string = ''): string[] {
   if (!fs.existsSync(dir)) return [];
-  
+
   const slugs: string[] = [];
   const items = fs.readdirSync(dir);
 
@@ -22,6 +22,10 @@ function getAllMarkdownSlugs(dir: string, basePath: string = ''): string[] {
   return slugs;
 }
 
+// NOTE: `lastModified` is intentionally omitted. Filesystem mtimes are reset
+// on most deploys (fresh checkout), so stamping them would make every URL
+// look freshly modified after each deploy — a worse signal than none. If
+// real per-page dates become available (frontmatter or Git), add them here.
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://jsonlint.com';
 
@@ -32,11 +36,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/learn',
     '/datasets',
     '/tools',
+    '/pro',
     '/json-formatter',
+    '/json-formatter/chrome-extension',
     '/json-minify',
     '/json-diff',
+    '/json-repair',
+    '/json-search',
     '/json-schema',
     '/json-schema-generator',
+    '/json-error-analyzer',
+    '/json-size-analyzer',
+    '/json-token-counter',
     '/json-path',
     '/json-tree',
     '/json-sort',
@@ -68,11 +79,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/yaml-to-json',
     '/sql-to-json',
     '/excel-to-json',
+    '/jsonc-to-json',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPages.map((page) => ({
     url: `${baseUrl}${page}`,
-    lastModified: new Date(),
     changeFrequency: page === '' ? 'daily' : 'weekly',
     priority: page === '' ? 1 : page.includes('json-to-') ? 0.8 : 0.9,
   }));
@@ -84,7 +95,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((slug) => slug !== 'privacy')
     .map((slug) => ({
       url: `${baseUrl}/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
@@ -94,7 +104,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const datasetSlugs = getAllMarkdownSlugs(datasetsDir);
   const datasetEntries: MetadataRoute.Sitemap = datasetSlugs.map((slug) => ({
     url: `${baseUrl}/datasets/${slug}`,
-    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
@@ -103,13 +112,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const errorEntries: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/errors`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     ...getAllErrorCodes().map((e) => ({
       url: `${baseUrl}/errors/${e.code}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),

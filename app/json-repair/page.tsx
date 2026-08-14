@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { JsonRepairer } from './JsonRepairer';
 
 export const metadata: Metadata = {
-  title: 'JSON Repair - Fix Broken JSON Online | JSONLint',
+  title: 'JSON Repair - Fix Broken JSON Online',
   description:
     'Automatically repair broken JSON. Fix trailing commas, single quotes, unquoted keys, missing brackets, and malformed LLM outputs. Free online tool.',
   keywords: [
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     title: 'JSON Repair - Fix Broken JSON Online',
     description: 'Automatically repair broken JSON with intelligent fixes for common issues.',
   },
+  alternates: { canonical: '/json-repair' },
 };
 
 export default function JsonRepairPage() {

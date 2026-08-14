@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonSchemaGenerator } from './JsonSchemaGenerator';
 
 export const metadata: Metadata = {
-  title: 'JSON Schema Generator - Create Schema from JSON Online | JSONLint',
+  title: 'JSON Schema Generator - Create Schema from JSON Online',
   description:
     'Generate JSON Schema from sample JSON data. Auto-detect formats (email, date, URI), set required fields, and export valid JSON Schema draft 2020-12.',
+  alternates: { canonical: '/json-schema-generator' },
 };
 
 export default function JsonSchemaGeneratorPage() {

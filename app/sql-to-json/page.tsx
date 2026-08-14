@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { SqlToJsonConverter } from './SqlToJsonConverter';
 
 export const metadata: Metadata = {
-  title: 'SQL to JSON Converter - Convert INSERT Statements to JSON | JSONLint',
+  title: 'SQL to JSON Converter - Convert INSERT Statements to JSON',
   description:
     'Convert SQL INSERT statements to JSON format. Extract data from SQL dumps and transform to JSON arrays for APIs and applications.',
+  alternates: { canonical: '/sql-to-json' },
 };
 
 export default function SqlToJsonPage() {

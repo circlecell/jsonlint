@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToPythonConverter } from './JsonToPythonConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Python Converter - Generate Dataclasses Online | JSONLint',
+  title: 'JSON to Python Converter - Generate Dataclasses Online',
   description:
     'Convert JSON to Python dataclasses, Pydantic models, or TypedDict. Generate type-annotated Python code with snake_case conversion.',
+  alternates: { canonical: '/json-to-python' },
 };
 
 export default function JsonToPythonPage() {

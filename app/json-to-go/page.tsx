@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToGoConverter } from './JsonToGoConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Go Converter - Generate Structs Online | JSONLint',
+  title: 'JSON to Go Converter - Generate Structs Online',
   description:
     'Convert JSON to Go structs instantly. Generate type-safe Go code with json tags, omitempty support, and proper type inference.',
+  alternates: { canonical: '/json-to-go' },
 };
 
 export default function JsonToGoPage() {

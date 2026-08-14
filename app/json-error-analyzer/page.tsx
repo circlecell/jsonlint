@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { ErrorAnalyzer } from './ErrorAnalyzer';
 
 export const metadata: Metadata = {
-  title: 'JSON Error Analyzer - Understand & Fix JSON Errors | JSONLint',
+  title: 'JSON Error Analyzer - Understand & Fix JSON Errors',
   description:
     'Get detailed explanations for JSON syntax errors. Understand exactly what went wrong and how to fix it with helpful suggestions and auto-fix options.',
   keywords: [
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     title: 'JSON Error Analyzer - Understand & Fix Errors',
     description: 'Get detailed, helpful explanations for JSON syntax errors.',
   },
+  alternates: { canonical: '/json-error-analyzer' },
 };
 
 export default function JsonErrorAnalyzerPage() {

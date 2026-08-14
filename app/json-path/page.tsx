@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonPathQuery } from './JsonPathQuery';
 
 export const metadata: Metadata = {
-  title: 'JSON Path Query - Extract Data from JSON | JSONLint',
+  title: 'JSON Path Query - Extract Data from JSON',
   description:
     'Query and extract data from JSON using JSONPath expressions. Filter arrays, navigate nested objects, and find values anywhere in your JSON.',
+  alternates: { canonical: '/json-path' },
 };
 
 export default function JsonPathPage() {
@@ -19,6 +20,10 @@ export default function JsonPathPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSONPath Evaluator
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Enter a JSONPath expression to extract matching values from your JSON:

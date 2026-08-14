@@ -3,13 +3,14 @@ import Link from 'next/link';
 import { Container } from '@/components/Container';
 
 export const metadata: Metadata = {
-  title: 'All JSON Tools - Validators, Converters, Formatters | JSONLint',
+  title: 'All JSON Tools - Validators, Converters, Formatters',
   description:
     'Complete collection of free JSON tools: validate, format, convert, compare, and transform JSON data. 30+ tools for developers.',
   openGraph: {
-    title: 'All JSON Tools | JSONLint',
+    title: 'All JSON Tools',
     description: 'Complete collection of free JSON tools for developers.',
   },
+  alternates: { canonical: '/tools' },
 };
 
 const toolCategories = [

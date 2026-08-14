@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonFlattener } from './JsonFlattener';
 
 export const metadata: Metadata = {
-  title: 'JSON Flatten - Flatten Nested JSON Online | JSONLint',
+  title: 'JSON Flatten - Flatten Nested JSON Online',
   description:
     'Flatten nested JSON objects into single-level key-value pairs. Unflatten back to nested structure. Free online tool.',
+  alternates: { canonical: '/json-flatten' },
 };
 
 export default function JsonFlattenPage() {
@@ -18,6 +19,10 @@ export default function JsonFlattenPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Flattener
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Flatten nested JSON to a single level, or unflatten back to nested structure:

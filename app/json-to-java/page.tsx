@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonToJavaConverter } from './JsonToJavaConverter';
 
 export const metadata: Metadata = {
-  title: 'JSON to Java Converter - Generate POJO Classes Online | JSONLint',
+  title: 'JSON to Java Converter - Generate POJO Classes Online',
   description:
     'Convert JSON to Java classes instantly. Generate POJOs with Lombok, Jackson, or Gson annotations. Supports Java 16+ records.',
+  alternates: { canonical: '/json-to-java' },
 };
 
 export default function JsonToJavaPage() {

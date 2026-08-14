@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { JsonMinifier } from './JsonMinifier';
 
 export const metadata: Metadata = {
-  title: 'JSON Minify - Compress JSON Online | JSONLint',
+  title: 'JSON Minify - Compress JSON Online',
   description:
     'Minify and compress JSON by removing whitespace. Reduce file size for faster transfers and smaller payloads. Free online tool.',
+  alternates: { canonical: '/json-minify' },
 };
 
 export default function JsonMinifyPage() {
@@ -18,6 +19,10 @@ export default function JsonMinifyPage() {
         <div className="mb-4 flex justify-center">
           <div id="bsa-zone_1570746984891-3_123456"></div>
         </div>
+
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+          JSON Minifier
+        </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
           Paste your JSON below to minify it by removing all whitespace:

@@ -2,9 +2,10 @@ import { Metadata } from 'next';
 import { ToolNav } from '@/components/ToolNav';
 
 export const metadata: Metadata = {
-  title: 'About JSONLint - Todd Garland | JSONLint',
+  title: 'About JSONLint - Todd Garland',
   description:
     'Learn about JSONLint and its creator Todd Garland, founder of BuySellAds and Carbon Ads. Building developer tools since 2010.',
+  alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {

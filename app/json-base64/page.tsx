@@ -4,9 +4,10 @@ import { Container } from '@/components/Container';
 import { Base64Converter } from './Base64Converter';
 
 export const metadata: Metadata = {
-  title: 'JSON Base64 Encode/Decode - Convert JSON to Base64 | JSONLint',
+  title: 'JSON Base64 Encode/Decode - Convert JSON to Base64',
   description:
     'Encode JSON to Base64 or decode Base64 back to JSON. Free online Base64 converter with validation.',
+  alternates: { canonical: '/json-base64' },
 };
 
 export default function JsonBase64Page() {

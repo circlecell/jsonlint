@@ -7,6 +7,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeShiki from '@shikijs/rehype';
 import rehypeStringify from 'rehype-stringify';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { ArticlePageClient } from './ArticlePageClient';
 import { DatasetPageClient } from './DatasetPageClient';
 
@@ -121,9 +122,14 @@ async function getMarkdownContent(slug: string[]) {
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  
+
+  // Strip a leading Markdown H1 — the article layout already renders the
+  // title as the single <h1>, so a title heading in the body would create
+  // a duplicate H1 (bad for SEO/accessibility).
+  const bodyWithoutTitle = content.replace(/^\s*#\s+.*(?:\r?\n)+/, '');
+
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonlint.com';
-  const contentWithEnv = content.replace(/%%NEXT_PUBLIC_BASE_URL%%/g, baseUrl);
+  const contentWithEnv = bodyWithoutTitle.replace(/%%NEXT_PUBLIC_BASE_URL%%/g, baseUrl);
   
   // Process markdown with Shiki syntax highlighting
   const processedContent = await remark()
@@ -169,9 +175,10 @@ async function getMarkdownContent(slug: string[]) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }): Promise<Metadata> {
-  const data = await getMarkdownContent(params.slug);
+  const { slug } = await params;
+  const data = await getMarkdownContent(slug);
 
   if (!data) {
     return { title: 'Not Found' };
@@ -180,29 +187,20 @@ export async function generateMetadata({
   return {
     title: data.title,
     description: data.description,
+    alternates: { canonical: `/${slug.join('/')}` },
   };
 }
 
 export default async function MarkdownPage({
   params,
 }: {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 }) {
-  const data = await getMarkdownContent(params.slug);
+  const { slug } = await params;
+  const data = await getMarkdownContent(slug);
 
   if (!data) {
-    return (
-      <div className="max-w-3xl mx-auto py-12 px-4">
-        <h1 className="text-2xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-          Page Not Found
-        </h1>
-        <p style={{ color: 'var(--text-secondary)' }}>
-          <a href="/" className="text-[var(--accent-blue)] hover:underline">
-            Go back to home
-          </a>
-        </p>
-      </div>
-    );
+    notFound();
   }
 
   const isDatasetPage = data.slug.startsWith('datasets/');
@@ -244,6 +242,7 @@ export default async function MarkdownPage({
         title={data.title}
         content={data.content}
         breadcrumbs={breadcrumbs}
+        url={`https://jsonlint.com/${data.slug}`}
         datasetPath={`/datasets/${datasetSlug}.json`}
         datasetName={datasetSlug}
         otherDatasets={otherDatasets}
@@ -256,6 +255,7 @@ export default async function MarkdownPage({
       title={data.title}
       content={data.content}
       breadcrumbs={breadcrumbs}
+      url={`https://jsonlint.com/${data.slug}`}
       readingTime={data.readingTime}
       relatedArticles={relatedArticles}
     />
