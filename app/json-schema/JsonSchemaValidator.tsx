@@ -4,6 +4,23 @@ import { useState } from 'react';
 import { JsonEditor } from '@/components/JsonEditor';
 import { parseJSON } from '@/lib/json-utils';
 import Ajv, { ErrorObject } from 'ajv';
+import Ajv2019 from 'ajv/dist/2019';
+import Ajv2020 from 'ajv/dist/2020';
+
+// Ajv's default build only registers the draft-07 meta-schema, so schemas
+// declaring a newer `$schema` (2019-09 / 2020-12) fail to compile. Pick the
+// matching Ajv build from the schema's declared draft. See issue #13.
+function createAjvForSchema(schema: unknown): Ajv {
+  const draft =
+    schema && typeof schema === 'object' && '$schema' in schema &&
+    typeof (schema as { $schema?: unknown }).$schema === 'string'
+      ? (schema as { $schema: string }).$schema
+      : '';
+  const options = { allErrors: true };
+  if (draft.includes('2020-12')) return new Ajv2020(options);
+  if (draft.includes('2019-09')) return new Ajv2019(options);
+  return new Ajv(options); // draft-07 / draft-06 / unspecified
+}
 
 const exampleSchema = `{
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -49,7 +66,7 @@ export function JsonSchemaValidator() {
     }
 
     try {
-      const ajv = new Ajv({ allErrors: true });
+      const ajv = createAjvForSchema(schemaResult.data);
       const validate = ajv.compile(schemaResult.data as object);
       const valid = validate(dataResult.data);
 
