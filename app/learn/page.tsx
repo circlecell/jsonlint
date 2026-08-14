@@ -38,7 +38,40 @@ interface Article {
   slug: string;
   title: string;
   description: string;
-  category: 'getting-started' | 'advanced';
+  category: ArticleCategory;
+  featured: boolean;
+  priority: number;
+  updated?: string;
+}
+
+type ArticleCategory = 'foundations' | 'errors' | 'languages' | 'comparisons';
+
+const categoryConfig: Array<{
+  id: ArticleCategory;
+  title: string;
+  color: string;
+}> = [
+  { id: 'foundations', title: 'JSON Foundations', color: 'var(--accent-green)' },
+  { id: 'errors', title: 'Errors & Debugging', color: 'var(--accent-amber)' },
+  { id: 'languages', title: 'Languages & APIs', color: 'var(--accent-purple)' },
+  { id: 'comparisons', title: 'Formats & Comparisons', color: 'var(--accent-blue)' },
+];
+
+function isArticleCategory(value: unknown): value is ArticleCategory {
+  return categoryConfig.some((category) => category.id === value);
+}
+
+function formatUpdatedDate(value: string): string {
+  const date = new Date(`${value}T00:00:00Z`);
+
+  if (Number.isNaN(date.getTime())) return value;
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
 }
 
 function getArticles(): Article[] {
@@ -55,25 +88,20 @@ function getArticles(): Article[] {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
     
-    let category: Article['category'] = 'getting-started';
-    if (
-      slug.includes('schema') ||
-      slug.includes('javascript') ||
-      slug.includes('advanced') ||
-      slug.includes('beautifier')
-    ) {
-      category = 'advanced';
-    }
+    const category = isArticleCategory(data.category) ? data.category : 'foundations';
     
     articles.push({
       slug,
       title: data.title || slug,
       description: data.description || '',
       category,
+      featured: data.featured === true,
+      priority: typeof data.priority === 'number' ? data.priority : 100,
+      updated: typeof data.updated === 'string' ? data.updated : undefined,
     });
   });
 
-  return articles;
+  return articles.sort((a, b) => a.priority - b.priority || a.title.localeCompare(b.title));
 }
 
 export default async function LearnPage() {
@@ -89,11 +117,13 @@ export default async function LearnPage() {
     }
   }
   
-  const gettingStarted = articles.filter((a) => a.category === 'getting-started');
-  const advanced = articles.filter((a) => a.category === 'advanced');
-  
-  // Pick a featured article
-  const featured = articles.find((a) => a.slug === 'mastering-json-format') || articles[0];
+  const featured = articles.find((article) => article.featured) || articles[0];
+  const articleSections = categoryConfig.map((category) => ({
+    ...category,
+    articles: articles.filter(
+      (article) => article.category === category.id && article.slug !== featured?.slug
+    ),
+  }));
 
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
@@ -157,43 +187,26 @@ export default async function LearnPage() {
           </section>
         )}
 
-        {/* Article Grid */}
+        {/* Article clusters */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Getting Started */}
-          <section>
-            <div className="flex items-center gap-2 mb-4">
-              <BookIcon className="w-5 h-5" style={{ color: 'var(--accent-green)' }} />
-              <h2
-                className="text-xl font-semibold"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                Getting Started
-              </h2>
-            </div>
-            <div className="space-y-3">
-              {gettingStarted.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </section>
-
-          {/* Advanced */}
-          <section>
-            <div className="flex items-center gap-2 mb-4">
-              <CodeIcon className="w-5 h-5" style={{ color: 'var(--accent-purple)' }} />
-              <h2
-                className="text-xl font-semibold"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                Advanced Topics
-              </h2>
-            </div>
-            <div className="space-y-3">
-              {advanced.map((article) => (
-                <ArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-          </section>
+          {articleSections.map((section) => (
+            <section key={section.id}>
+              <div className="flex items-center gap-2 mb-4">
+                <BookIcon className="w-5 h-5" style={{ color: section.color }} />
+                <h2
+                  className="text-xl font-semibold"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {section.title}
+                </h2>
+              </div>
+              <div className="space-y-3">
+                {section.articles.map((article) => (
+                  <ArticleCard key={article.slug} article={article} />
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
 
         {/* Datasets Section Preview */}
@@ -292,6 +305,15 @@ function ArticleCard({ article }: { article: Article }) {
         >
           {article.description}
         </p>
+        {article.updated && (
+          <time
+            className="mt-2 block text-xs"
+            style={{ color: 'var(--text-muted)' }}
+            dateTime={article.updated}
+          >
+            Updated {formatUpdatedDate(article.updated)}
+          </time>
+        )}
       </div>
     </Link>
   );
@@ -302,15 +324,6 @@ function BookIcon({ className, style }: { className?: string; style?: React.CSSP
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-    </svg>
-  );
-}
-
-function CodeIcon({ className, style }: { className?: string; style?: React.CSSProperties }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
     </svg>
   );
 }

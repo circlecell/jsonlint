@@ -36,6 +36,21 @@ const nextConfig = {
         destination: '/images/logo.png',
         permanent: true,
       },
+      {
+        source: '/benefits-of-using-a-json-beautifier',
+        destination: '/json-formatter',
+        permanent: true,
+      },
+      {
+        source: '/common-mistakes-in-json-and-how-to-avoid-them',
+        destination: '/json-parse-error',
+        permanent: true,
+      },
+      {
+        source: '/json-syntax-error',
+        destination: '/json-parse-error',
+        permanent: true,
+      },
     ];
   },
 };

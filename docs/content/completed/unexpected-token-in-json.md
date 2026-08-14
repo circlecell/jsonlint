@@ -1,362 +1,222 @@
 ---
-title: "Unexpected Token in JSON: How to Fix This Error"
-description: "Fix the 'Unexpected token' JSON error with this guide. Learn what causes it and how to resolve it in JavaScript, Python, and other languages."
-date: "2024-01-15"
+title: "Unexpected Token in JSON: Fix `<`, `u`, BOM, and Other Errors"
+description: "Diagnose unexpected-token JSON errors by the reported character, including HTML responses, undefined values, smart quotes, BOMs, and invalid syntax."
+category: errors
+priority: 20
+updated: "2026-08-14"
 ---
 
-The **"Unexpected token" error** is one of the most common JSON parsing errors. It means the parser encountered a character it wasn't expecting at a specific position. This guide explains what causes it and how to fix it quickly.
+An “unexpected token” error means a parser found a character or word that cannot appear at that location in JSON. The reported token is the best diagnostic clue: `<` usually means HTML, `u` often means `undefined`, and a quote or letter later in the document usually points to invalid syntax.
 
-## What Does "Unexpected Token" Mean?
+Paste the exact input into the [JSON Validator](/) to get a line, column, and error explanation.
 
-When you see an error like:
+## Unexpected Token `<` in JSON
 
+If the first character is `<`, the response is probably HTML:
+
+```text
+SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
 ```
-SyntaxError: Unexpected token < in JSON at position 0
-```
 
-It's telling you three things:
-1. **Unexpected token** — The parser found a character that doesn't belong
-2. **`<`** — The specific character that caused the problem
-3. **at position 0** — Where in the string it occurred (0 = the very first character)
+Common causes include:
 
-The most important clue is **which token** was unexpected. Different tokens indicate different problems.
+- A server returned a 404 or 500 HTML page.
+- Authentication redirected the request to a login page.
+- The API URL points to the web application instead of its API route.
+- A proxy or CDN returned an HTML error document.
 
-## Common Causes by Token
-
-### Unexpected Token `<` (Most Common)
-
-**Cause:** You're receiving HTML instead of JSON. This typically happens when:
-- An API returns an error page instead of JSON
-- You're hitting the wrong URL
-- The server is down and returning a default error page
-- Authentication failed and you got a login page
+Inspect the response before parsing:
 
 ```javascript
-// You expected JSON but got HTML
-fetch('/api/data')
-  .then(r => r.json())  // Fails: response is "<html>..."
+const response = await fetch('/api/profile');
+const contentType = response.headers.get('content-type') || '';
+const text = await response.text();
+
+if (!response.ok) {
+  throw new Error(`HTTP ${response.status}: ${text.slice(0, 100)}`);
+}
+
+if (!contentType.includes('application/json')) {
+  throw new Error(`Expected JSON, received ${contentType}`);
+}
+
+const profile = JSON.parse(text);
 ```
 
-**How to debug:**
+Do not include a complete untrusted response in logs; it may contain private data.
+
+## Unexpected Token `u`: Parsing `undefined`
+
+This commonly happens when a missing value reaches `JSON.parse()`:
 
 ```javascript
-fetch('/api/data')
-  .then(response => {
-    // Check content type
-    const contentType = response.headers.get('content-type');
-    console.log('Content-Type:', contentType);
-    
-    // Look at raw response
-    return response.text();
-  })
-  .then(text => {
-    console.log('Raw response:', text.substring(0, 200));
-    
-    // Now try to parse
-    return JSON.parse(text);
-  });
+const value = undefined;
+JSON.parse(value); // attempts to parse "undefined"
 ```
 
-**Fix:** Check that:
-- The URL is correct
-- The server is returning JSON (Content-Type: application/json)
-- You're authenticated if required
-- The API endpoint exists
-
-### Unexpected Token `u`
-
-**Cause:** Trying to parse the string `"undefined"`:
+Trace why the value is missing rather than replacing every failure with an empty object:
 
 ```javascript
-let data;
-JSON.parse(data);  // Error: data is undefined
-// Parser sees: undefined → starts with 'u' → unexpected
-```
-
-**Fix:** Check for undefined before parsing:
-
-```javascript
-function safeParse(data) {
-  if (data === undefined || data === null) {
-    console.error('No data to parse');
-    return null;
+function parseRequiredJson(value) {
+  if (typeof value !== 'string') {
+    throw new TypeError('Expected a JSON string');
   }
-  return JSON.parse(data);
+
+  return JSON.parse(value);
 }
 ```
 
-### Unexpected Token `'` (Single Quote)
+## “Unexpected Token o” or `[object Object]`
 
-**Cause:** JSON requires double quotes, not single quotes:
+Older JavaScript engines often reported token `o` when code tried to parse an object that had already been parsed:
+
+```javascript
+const data = { active: true };
+JSON.parse(data); // data is already an object
+```
+
+`JSON.parse()` accepts JSON text. If the value is already an object, use it directly. Use `JSON.stringify()` when converting an object *to* JSON text.
+
+## Unexpected Token at Position 0
+
+Position `0` is the first character. Inspect it before looking for a missing comma later in the file:
+
+```javascript
+console.log(typeof input);
+console.log(String(input).slice(0, 80));
+```
+
+Common first-character problems include HTML `<`, `undefined`, a byte-order mark, a single quote, or a server log prefix before the JSON.
+
+## Byte-Order Mark (BOM) Errors
+
+UTF-8 JSON exchanged between systems should not begin with a BOM. Some files nevertheless include one, which may appear as an invisible unexpected character.
+
+Remove it only at the beginning of trusted text:
+
+```javascript
+const withoutBom = text.replace(/^\uFEFF/, '');
+const data = JSON.parse(withoutBom);
+```
+
+It is better to correct the producer so future files are emitted as UTF-8 without a BOM.
+
+## Unexpected Quotes, Letters, or Punctuation
+
+### Single Quotes
+
+```javascript
+{'name': 'Ada'}
+```
+
+Valid JSON:
 
 ```json
-{'name': 'Alice'}  // Wrong: single quotes
+{"name":"Ada"}
 ```
 
-**Fix:** Replace single quotes with double quotes:
+### Unquoted Property Names
+
+```javascript
+{name: "Ada"}
+```
+
+Valid JSON:
 
 ```json
-{"name": "Alice"}
+{"name":"Ada"}
 ```
 
-If you're receiving data with single quotes, you may need to transform it:
+### Smart Quotes
+
+Text copied from rich-text software may contain `“` and `”` instead of ASCII double quotes:
+
+```text
+{“name”: “Ada”}
+```
+
+Replace smart punctuation at the source. A global replacement can damage legitimate prose inside string values, so review the result.
+
+### Comments or Trailing Commas
+
+JavaScript allows syntax that JSON does not:
 
 ```javascript
-// Risky but sometimes necessary for malformed data
-const fixed = badJson.replace(/'/g, '"');
-const data = JSON.parse(fixed);
-```
-
-### Unexpected Token `}` or `]`
-
-**Cause:** Extra closing bracket or trailing comma:
-
-```json
-{"name": "Alice",}   // Trailing comma before }
-["a", "b", "c",]     // Trailing comma before ]
-{"data": {}}}}       // Extra closing braces
-```
-
-**Fix:** Remove trailing commas and check bracket matching. Use the [JSON Validator](/) to find the exact location.
-
-### Unexpected Token at Position 0
-
-When the error is at position 0, the entire response is wrong:
-
-```
-SyntaxError: Unexpected token X in JSON at position 0
-```
-
-Common causes:
-- **Empty response** — Server returned nothing
-- **BOM character** — Invisible bytes at start of file
-- **HTML/XML response** — Wrong content type
-- **Plain text error** — Server returned "Error" or "Not found"
-
-**Debug with:**
-
-```javascript
-fetch('/api/data')
-  .then(r => r.text())
-  .then(text => {
-    console.log('Length:', text.length);
-    console.log('First 10 chars:', JSON.stringify(text.substring(0, 10)));
-    console.log('Char codes:', [...text.substring(0, 5)].map(c => c.charCodeAt(0)));
-  });
-```
-
-## Fixing BOM Characters
-
-A Byte Order Mark (BOM) is an invisible character at the start of some files. It looks like this in hex: `EF BB BF` (UTF-8 BOM).
-
-**Symptoms:**
-- JSON looks correct but won't parse
-- Error at position 0
-- File works in some editors but not others
-
-**Fix in JavaScript:**
-
-```javascript
-function stripBOM(text) {
-  // Remove UTF-8 BOM if present
-  if (text.charCodeAt(0) === 0xFEFF) {
-    return text.slice(1);
-  }
-  return text;
-}
-
-const cleanJson = stripBOM(rawText);
-const data = JSON.parse(cleanJson);
-```
-
-**Fix in Python:**
-
-```python
-import codecs
-
-# Method 1: Use utf-8-sig encoding
-with open('data.json', 'r', encoding='utf-8-sig') as f:
-    data = json.load(f)
-
-# Method 2: Strip manually
-text = raw_text.lstrip('\ufeff')
-data = json.loads(text)
-```
-
-## Language-Specific Solutions
-
-### JavaScript
-
-```javascript
-async function fetchJSON(url) {
-  const response = await fetch(url);
-  
-  // Check if response is OK
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-  
-  // Check content type
-  const contentType = response.headers.get('content-type');
-  if (!contentType?.includes('application/json')) {
-    const text = await response.text();
-    throw new Error(`Expected JSON but got ${contentType}: ${text.substring(0, 100)}`);
-  }
-  
-  return response.json();
+{
+  // Invalid in standard JSON
+  "name": "Ada",
 }
 ```
 
-### Python
+Use [JSONC to JSON](/jsonc-to-json) for commented configuration and remove trailing commas for strict JSON.
 
-```python
-import requests
-import json
+## Unexpected Token After Valid JSON
 
-def fetch_json(url):
-    response = requests.get(url)
-    
-    # Check content type
-    content_type = response.headers.get('Content-Type', '')
-    if 'application/json' not in content_type:
-        raise ValueError(f"Expected JSON, got {content_type}: {response.text[:100]}")
-    
-    try:
-        return response.json()
-    except json.JSONDecodeError as e:
-        print(f"Failed to parse: {response.text[:200]}")
-        raise
+Two JSON documents concatenated together are not one valid JSON document:
+
+```text
+{"id":1}{"id":2}
 ```
 
-### Node.js with Axios
+Use a JSON array when the records belong to one document:
+
+```json
+[
+  {"id":1},
+  {"id":2}
+]
+```
+
+Use [JSON Lines](/json-lines) when records are streamed or processed one line at a time.
+
+## A Safe Parse Helper
+
+Use structured results when invalid input is an expected user error:
 
 ```javascript
-const axios = require('axios');
+function tryParseJson(input) {
+  if (typeof input !== 'string' || input.trim() === '') {
+    return { ok: false, error: 'Input is empty or not a string' };
+  }
 
-async function fetchJSON(url) {
   try {
-    const response = await axios.get(url, {
-      headers: { 'Accept': 'application/json' },
-      transformResponse: [(data) => {
-        // Log raw response for debugging
-        if (typeof data === 'string' && data.startsWith('<')) {
-          console.error('Received HTML instead of JSON');
-          throw new Error('Server returned HTML');
-        }
-        return JSON.parse(data);
-      }]
-    });
-    return response.data;
+    return { ok: true, value: JSON.parse(input) };
   } catch (error) {
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-    }
-    throw error;
+    return { ok: false, error: error.message };
   }
 }
 ```
+
+Do not silently return `{}` for every failure. That hides broken requests and makes missing data look valid.
 
 ## Debugging Checklist
 
-When you get an unexpected token error, check these in order:
+1. Check the input’s type.
+2. Inspect its first 80 characters.
+3. Check HTTP status and content type.
+4. Confirm it is not empty or already parsed.
+5. Validate the exact text.
+6. Inspect the character before the reported position.
+7. Check for comments, trailing commas, smart quotes, and a BOM.
+8. Fix the producer when possible.
 
-### 1. Is the response actually JSON?
-```javascript
-console.log('Raw:', await response.text());
-```
+## Frequently Asked Questions
 
-### 2. What's the Content-Type header?
-```javascript
-console.log('Type:', response.headers.get('content-type'));
-```
+### Why did the message change to “is not valid JSON”?
 
-### 3. Is the response empty?
-```javascript
-const text = await response.text();
-console.log('Length:', text.length);
-console.log('Empty?', text.trim() === '');
-```
+JavaScript engines can use different wording across versions. The reported token and position still point to the same class of syntax or input-type problem.
 
-### 4. Are there hidden characters?
-```javascript
-console.log('Char codes:', [...text.slice(0, 10)].map(c => c.charCodeAt(0)));
-// BOM would show: [65279, ...] or [239, 187, 191, ...]
-```
+### Is an unexpected token always malformed JSON?
 
-### 5. Is the URL correct?
-```javascript
-console.log('URL:', response.url);  // Check for redirects
-console.log('Status:', response.status);
-```
+The parser’s input is not valid JSON, but the root cause may be outside the document—for example an HTML error response or an undefined program variable.
 
-## Common Scenarios
+### What if the input ends before the token appears?
 
-### API Returns Login Page
+See [Unexpected End of JSON Input](/fix-unexpected-end-of-json-input), which covers empty and truncated data.
 
-```javascript
-// Problem: Not authenticated, API returns HTML login page
-fetch('/api/private-data')
-  .then(r => r.json())  // Error: Unexpected token <
+## Related Guides
 
-// Solution: Check authentication first
-fetch('/api/private-data', {
-  headers: { 'Authorization': `Bearer ${token}` }
-})
-```
-
-### CORS Proxy Issues
-
-```javascript
-// Problem: CORS proxy returns error as text
-fetch('https://cors-proxy.example.com/api')
-  .then(r => r.json())  // Error: Unexpected token
-
-// Solution: Check proxy response
-fetch('https://cors-proxy.example.com/api')
-  .then(r => r.text())
-  .then(text => {
-    if (text.includes('error') || text.startsWith('<')) {
-      console.error('Proxy error:', text);
-      return null;
-    }
-    return JSON.parse(text);
-  });
-```
-
-### Local File with BOM
-
-```javascript
-// Problem: JSON file saved with BOM from Windows editor
-const fs = require('fs');
-const text = fs.readFileSync('data.json', 'utf8');
-JSON.parse(text);  // Error: Unexpected token
-
-// Solution: Strip BOM
-const cleanText = text.replace(/^\uFEFF/, '');
-JSON.parse(cleanText);
-```
-
-## Prevention Tips
-
-1. **Always check response status** before parsing
-2. **Verify Content-Type header** is application/json
-3. **Log raw responses** during development
-4. **Use try-catch** around all JSON.parse calls
-5. **Validate JSON** with the [JSON Validator](/) before using in code
-6. **Save files without BOM** — Use UTF-8 encoding, not UTF-8 with BOM
-
-## Related Tools & Resources
-
-### Tools
-
-- [JSON Validator](/) — Validate and find errors in JSON
-- [JSON Unescape](/json-unescape) — Fix escape sequence issues
-- [JSON Stringify](/json-stringify) — Properly format strings as JSON
-
-### Learn More
-
-- [JSON Syntax Error Guide](/json-syntax-error) — All syntax error types
-- [JSON Parse Error Guide](/json-parse-error) — Comprehensive parsing errors
-- [Fix Unexpected End of JSON](/fix-unexpected-end-of-json-input) — Incomplete JSON errors
-- [JSON Comments Guide](/json-comments) — Why comments cause errors
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid common pitfalls
+- [JSON Parse Errors](/json-parse-error)
+- [Unexpected End of JSON Input](/fix-unexpected-end-of-json-input)
+- [Comments in JSON](/json-comments)
+- [MDN: JSON.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)

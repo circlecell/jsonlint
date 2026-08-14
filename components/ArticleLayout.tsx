@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Breadcrumbs } from './Breadcrumbs';
 import { TableOfContents } from './TableOfContents';
 import { ShareButtons } from './ShareButtons';
@@ -11,6 +12,7 @@ interface ArticleLayoutProps {
   breadcrumbs: { label: string; href?: string }[];
   url: string;
   readingTime: number;
+  updated?: string;
   relatedArticles?: { title: string; href: string; description?: string }[];
 }
 
@@ -20,9 +22,19 @@ export function ArticleLayout({
   breadcrumbs,
   url,
   readingTime,
+  updated,
   relatedArticles,
 }: ArticleLayoutProps) {
   const { width } = useLayout();
+  const updatedDate = updated ? new Date(`${updated}T00:00:00Z`) : null;
+  const updatedLabel = updatedDate && !Number.isNaN(updatedDate.getTime())
+    ? new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC',
+      }).format(updatedDate)
+    : updated;
 
   return (
     <div style={{ background: 'var(--bg-primary)' }}>
@@ -46,10 +58,16 @@ export function ArticleLayout({
                   <ClockIcon className="w-4 h-4" />
                   <span>{readingTime} min read</span>
                 </div>
+
+                {updated && (
+                  <time className="text-sm" style={{ color: 'var(--text-muted)' }} dateTime={updated}>
+                    Updated {updatedLabel}
+                  </time>
+                )}
                 
                 <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-muted)' }}>
                   <UserIcon className="w-4 h-4" />
-                  <a href="/about" className="hover:text-[var(--accent-blue)] transition-colors">Todd Garland</a>
+                  <Link href="/about" className="hover:text-[var(--accent-blue)] transition-colors">Todd Garland</Link>
                 </div>
                 
                 <div className="ml-auto">

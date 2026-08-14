@@ -8,6 +8,7 @@ interface ArticlePageClientProps {
   breadcrumbs: { label: string; href?: string }[];
   url: string;
   readingTime: number;
+  updated?: string;
   relatedArticles: { title: string; href: string; description?: string }[];
 }
 
@@ -17,6 +18,7 @@ export function ArticlePageClient({
   breadcrumbs,
   url,
   readingTime,
+  updated,
   relatedArticles,
 }: ArticlePageClientProps) {
   return (
@@ -26,6 +28,7 @@ export function ArticlePageClient({
       breadcrumbs={breadcrumbs}
       url={url}
       readingTime={readingTime}
+      updated={updated}
       relatedArticles={relatedArticles}
     />
   );

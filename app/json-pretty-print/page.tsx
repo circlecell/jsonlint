@@ -176,7 +176,7 @@ cat data.json | jq -S '.'`}</code></pre>
               <li><a href="/">JSON Validator</a> — Validate and format JSON with error detection</li>
               <li><a href="/json-minify">JSON Minify</a> — Compress JSON by removing whitespace</li>
               <li><a href="/json-sort">JSON Sorter</a> — Sort keys with more options</li>
-              <li><a href="/benefits-of-using-a-json-beautifier">Benefits of JSON Beautification</a> — Learn more</li>
+              <li><a href="/json-formatter">JSON Formatter</a> — Format and validate JSON</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>

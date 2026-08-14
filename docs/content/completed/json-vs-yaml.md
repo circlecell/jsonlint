@@ -1,378 +1,171 @@
 ---
-title: JSON vs YAML - When to Use Each Format
-description: A practical comparison of JSON and YAML. Learn when to use each format based on your use case, with conversion examples and common pitfalls.
+title: "YAML vs JSON: Differences, Examples, and When to Use Each"
+description: "Compare YAML vs JSON syntax, readability, comments, data types, tooling, and security to choose the right format for APIs and configuration."
+category: comparisons
+priority: 10
+updated: "2026-08-14"
 ---
 
-# JSON vs YAML: When to Use Each Format
+JSON is usually the safer default for APIs and machine-to-machine data. YAML is often more comfortable for configuration maintained by people. Both can represent nested objects, arrays, strings, numbers, booleans, and null values, but they make different tradeoffs.
 
-JSON and YAML both represent structured data, but they optimize for different use cases. Here's a practical guide to choosing the right format.
-
-## Quick Decision Guide
-
-| Use Case | Recommended | Why |
-|----------|-------------|-----|
-| API request/response | **JSON** | Universal support, strict parsing |
-| Configuration files | **YAML** | Comments, readability |
-| Browser/JavaScript | **JSON** | Native parsing |
-| Kubernetes/Docker | **YAML** | Industry standard |
-| Data interchange | **JSON** | Unambiguous, fast |
-| Human-edited files | **YAML** | Less punctuation |
-
----
-
-## The Same Data, Two Formats
-
-**JSON:**
-```json
-{
-  "server": {
-    "host": "localhost",
-    "port": 8080,
-    "ssl": true
-  },
-  "database": {
-    "connection": "postgres://localhost/myapp",
-    "pool_size": 10
-  },
-  "features": ["auth", "logging", "cache"]
-}
-```
-
-**YAML:**
-```yaml
-# Server configuration
-server:
-  host: localhost
-  port: 8080
-  ssl: true
-
-# Database settings
-database:
-  connection: postgres://localhost/myapp
-  pool_size: 10
-
-features:
-  - auth
-  - logging
-  - cache
-```
-
-The YAML version is 30% shorter and includes comments. The JSON version is unambiguous and machine-friendly.
-
----
-
-## Detailed Comparison
-
-### Syntax
+## YAML vs JSON at a Glance
 
 | Feature | JSON | YAML |
-|---------|------|------|
-| Quotes required | Always for strings | Usually optional |
-| Comments | ❌ Not supported | ✅ `# comment` |
-| Multi-line strings | `\n` escapes | Several options |
-| Trailing commas | ❌ Invalid | N/A (no commas) |
-| Key format | Strings only | Strings, numbers, etc. |
+|---|---|---|
+| Best fit | APIs, browser data, generated files | Human-edited configuration |
+| Structure | Braces, brackets, commas | Indentation and markers |
+| Comments | Not supported | Supported with `#` |
+| Parsing | Simple and widely built in | More complex; library required in many languages |
+| Whitespace | Mostly insignificant | Indentation defines structure |
+| Duplicate keys | Ambiguous and best avoided | Ambiguous and best avoided |
+| Multiple documents | One value per document | Multiple documents supported |
+| Anchors and aliases | No | Yes |
+| File extensions | `.json` | `.yaml`, `.yml` |
 
-### Data Types
+## The Same Data in JSON and YAML
 
-| Type | JSON | YAML |
-|------|------|------|
-| Strings | `"hello"` | `hello` or `"hello"` |
-| Numbers | `42`, `3.14` | `42`, `3.14` |
-| Booleans | `true`, `false` | `true`, `yes`, `on` (and more) |
-| Null | `null` | `null`, `~`, or empty |
-| Arrays | `[1, 2, 3]` | `- 1\n- 2\n- 3` or `[1, 2, 3]` |
-| Objects | `{"a": 1}` | `a: 1` or `{a: 1}` |
+JSON:
 
-### Parsing & Performance
-
-| Aspect | JSON | YAML |
-|--------|------|------|
-| Parse speed | Fast | Slower |
-| Library availability | Universal | Common |
-| Streaming support | Yes | Limited |
-| Error messages | Clear | Can be cryptic |
-
----
-
-## When to Choose JSON
-
-### 1. APIs and Data Exchange
-
-REST APIs universally use JSON. Every language has built-in or standard library support.
-
-```javascript
-// JavaScript - native support
-const data = JSON.parse(response);
-const json = JSON.stringify(data);
+```json
+{
+  "service": "catalog",
+  "port": 8080,
+  "features": ["search", "recommendations"],
+  "database": {
+    "host": "db.internal",
+    "ssl": true
+  }
+}
 ```
 
-### 2. When Strictness Matters
-
-JSON's rigid syntax catches errors early. There's only one way to represent each value.
-
-### 3. Browser Applications
-
-JSON parsing is built into every browser. No library needed.
-
-```javascript
-fetch('/api/data')
-  .then(res => res.json())  // Built-in parsing
-  .then(data => console.log(data));
-```
-
-### 4. Inter-System Communication
-
-When systems need to exchange data reliably, JSON's simplicity and strict parsing prevent ambiguity.
-
----
-
-## When to Choose YAML
-
-### 1. Configuration Files
-
-YAML's readability shines for configs that humans edit:
+YAML:
 
 ```yaml
-# Application settings
-app:
-  name: MyApp
-  version: 1.0.0
-  
-# Enable these features
+service: catalog
+port: 8080
 features:
-  authentication: true
-  rate_limiting: true
-  # Coming soon
-  # webhooks: true
+  - search
+  - recommendations
+database:
+  host: db.internal
+  ssl: true
 ```
 
-### 2. Infrastructure as Code
+Convert between them with [JSON to YAML](/json-to-yaml) and [YAML to JSON](/yaml-to-json).
 
-Kubernetes, Docker Compose, GitHub Actions, and most DevOps tools use YAML:
+## When JSON Is the Better Choice
+
+### APIs and Web Applications
+
+Browsers provide native `JSON.parse()` and `JSON.stringify()` methods, and most web frameworks treat `application/json` as a first-class content type. JSON’s explicit delimiters also make it easier to generate consistently.
+
+### Data Produced by Software
+
+If people rarely edit a file, JSON’s extra punctuation is not a drawback. Its smaller feature set reduces differences between parsers and makes interoperability easier.
+
+### Strict Validation
+
+JSON Schema provides a mature way to describe and validate JSON documents. Use the [JSON Schema Validator](/json-schema) to test an instance against a schema.
+
+### Untrusted Input
+
+Every parser must still be configured safely, but JSON has fewer powerful language features than YAML. That smaller surface is useful when accepting data from outside your system.
+
+## When YAML Is the Better Choice
+
+### Human-Edited Configuration
+
+YAML avoids most braces and quotation marks, supports comments, and can be easier to scan in deployment manifests and CI configuration.
+
+### Long Multiline Text
+
+YAML has literal and folded block styles that are easier to maintain than newline escapes inside JSON strings.
+
+### Repeated Configuration
+
+Anchors and aliases can reduce duplication, although they also make a document harder to understand when overused.
+
+## YAML Pitfalls
+
+### Indentation Is Syntax
+
+This indentation changes the structure:
 
 ```yaml
-# docker-compose.yml
-services:
-  web:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - ./html:/usr/share/nginx/html
+database:
+  host: db.internal
+ssl: true
 ```
 
-### 3. When You Need Comments
+Here, `ssl` is a top-level property—not part of `database`.
 
-JSON has no comment syntax. If you need to document your data inline, use YAML.
+### Implicit Types Can Surprise You
 
-### 4. Complex Multi-line Strings
+YAML versions and libraries have historically differed in how they interpret values that look like dates, booleans, or numbers. Quote values when their exact string form matters, and validate the parsed result.
 
-YAML handles multi-line content elegantly:
+### Unsafe Deserialization
 
-```yaml
-description: |
-  This is a multi-line string
-  that preserves line breaks
-  exactly as written.
+Use a parser’s safe-loading mode for untrusted YAML. Some YAML libraries support custom tags that can construct language-specific objects; those features should not be enabled for arbitrary input.
 
-folded: >
-  This multi-line string
-  will be folded into
-  a single line.
-```
+## JSON Pitfalls
 
----
+- Comments and trailing commas are invalid.
+- Keys and strings require double quotes.
+- Dates and binary data require string conventions.
+- A long nested document can become punctuation-heavy.
+- Duplicate object names are not reliably interoperable.
 
-## YAML Gotchas
+Validate JSON with [JSONLint](/), and convert commented JSONC before using a strict parser.
 
-YAML's flexibility creates ambiguity. Watch for these:
+## Is JSON a Subset of YAML?
 
-### The Norway Problem
+JSON syntax is compatible with YAML 1.2, so a YAML 1.2 parser can generally read JSON. The reverse is not true: JSON parsers cannot read YAML indentation, comments, anchors, or unquoted keys.
 
-```yaml
-countries:
-  - DK  # Denmark
-  - NO  # Parsed as boolean false!
-  - SE  # Sweden
-```
+Compatibility claims still depend on the parser and YAML version in use. Test the actual toolchain rather than assuming every YAML implementation behaves identically.
 
-YAML interprets `NO`, `no`, `n`, `off` as `false`. Always quote country codes:
+## Choosing for Common Use Cases
 
-```yaml
-countries:
-  - "DK"
-  - "NO"
-  - "SE"
-```
+| Use case | Recommended default |
+|---|---|
+| REST or browser API | JSON |
+| Kubernetes manifest | YAML |
+| `package.json` or web metadata | JSON |
+| CI/CD workflow | YAML when required by the platform |
+| Data export between unrelated systems | JSON |
+| Configuration with extensive comments | YAML or JSONC |
+| Streaming records | JSON Lines/NDJSON |
 
-### Accidental Numbers
+## Migration Checklist
 
-```yaml
-version: 1.0    # Number, not string "1.0"
-version: 1.10   # Number 1.1, not "1.10"
-port: 8080      # Number, usually fine
-zip: 02134      # Octal! Becomes 1116 in some parsers
-```
+When converting formats:
 
-Quote values when the string representation matters.
+1. Check how dates, nulls, and number-like strings were parsed.
+2. Remove or relocate comments when converting to JSON.
+3. Expand YAML anchors before sending data to a JSON-only consumer.
+4. Validate the converted document against a schema or application test.
+5. Review secrets before pasting configuration into any online tool.
 
-### Indentation Sensitivity
+## Frequently Asked Questions
 
-```yaml
-# Valid
-items:
-  - one
-  - two
+### Is YAML more readable than JSON?
 
-# Invalid (inconsistent indentation)
-items:
-  - one
-   - two
-```
+Often, especially for configuration. Readability depends on consistent indentation and restrained use of advanced YAML features.
 
-Use spaces, never tabs. Be consistent.
+### Is JSON faster than YAML?
 
----
+JSON parsers are often faster because the grammar is smaller, but performance depends on the library, language, document, and workload. Benchmark your actual application when parsing cost matters.
 
-## JSON Gotchas
+### Can YAML contain comments?
 
-### No Comments
+Yes. YAML uses `#` for comments. Standard JSON has no comment syntax.
 
-You can't add comments. Common workarounds:
+### Should an API return YAML?
 
-```json
-{
-  "_comment": "This is a hack",
-  "actual_data": "here"
-}
-```
+It can, but JSON has broader client support and is the conventional default. Offer YAML only when users benefit from it and the content type is explicit.
 
-Better: use JSONC in development, strip for production.
+## Related Tools and Guides
 
-### No Trailing Commas
-
-```json
-{
-  "a": 1,
-  "b": 2,  // ← Error!
-}
-```
-
-This is the most common JSON error. Use a linter.
-
-### Verbose for Humans
-
-JSON's quotes and brackets add visual noise. For small configs, it's fine. For large ones, consider YAML.
-
----
-
-## Converting Between Formats
-
-Use our online converters for quick conversions:
-- [JSON to YAML Converter](/json-to-yaml)
-- [YAML to JSON Converter](/yaml-to-json)
-
-### YAML to JSON (Programmatic)
-
-**JavaScript (Node.js):**
-```javascript
-const yaml = require('js-yaml');
-const fs = require('fs');
-
-const doc = yaml.load(fs.readFileSync('config.yaml', 'utf8'));
-console.log(JSON.stringify(doc, null, 2));
-```
-
-**Command line (with yq):**
-```bash
-yq -o=json config.yaml > config.json
-```
-
-### JSON to YAML
-
-**JavaScript (Node.js):**
-```javascript
-const yaml = require('js-yaml');
-const data = require('./config.json');
-
-console.log(yaml.dump(data));
-```
-
-**Command line:**
-```bash
-yq -P config.json > config.yaml
-```
-
----
-
-## Hybrid Approaches
-
-### JSON for APIs, YAML for Config
-
-Most projects use both:
-
-```
-project/
-├── config/
-│   ├── app.yaml         # Human-edited config
-│   └── secrets.yaml     # Environment-specific
-├── src/
-│   └── api.js           # Sends/receives JSON
-└── package.json         # JSON (npm requires it)
-```
-
-### JSONC for Development
-
-VS Code supports JSON with Comments (JSONC) for settings files:
-
-```jsonc
-{
-  // Editor settings
-  "editor.fontSize": 14,
-  "editor.tabSize": 2,
-  
-  /* Formatting 
-     options */
-  "editor.formatOnSave": true
-}
-```
-
----
-
-## Summary
-
-**Choose JSON when:**
-- Building APIs
-- Data needs to be parsed by machines
-- Working in browsers
-- Interoperability is critical
-- You want strict validation
-
-**Choose YAML when:**
-- Humans edit the file regularly
-- You need comments
-- Working with DevOps tools
-- Readability is prioritized
-- Complex nested structures
-
-Both formats are here to stay. Use the right tool for each job.
-
----
-
-## Related Tools & Resources
-
-### Converters
-- [JSON to YAML Converter](/json-to-yaml) — Convert JSON to YAML instantly
-- [YAML to JSON Converter](/yaml-to-json) — Convert YAML back to JSON
-- [JSON to CSV](/json-to-csv) — Export JSON to spreadsheet format
-
-### Tools
-- [JSON Validator](/) — Validate and format JSON
-- [JSON Minify](/json-minify) — Compress JSON for production
-- [JSON Diff](/json-diff) — Compare JSON documents
-
-### Learn More
-- [JSON Comments Guide](/json-comments) — Why JSON doesn't support comments
-- [Mastering JSON Format](/mastering-json-format) — Complete JSON syntax guide
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid syntax errors
+- [JSON to YAML](/json-to-yaml)
+- [YAML to JSON](/yaml-to-json)
+- [Comments in JSON](/json-comments)
+- [JSON Format and Syntax](/mastering-json-format)

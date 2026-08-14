@@ -29,7 +29,7 @@ const footerLinks = {
     { href: '/learn', label: 'All Resources' },
     { href: '/python-json', label: 'Python JSON Guide' },
     { href: '/json-parse-error', label: 'Fix Parse Errors' },
-    { href: '/json-syntax-error', label: 'Fix Syntax Errors' },
+    { href: '/json-lines', label: 'JSON Lines Guide' },
     { href: '/json-vs-xml', label: 'JSON vs XML' },
     { href: '/json-comments', label: 'JSON Comments' },
     { href: '/how-to-open-json-file', label: 'Open JSON Files' },

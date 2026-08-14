@@ -59,9 +59,17 @@ export async function generateStaticParams() {
 }
 
 // Get all articles for related content
-function getAllArticles(): { slug: string; title: string; description: string }[] {
+interface ArticleSummary {
+  slug: string;
+  title: string;
+  description: string;
+  category?: string;
+  priority: number;
+}
+
+function getAllArticles(): ArticleSummary[] {
   const contentFiles = getAllMarkdownFiles(contentDirectory);
-  const articles: { slug: string; title: string; description: string }[] = [];
+  const articles: ArticleSummary[] = [];
 
   contentFiles.forEach((filePath) => {
     const relativePath = path.relative(contentDirectory, filePath);
@@ -77,10 +85,12 @@ function getAllArticles(): { slug: string; title: string; description: string }[
       slug,
       title: data.title || slug,
       description: data.description || '',
+      category: typeof data.category === 'string' ? data.category : undefined,
+      priority: typeof data.priority === 'number' ? data.priority : 100,
     });
   });
 
-  return articles;
+  return articles.sort((a, b) => a.priority - b.priority || a.title.localeCompare(b.title));
 }
 
 // Get all datasets for the sidebar
@@ -169,6 +179,8 @@ async function getMarkdownContent(slug: string[]) {
     title: data.title || 'JSONLint',
     description: data.description || '',
     readingTime,
+    category: typeof data.category === 'string' ? data.category : undefined,
+    updated: typeof data.updated === 'string' ? data.updated : undefined,
   };
 }
 
@@ -188,6 +200,14 @@ export async function generateMetadata({
     title: data.title,
     description: data.description,
     alternates: { canonical: `/${slug.join('/')}` },
+    ...(data.updated
+      ? {
+          openGraph: {
+            type: 'article' as const,
+            modifiedTime: data.updated,
+          },
+        }
+      : {}),
   };
 }
 
@@ -210,6 +230,11 @@ export default async function MarkdownPage({
   // Get related articles (exclude current one)
   const relatedArticles = allArticles
     .filter((article) => article.slug !== data.slug)
+    .sort((a, b) => {
+      const aCategoryRank = a.category === data.category ? 0 : 1;
+      const bCategoryRank = b.category === data.category ? 0 : 1;
+      return aCategoryRank - bCategoryRank || a.priority - b.priority || a.title.localeCompare(b.title);
+    })
     .slice(0, 4)
     .map((article) => ({
       title: article.title,
@@ -257,6 +282,7 @@ export default async function MarkdownPage({
       breadcrumbs={breadcrumbs}
       url={`https://jsonlint.com/${data.slug}`}
       readingTime={data.readingTime}
+      updated={data.updated}
       relatedArticles={relatedArticles}
     />
   );

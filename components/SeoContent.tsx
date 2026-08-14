@@ -349,17 +349,16 @@ export function ToolsSidebar() {
               className="hover:underline"
               style={{ color: 'var(--accent-blue)' }}
             >
-              Mastering JSON Format: Advantages, Best Practices and Comparison
-              with Other Data Formats
+              JSON Format: Syntax, Data Types, Rules, and Examples
             </Link>
           </li>
           <li>
             <Link
-              href="/common-mistakes-in-json-and-how-to-avoid-them"
+              href="/json-parse-error"
               className="hover:underline"
               style={{ color: 'var(--accent-blue)' }}
             >
-              Common JSON Mistakes and How to Avoid Them
+              JSON Parse Errors: How to Find and Fix Invalid JSON
             </Link>
           </li>
           <li>
@@ -368,17 +367,16 @@ export function ToolsSidebar() {
               className="hover:underline"
               style={{ color: 'var(--accent-blue)' }}
             >
-              Mastering JSON in JavaScript: Comprehensive Examples and
-              Techniques
+              JSON.parse() in JavaScript: Parsing, Revivers, Fetch, and Errors
             </Link>
           </li>
           <li>
             <Link
-              href="/benefits-of-using-a-json-beautifier"
+              href="/json-lines"
               className="hover:underline"
               style={{ color: 'var(--accent-blue)' }}
             >
-              Understanding the Benefits of Using a JSON Beautifier
+              JSON Lines (JSONL) and NDJSON Guide
             </Link>
           </li>
           <li>

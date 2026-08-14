@@ -193,7 +193,7 @@ data = json.dumps({"name": text})`}</code></pre>
               <li><a href="/json-unescape">JSON Unescape</a> — Reverse: convert escaped strings back to raw text</li>
               <li><a href="/json-stringify">JSON Stringify</a> — Convert objects to JSON strings</li>
               <li><a href="/">JSON Validator</a> — Validate your JSON after building it</li>
-              <li><a href="/common-mistakes-in-json-and-how-to-avoid-them">Common JSON Mistakes</a> — Avoid escaping errors</li>
+              <li><a href="/json-multiline-string">Multiline JSON Strings</a> — Encode line breaks correctly</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>

@@ -1,31 +1,39 @@
 import { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
 import { getAllErrorCodes } from '@/lib/error-codes';
 
-function getAllMarkdownSlugs(dir: string, basePath: string = ''): string[] {
+interface MarkdownPage {
+  slug: string;
+  updated?: string;
+}
+
+function getAllMarkdownPages(dir: string, basePath: string = ''): MarkdownPage[] {
   if (!fs.existsSync(dir)) return [];
 
-  const slugs: string[] = [];
+  const pages: MarkdownPage[] = [];
   const items = fs.readdirSync(dir);
 
   items.forEach((item) => {
     const filePath = path.join(dir, item);
     if (fs.statSync(filePath).isDirectory()) {
-      slugs.push(...getAllMarkdownSlugs(filePath, `${basePath}${item}/`));
+      pages.push(...getAllMarkdownPages(filePath, `${basePath}${item}/`));
     } else if (item.endsWith('.md')) {
       const slug = `${basePath}${item.replace('.md', '')}`;
-      slugs.push(slug);
+      const { data } = matter(fs.readFileSync(filePath, 'utf8'));
+      pages.push({
+        slug,
+        updated: typeof data.updated === 'string' ? data.updated : undefined,
+      });
     }
   });
 
-  return slugs;
+  return pages;
 }
 
-// NOTE: `lastModified` is intentionally omitted. Filesystem mtimes are reset
-// on most deploys (fresh checkout), so stamping them would make every URL
-// look freshly modified after each deploy — a worse signal than none. If
-// real per-page dates become available (frontmatter or Git), add them here.
+// Article last-modified dates come from explicit frontmatter. Filesystem mtimes
+// are intentionally ignored because fresh deploys reset them.
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://jsonlint.com';
 
@@ -90,20 +98,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Content pages
   const contentDir = path.join(process.cwd(), 'docs/content/completed');
-  const contentSlugs = getAllMarkdownSlugs(contentDir);
-  const contentEntries: MetadataRoute.Sitemap = contentSlugs
-    .filter((slug) => slug !== 'privacy')
-    .map((slug) => ({
-      url: `${baseUrl}/${slug}`,
+  const contentPages = getAllMarkdownPages(contentDir);
+  const contentEntries: MetadataRoute.Sitemap = contentPages
+    .filter((page) => page.slug !== 'privacy')
+    .map((page) => ({
+      url: `${baseUrl}/${page.slug}`,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+      ...(page.updated ? { lastModified: page.updated } : {}),
     }));
 
   // Dataset pages
   const datasetsDir = path.join(process.cwd(), 'docs/datasets');
-  const datasetSlugs = getAllMarkdownSlugs(datasetsDir);
-  const datasetEntries: MetadataRoute.Sitemap = datasetSlugs.map((slug) => ({
-    url: `${baseUrl}/datasets/${slug}`,
+  const datasetPages = getAllMarkdownPages(datasetsDir);
+  const datasetEntries: MetadataRoute.Sitemap = datasetPages.map((page) => ({
+    url: `${baseUrl}/datasets/${page.slug}`,
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));

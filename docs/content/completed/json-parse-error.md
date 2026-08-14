@@ -1,442 +1,206 @@
 ---
-title: "JSON Parse Error: Causes, Solutions, and Prevention"
-description: "Learn how to fix JSON parse errors in JavaScript, Python, Java, and other languages. Comprehensive guide with examples and debugging techniques."
-date: "2024-01-15"
+title: "JSON Parse Error: How to Find and Fix Invalid JSON"
+description: "Fix JSON parse errors with examples for unexpected tokens, trailing commas, quotes, escapes, incomplete data, and language-specific error messages."
+category: errors
+priority: 10
+updated: "2026-08-14"
 ---
 
-A **JSON parse error** occurs when your code attempts to convert a string into a JSON object, but the string contains invalid JSON syntax. This is one of the most common errors developers encounter when working with APIs, configuration files, or any data stored as JSON.
+A JSON parse error means a parser reached text that does not follow JSON syntax. The fastest fix is to [paste the document into JSONLint](/), use the reported line and column as a starting point, and inspect the character immediately before the reported location.
 
-In this guide, we'll cover the most common causes of parse errors and show you how to fix them in multiple programming languages.
+JSON parsers often report where they *stopped understanding* the document, not where the mistake began. A missing quote or bracket several lines earlier can therefore produce an error near the end of the file.
 
-## Understanding JSON Parse Errors
+## Quick JSON Parse Error Checklist
 
-When you parse JSON, your programming language reads through the string character by character, building a data structure. If it encounters something unexpected—like a missing quote, extra comma, or invalid character—it throws a parse error.
+Check these issues first:
 
-The error message varies by language:
+1. Property names and string values use double quotes.
+2. There is no comma after the final property or array item.
+3. Every `{`, `[`, `"`, and escape sequence is closed.
+4. The input is actually JSON—not HTML, JavaScript, or an empty response.
+5. Numbers do not contain leading zeroes, `NaN`, or `Infinity`.
+6. Comments have been removed or converted from JSONC.
 
-| Language | Error Type |
-|----------|-----------|
-| JavaScript | `SyntaxError: Unexpected token` |
-| Python | `json.decoder.JSONDecodeError` |
-| Java | `JsonParseException` or `JsonProcessingException` |
-| PHP | `json_last_error()` returns error code |
-| C# | `JsonReaderException` |
-| Go | `json: cannot unmarshal...` |
+Use the [JSON Repair tool](/json-repair) when you want JSONLint to attempt a safe repair, or the [JSON Error Analyzer](/json-error-analyzer) for a more detailed explanation.
 
-## The 10 Most Common Causes
+## Common JSON Parse Errors
 
-### 1. Trailing Commas
+| Error pattern | Likely cause | First thing to inspect |
+|---|---|---|
+| Unexpected end of JSON input | Empty or truncated input | Network response and closing brackets |
+| Unexpected token `<` | An HTML page was returned | HTTP status and response content type |
+| Expected property name | Unquoted key, single quote, or trailing comma | Object property before the error |
+| Bad escaped character | Invalid backslash sequence | The string containing `\` |
+| Unterminated string | Missing closing quote or raw newline | The previous string value |
+| Extra data after JSON | Two documents were concatenated | Text after the first complete value |
 
-The most frequent cause of parse errors:
+### Trailing Commas
 
-```json
-{
-  "name": "John",
-  "age": 30,  // ← This comma breaks everything
-}
-```
-
-**Fix:** Remove the comma after the last item.
+JSON does not allow a comma after the final member:
 
 ```json
 {
-  "name": "John",
-  "age": 30
-}
-```
-
-### 2. Single Quotes Instead of Double Quotes
-
-JSON requires double quotes. Single quotes are invalid:
-
-```json
-{
-  'name': 'John'  // ← Wrong
-}
-```
-
-**Fix:** Use double quotes for all strings and keys.
-
-```json
-{
-  "name": "John"
-}
-```
-
-### 3. Unquoted Keys
-
-Unlike JavaScript objects, JSON keys must always be quoted:
-
-```json
-{
-  name: "John"  // ← Wrong
-}
-```
-
-**Fix:** Quote all keys.
-
-```json
-{
-  "name": "John"
-}
-```
-
-### 4. Missing Commas Between Items
-
-Forgetting commas between properties or array items:
-
-```json
-{
-  "name": "John"
-  "age": 30
-}
-```
-
-**Fix:** Add commas between items.
-
-```json
-{
-  "name": "John",
-  "age": 30
-}
-```
-
-### 5. Unescaped Special Characters
-
-Backslashes and quotes inside strings must be escaped:
-
-```json
-{
-  "path": "C:\Users\John"  // ← Backslashes not escaped
-}
-```
-
-**Fix:** Escape special characters with backslash.
-
-```json
-{
-  "path": "C:\\Users\\John"
-}
-```
-
-### 6. Invalid Values
-
-JSON only supports specific value types. These are all invalid:
-
-```json
-{
-  "value": undefined,    // ← Use null instead
-  "func": function() {}, // ← Functions not allowed
-  "date": new Date(),    // ← Use ISO string
-  "num": NaN             // ← Use null or string
-}
-```
-
-**Fix:** Use only valid JSON types: string, number, boolean, null, array, object.
-
-### 7. Comments in JSON
-
-Standard JSON doesn't support comments:
-
-```json
-{
-  "name": "John", // This is a comment
-  /* Multi-line
-     comment */
-  "age": 30
-}
-```
-
-**Fix:** Remove all comments, or use JSONC/JSON5 if your parser supports it. See our [JSON Comments guide](/json-comments) for alternatives.
-
-### 8. Wrong Boolean or Null Case
-
-Booleans and null must be lowercase:
-
-```json
-{
-  "active": True,   // ← Wrong (Python style)
-  "deleted": FALSE, // ← Wrong
-  "data": NULL      // ← Wrong
-}
-```
-
-**Fix:** Use lowercase.
-
-```json
-{
+  "name": "Ada",
   "active": true,
-  "deleted": false,
-  "data": null
 }
 ```
 
-### 9. Empty Input
+Remove the last comma:
 
-Trying to parse an empty string or null:
-
-```javascript
-JSON.parse('');     // SyntaxError
-JSON.parse(null);   // SyntaxError
+```json
+{
+  "name": "Ada",
+  "active": true
+}
 ```
 
-**Fix:** Check for empty input before parsing.
+### Single Quotes and Unquoted Keys
 
-### 10. BOM Characters or Hidden Characters
-
-Byte Order Mark (BOM) or other invisible characters at the start of the file:
+JavaScript object literals can use syntax that JSON rejects:
 
 ```javascript
-// The string looks empty but contains BOM
-const json = '\uFEFF{"name": "John"}';
-JSON.parse(json); // May fail in some parsers
+{ name: 'Ada' }
 ```
 
-**Fix:** Strip BOM and trim whitespace before parsing.
+Valid JSON requires double-quoted keys and strings:
 
-## Fixing Parse Errors by Language
+```json
+{ "name": "Ada" }
+```
+
+### Missing Commas
+
+Adjacent properties and array values need commas:
+
+```json
+{
+  "name": "Ada"
+  "role": "admin"
+}
+```
+
+The parser may report the error at `"role"`, although the missing character belongs at the end of the preceding line.
+
+### Unescaped Characters in Strings
+
+Double quotes, backslashes, and control characters inside strings must be escaped:
+
+```json
+{
+  "message": "She said \"hello\".",
+  "path": "C:\\Users\\Ada",
+  "lines": "first\nsecond"
+}
+```
+
+Use the [JSON Escape tool](/json-escape) when embedding text in a JSON string.
+
+### Invalid Numbers
+
+Strict JSON numbers cannot contain leading zeroes, hexadecimal notation, `NaN`, or infinity:
+
+```json
+{
+  "invalidLeadingZero": 007,
+  "invalidNotANumber": NaN
+}
+```
+
+Represent unavailable numeric data as `null`, or use a quoted string when the consumer expects a special value.
+
+### Comments
+
+Standard JSON does not support `//`, `/* ... */`, or `#` comments. If a tool accepts them, it is parsing a related format such as JSONC or JSON5. Convert JSONC with the [JSONC to JSON tool](/jsonc-to-json) before using a strict parser.
+
+## Why “Unexpected Token `<`” Usually Means HTML
+
+This JavaScript error commonly occurs when code expects JSON but receives an HTML error or login page:
+
+```javascript
+const response = await fetch('/api/user');
+const data = await response.json();
+```
+
+Inspect the status and content type before parsing:
+
+```javascript
+const response = await fetch('/api/user');
+const contentType = response.headers.get('content-type') || '';
+
+if (!response.ok) {
+  throw new Error(`Request failed: ${response.status}`);
+}
+
+if (!contentType.includes('application/json')) {
+  const body = await response.text();
+  throw new Error(`Expected JSON, received: ${body.slice(0, 80)}`);
+}
+
+const data = await response.json();
+```
+
+## Language-Specific Error Messages
 
 ### JavaScript
 
-```javascript
-function parseJSON(str) {
-  // Check for empty input
-  if (!str || typeof str !== 'string') {
-    console.error('Invalid input: expected non-empty string');
-    return null;
-  }
-  
-  // Trim whitespace and BOM
-  str = str.trim().replace(/^\uFEFF/, '');
-  
-  try {
-    return JSON.parse(str);
-  } catch (error) {
-    console.error('JSON parse error:', error.message);
-    
-    // Try to identify the problem location
-    const match = error.message.match(/position (\d+)/);
-    if (match) {
-      const pos = parseInt(match[1]);
-      console.error('Error near:', str.substring(Math.max(0, pos - 20), pos + 20));
-    }
-    
-    return null;
-  }
-}
-```
+`JSON.parse()` throws a `SyntaxError`. Keep the original input available during debugging, and never parse the result of an unchecked HTTP request. For incomplete input, see [Unexpected End of JSON Input](/fix-unexpected-end-of-json-input).
 
 ### Python
+
+Python raises `json.JSONDecodeError`, which includes `lineno`, `colno`, and `pos`:
 
 ```python
 import json
 
-def parse_json(text):
-    if not text or not isinstance(text, str):
-        print("Invalid input: expected non-empty string")
-        return None
-    
-    # Strip BOM and whitespace
-    text = text.strip().lstrip('\ufeff')
-    
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError as e:
-        print(f"JSON parse error at line {e.lineno}, column {e.colno}")
-        print(f"Message: {e.msg}")
-        
-        # Show context around the error
-        lines = text.split('\n')
-        if e.lineno <= len(lines):
-            print(f"Problem line: {lines[e.lineno - 1]}")
-        
-        return None
+try:
+    data = json.loads(payload)
+except json.JSONDecodeError as error:
+    print(error.msg)
+    print(error.lineno, error.colno)
 ```
 
-### Java (Jackson)
+### Java
 
-```java
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.core.JsonProcessingException;
+Jackson and Gson typically include a path or location in their exceptions. Log the location and a small, redacted portion of the input—not an entire response that could contain credentials or personal data.
 
-public class JsonParser {
-    private static final ObjectMapper mapper = new ObjectMapper();
-    
-    public static JsonNode parseJson(String json) {
-        if (json == null || json.trim().isEmpty()) {
-            System.err.println("Invalid input: expected non-empty string");
-            return null;
-        }
-        
-        try {
-            return mapper.readTree(json.trim());
-        } catch (JsonProcessingException e) {
-            System.err.println("JSON parse error at line " + 
-                e.getLocation().getLineNr() + ", column " + 
-                e.getLocation().getColumnNr());
-            System.err.println("Message: " + e.getOriginalMessage());
-            return null;
-        }
-    }
-}
-```
+## A Reliable Debugging Workflow
 
-### PHP
+1. Confirm the input is not empty.
+2. Confirm the response status and content type when JSON came from a network request.
+3. Validate the smallest reproducible document.
+4. Inspect the character before the reported location.
+5. Reduce nested objects or arrays until the error disappears.
+6. Add schema validation after syntax parsing when structure matters.
 
-```php
-function parseJson($json) {
-    if (empty($json) || !is_string($json)) {
-        error_log("Invalid input: expected non-empty string");
-        return null;
-    }
-    
-    // Strip BOM
-    $json = preg_replace('/^\xEF\xBB\xBF/', '', trim($json));
-    
-    $result = json_decode($json, true);
-    
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        error_log("JSON parse error: " . json_last_error_msg());
-        return null;
-    }
-    
-    return $result;
-}
-```
+Syntax validation only proves that the text is valid JSON. It does not prove required fields exist or values have the expected types. Use the [JSON Schema Validator](/json-schema) for structural validation.
 
-## Debugging Workflow
+## Preventing Parse Errors
 
-When you encounter a parse error, follow these steps:
+- Generate JSON with a serializer instead of string concatenation.
+- Validate configuration files in CI.
+- Check HTTP status and `Content-Type` before parsing responses.
+- Avoid logging full sensitive payloads.
+- Use JSON Schema or typed validation at trust boundaries.
+- Use JSON Lines when writing a stream of independent records instead of concatenating JSON documents.
 
-### Step 1: Validate the JSON
+## Frequently Asked Questions
 
-Paste your JSON into the [JSON Validator](/) to get a precise error location and message.
+### Is a JSON parse error the same as a schema error?
 
-### Step 2: Check the Error Position
+No. A parse error means the text is not valid JSON. A schema error means the JSON is syntactically valid but does not match an expected structure.
 
-Most error messages include a position or line number. Look at that location for:
-- Missing or extra commas
-- Unquoted strings or keys
-- Invalid characters
+### Why does valid-looking JSON still fail?
 
-### Step 3: Inspect the Raw Data
+Invisible byte-order marks, smart quotes, raw control characters, duplicated content, or an HTML response can be difficult to see in an editor. Validate the exact bytes received by the parser.
 
-If parsing API responses, log the raw string before parsing:
+### Can JSONLint fix invalid JSON automatically?
 
-```javascript
-fetch('/api/data')
-  .then(response => response.text())
-  .then(text => {
-    console.log('Raw response:', text);
-    console.log('First 100 chars:', text.substring(0, 100));
-    console.log('Last 100 chars:', text.substring(text.length - 100));
-    return JSON.parse(text);
-  });
-```
+The validator identifies syntax errors. The separate [JSON Repair tool](/json-repair) can attempt common repairs, but you should review repaired output before using it in production.
 
-### Step 4: Check for HTML Error Pages
+## References and Related Guides
 
-A common issue: your API returns an HTML error page instead of JSON:
-
-```javascript
-const text = await response.text();
-
-// Check if we got HTML instead of JSON
-if (text.trim().startsWith('<')) {
-  console.error('Received HTML instead of JSON:', text.substring(0, 200));
-  throw new Error('API returned HTML error page');
-}
-```
-
-### Step 5: Verify Content-Type
-
-Ensure the server sends the correct Content-Type header:
-
-```javascript
-const response = await fetch('/api/data');
-const contentType = response.headers.get('content-type');
-
-if (!contentType?.includes('application/json')) {
-  console.warn('Unexpected content type:', contentType);
-}
-```
-
-## Prevention Best Practices
-
-### 1. Use JSON Libraries for Creation
-
-Never build JSON strings manually:
-
-```javascript
-// Bad - manual string building
-const json = '{"name": "' + name + '"}'; // Breaks if name contains quotes
-
-// Good - use JSON.stringify
-const json = JSON.stringify({ name: name });
-```
-
-### 2. Validate During Development
-
-Use the [JSON Validator](/) to check your JSON files and API responses during development.
-
-### 3. Add Schema Validation
-
-Use [JSON Schema](/json-schema) to validate structure, not just syntax:
-
-```javascript
-const Ajv = require('ajv');
-const ajv = new Ajv();
-
-const schema = {
-  type: 'object',
-  required: ['name', 'age'],
-  properties: {
-    name: { type: 'string' },
-    age: { type: 'integer', minimum: 0 }
-  }
-};
-
-const validate = ajv.compile(schema);
-```
-
-### 4. Handle Errors Gracefully
-
-Always wrap JSON parsing in try-catch and provide meaningful error messages to users.
-
-### 5. Use TypeScript
-
-TypeScript can catch many JSON-related issues at compile time:
-
-```typescript
-interface User {
-  name: string;
-  age: number;
-}
-
-function parseUser(json: string): User | null {
-  try {
-    const data = JSON.parse(json);
-    // TypeScript ensures you handle the correct shape
-    return data as User;
-  } catch {
-    return null;
-  }
-}
-```
-
-Generate TypeScript interfaces from your JSON with our [JSON to TypeScript](/json-to-typescript) converter.
-
-## Related Tools & Resources
-
-### Tools
-- [JSON Validator](/) — Validate and format JSON instantly
-- [JSON Unescape](/json-unescape) — Fix escaped string issues
-- [JSON Schema Validator](/json-schema) — Validate JSON structure
-- [JSON to TypeScript](/json-to-typescript) — Generate type definitions
-
-### Learn More
-- [Fix "Unexpected End of JSON Input"](/fix-unexpected-end-of-json-input) — Related parsing error
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Comprehensive error list
-- [JSON Comments Guide](/json-comments) — Why comments cause parse errors
-- [Mastering JSON in JavaScript](/mastering-json-in-javascript) — Complete JS guide
+- [RFC 8259: The JSON Data Interchange Format](https://www.rfc-editor.org/rfc/rfc8259)
+- [Unexpected End of JSON Input](/fix-unexpected-end-of-json-input)
+- [Unexpected Token in JSON](/unexpected-token-in-json)
+- [JSON Comments and JSONC](/json-comments)
+- [JSON Format and Syntax](/mastering-json-format)

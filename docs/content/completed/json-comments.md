@@ -1,248 +1,180 @@
 ---
-title: "JSON Comments: Why They Don't Exist and How to Work Around It"
-description: "Learn why JSON doesn't support comments, explore workarounds like JSONC and JSON5, and discover best practices for documenting your JSON files."
-date: "2024-01-15"
+title: "Comments in JSON: Why They Are Invalid and What to Use Instead"
+description: "Standard JSON does not support comments. Learn the safe alternatives—JSONC, JSON5, comment fields, and separate documentation—with working examples."
+category: foundations
+priority: 30
+updated: "2026-08-14"
 ---
 
-If you've ever tried to add a comment to a JSON file, you've likely been frustrated to discover that **JSON does not support comments**. This is one of the most common pain points developers face when working with JSON configuration files.
+Standard JSON does **not** support comments. Adding `//`, `/* ... */`, or `#` text makes a document invalid according to the JSON specification and causes strict parsers to fail.
 
-In this guide, we'll explain why JSON lacks comment support, explore practical workarounds, and help you choose the best approach for your project.
+If you need comments in a configuration file, use JSONC or JSON5 only when every tool that reads the file supports that format. For APIs and portable data, keep the JSON comment-free.
 
-## Why Doesn't JSON Support Comments?
+## Can JSON Have Comments?
 
-Douglas Crockford, the creator of JSON, deliberately excluded comments from the specification. In his own words:
-
-> "I removed comments from JSON because I saw people were using them to hold parsing directives, a practice which would have destroyed interoperability."
-
-The concern was that comments would be abused for metadata or instructions that parsers might interpret differently, breaking the simplicity and universality that makes JSON so successful as a data interchange format.
-
-### JSON's Design Philosophy
-
-JSON was designed to be:
-
-- **Simple** — Easy to read and write for humans
-- **Universal** — Parsed identically by any compliant parser
-- **Data-only** — A pure data format, not a configuration language
-
-Comments blur the line between data and documentation, which conflicts with JSON's role as a strict data interchange format.
-
-## Workarounds for Adding Comments to JSON
-
-Despite the lack of native support, there are several practical ways to add documentation to your JSON files.
-
-### 1. Use a `_comment` or `__comment` Field
-
-The most common workaround is adding a dedicated field for comments:
-
-```json
-{
-  "_comment": "Configuration for the production server",
-  "host": "api.example.com",
-  "port": 443,
-  "ssl": true,
-  "_comment_ssl": "SSL is required for production"
-}
-```
-
-**Pros:**
-- Works with any JSON parser
-- No additional tooling required
-
-**Cons:**
-- Adds to file size
-- Comments become part of the data
-- Some strict schemas may reject unknown fields
-
-### 2. Use JSONC (JSON with Comments)
-
-JSONC is a superset of JSON that allows C-style comments. It's supported by Visual Studio Code and many modern tools.
+No. These examples are not valid JSON:
 
 ```jsonc
 {
-  // This is a single-line comment
-  "name": "my-project",
-  "version": "1.0.0",
-  
-  /* 
-   * This is a multi-line comment
-   * explaining the dependencies
-   */
-  "dependencies": {
-    "lodash": "^4.17.21"
-  }
+  // Single-line comment
+  "port": 443,
+  "secure": true /* Inline comment */
 }
 ```
 
-**Supported by:**
-- Visual Studio Code (`*.jsonc` files)
-- TypeScript `tsconfig.json`
-- ESLint configuration
-- Many modern CLI tools
+JSON was designed as a small, interoperable data format. Comments can become unofficial instructions that different programs interpret differently, so they were intentionally left out of the grammar defined by [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259).
 
-To validate or format JSONC, you'll need a JSONC-aware parser. Standard JSON tools like our [JSON Validator](/) won't accept comments.
+Paste a document into the [JSON Validator](/) if you are unsure whether comments or another syntax extension are present.
 
-### 3. Use JSON5
+## Best Alternatives to JSON Comments
 
-JSON5 is an extended JSON format that allows:
-- Comments (single and multi-line)
-- Trailing commas
-- Unquoted keys
-- Single-quoted strings
-- Hexadecimal numbers
+### 1. Use JSONC for Human-Edited Configuration
+
+JSONC means “JSON with Comments.” It commonly supports JavaScript-style line and block comments:
+
+```jsonc
+{
+  // Public port for the web server
+  "port": 443,
+
+  /* Disable only in local development. */
+  "secure": true
+}
+```
+
+Visual Studio Code settings and TypeScript configuration are familiar JSONC use cases. The `.jsonc` extension makes the distinction clear, but support still depends on the consuming tool.
+
+Convert a JSONC document to strict JSON with the [JSONC to JSON tool](/jsonc-to-json).
+
+### 2. Use JSON5 When You Control Both Ends
+
+JSON5 is a broader extension that permits comments, trailing commas, single-quoted strings, unquoted property names, and additional number formats:
 
 ```json5
 {
-  // JSON5 is more lenient
-  name: 'my-project',
-  version: '1.0.0',
-  
-  /* Multi-line comments work too */
-  dependencies: {
-    lodash: '^4.17.21', // Trailing commas are fine
-  },
+  // JSON5 is designed for human editing
+  serviceName: 'catalog',
+  retries: 3,
 }
 ```
 
-**Use JSON5 when:**
-- You control both writing and reading
-- Human editability is a priority
-- You're working with configuration files
+Do not send JSON5 to a standard JSON parser. Use it only when the reader explicitly supports JSON5.
 
-### 4. Use YAML Instead
+### 3. Add a Comment Property
 
-For configuration files, consider using YAML, which natively supports comments:
+A normal property keeps the document valid JSON:
 
-```yaml
-# Configuration for production server
-host: api.example.com
-port: 443
-ssl: true  # Required for production
+```json
+{
+  "_comment": "Port used by the public HTTPS listener",
+  "port": 443,
+  "secure": true
+}
 ```
 
-You can convert between formats using our [JSON to YAML](/json-to-yaml) and [YAML to JSON](/yaml-to-json) converters.
+This works with every JSON parser, but the comment becomes part of the data. It may fail a strict JSON Schema that rejects unknown properties, and it can accidentally reach downstream systems.
 
-### 5. External Documentation
+Use a naming convention such as `_comment`, `_note`, or `description`, and confirm the consumer will ignore it.
 
-For complex configurations, maintain documentation separately:
+### 4. Use JSON Schema for Field Documentation
 
+When you need machine-readable validation and human-readable explanations, JSON Schema is usually better than inline comments:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Public TCP port for the service"
+    }
+  },
+  "required": ["port"]
+}
 ```
+
+Try the schema with the [JSON Schema Validator](/json-schema), or start with our [JSON Schema examples guide](/json-schema-examples).
+
+### 5. Keep Documentation Beside the File
+
+For public APIs and complex configuration, keep standard JSON and document it in a README, API reference, or schema:
+
+```text
 config/
-├── settings.json
-└── settings.md  # Documentation for settings.json
+├── service.json
+├── service.schema.json
+└── README.md
 ```
 
-This keeps your JSON files clean and valid while providing comprehensive documentation.
+This keeps data portable while allowing richer explanations, examples, links, and change history.
 
-## Best Practices
+### 6. Choose YAML or TOML for Human-Managed Configuration
 
-### For Configuration Files
+YAML and TOML both support comments. They may be a better fit for configuration edited primarily by people, while JSON remains a strong choice for APIs and generated data. See [YAML vs JSON](/json-vs-yaml) before changing formats.
 
-If your JSON file is primarily edited by humans (like `package.json` or `tsconfig.json`):
+## How to Remove Comments from JSONC
 
-1. **Use JSONC or JSON5** if your tooling supports it
-2. **Add `_comment` fields** for inline notes
-3. **Keep a separate README** for complex configurations
+Do not delete comments with a regular expression. Comment-like text can legally appear inside strings, including URLs such as `"https://example.com"`.
 
-### For Data Files
-
-If your JSON is primarily machine-generated or consumed:
-
-1. **Keep it comment-free** — Standard JSON is best for interoperability
-2. **Use JSON Schema** for validation and documentation
-3. **Document in code** — Add comments where you parse the JSON
-
-### For APIs
-
-API responses should **never** include comments:
-
-1. Use standard JSON for all API communication
-2. Document your API with OpenAPI/Swagger
-3. Use [JSON Schema](/json-schema) for request/response validation
-
-## How Different Tools Handle Comments
-
-| Tool/Format | Comments Supported | Notes |
-|-------------|-------------------|-------|
-| Standard JSON | ❌ No | Will throw parse error |
-| JSONC | ✅ Yes | VS Code, TypeScript |
-| JSON5 | ✅ Yes | Requires json5 parser |
-| YAML | ✅ Yes | Native comment support |
-| TOML | ✅ Yes | Good for config files |
-
-## Stripping Comments from JSON
-
-If you have JSONC or JSON5 and need standard JSON, you can strip comments programmatically:
-
-### JavaScript
+Use a parser designed for the extended format. In JavaScript, one option is `strip-json-comments`:
 
 ```javascript
-// Using strip-json-comments package
-const stripJsonComments = require('strip-json-comments');
+import stripJsonComments from 'strip-json-comments';
 
 const jsonc = `{
-  // This is a comment
-  "name": "example"
+  // Local development port
+  "port": 3000
 }`;
 
-const json = stripJsonComments(jsonc);
-// {"name": "example"}
+const value = JSON.parse(stripJsonComments(jsonc));
+console.log(value.port); // 3000
 ```
 
-### Command Line
+The JSONLint [JSONC converter](/jsonc-to-json) provides the same kind of workflow in the browser without uploading a file.
 
-```bash
-# Using jq (strips comments automatically in some cases)
-cat config.jsonc | npx strip-json-comments-cli > config.json
-```
+## Which Option Should You Choose?
 
-## Common Mistakes to Avoid
+| Situation | Recommended approach |
+|---|---|
+| Public API request or response | Strict JSON with external API documentation |
+| VS Code or TypeScript configuration | JSONC, because the tool supports it |
+| Application configuration you control | JSONC, JSON5, YAML, or TOML |
+| Shared data interchange | Strict JSON |
+| Need validation and field descriptions | JSON Schema |
+| One short note and flexible consumer | A `_comment` property |
 
-### 1. Assuming Comments Will Be Ignored
+## Common Mistakes
 
-```json
-{
-  "name": "test",
-  // This will cause a parse error!
-  "version": "1.0.0"
-}
-```
+- Saving JSONC with a `.json` extension and assuming every parser will accept it.
+- Sending JSON5 syntax in an `application/json` response.
+- Using a regex that damages `//` inside string values.
+- Adding `_comment` properties to data validated with `additionalProperties: false`.
+- Assuming a formatter will remove comments automatically.
 
-Standard JSON parsers will **reject** this file. Use the [JSON Validator](/) to check your files.
+## Frequently Asked Questions
 
-### 2. Using Hash Comments
+### Does `JSON.parse()` support comments?
 
-```json
-{
-  "name": "test"  # Python-style comments don't work
-}
-```
+No. Browser and Node.js implementations of `JSON.parse()` follow JSON syntax and reject comments.
 
-Even JSONC only supports `//` and `/* */` style comments, not `#`.
+### Does `package.json` support comments?
 
-### 3. Forgetting to Remove Comments Before Parsing
+No. `package.json` is standard JSON. Keep explanatory text in a README or in documented, tool-supported metadata fields.
 
-If you're using `_comment` fields, remember they become part of your data:
+### Does `tsconfig.json` support comments?
 
-```javascript
-const config = JSON.parse(fs.readFileSync('config.json'));
-// config._comment exists and may cause issues
-```
+The TypeScript toolchain supports comments in its configuration format. That does not make the file valid standard JSON for other parsers.
 
-## Related Resources
+### Can `jq` parse JSON comments?
 
-- [JSON Validator](/) — Validate your JSON syntax
-- [JSON to YAML Converter](/json-to-yaml) — Convert to a format that supports comments
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid other common errors
-- [JSON vs YAML](/json-vs-yaml) — Compare formats for your use case
-- [Mastering JSON Format](/mastering-json-format) — Complete JSON syntax guide
+No. `jq` expects valid JSON input. Strip or convert comments with a JSONC-aware tool before piping the result to `jq`.
 
-## Conclusion
+## Related Tools and References
 
-While JSON's lack of comment support can be frustrating, it's a deliberate design decision that keeps the format simple and universal. For most use cases, the workarounds described above provide practical solutions:
-
-- **Use JSONC/JSON5** for human-edited config files
-- **Use `_comment` fields** when you need inline documentation
-- **Consider YAML** for configuration-heavy projects
-- **Keep JSON pure** for data interchange and APIs
-
-The key is choosing the right approach for your specific use case while maintaining compatibility with the tools and systems that will consume your JSON.
+- [JSONC to JSON](/jsonc-to-json)
+- [JSON Validator](/)
+- [JSON Schema Validator](/json-schema)
+- [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259)

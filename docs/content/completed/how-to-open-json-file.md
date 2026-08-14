@@ -1,186 +1,181 @@
 ---
-title: How to Open JSON Files
-description: A complete guide to opening and viewing JSON files on any operating system using various methods and tools.
+title: "How to Open a JSON File on Windows, macOS, Linux, and the Web"
+description: "Open, view, format, and edit JSON files using a browser, code editor, command line, or JSONLint on Windows, macOS, and Linux."
+category: foundations
+priority: 20
+updated: "2026-08-14"
 ---
 
-# How to Open JSON Files
+A `.json` file is a plain-text document, so you can open it with any text editor. A code editor or JSON viewer is usually better because it adds syntax highlighting, formatting, folding, and error detection.
 
-JSON files (.json) are plain text files that can be opened with various applications. Here's a comprehensive guide to opening JSON files on any platform.
+For a quick check, open [JSONLint](/), paste the file contents, and validate them. Do not paste files containing passwords, API keys, personal records, or other sensitive data into any online tool.
 
-## Quick Methods
+## Fastest Ways to Open a JSON File
 
-### 1. Text Editors
+| Goal | Recommended option |
+|---|---|
+| Read a small file | VS Code, Notepad++, TextEdit in plain-text mode |
+| Validate syntax | [JSONLint Validator](/) |
+| Explore nested data | [JSON Tree Viewer](/json-tree) |
+| View an array as rows | [JSON to Table](/json-to-table) |
+| Inspect from a terminal | `jq`, Python, or PowerShell |
+| Process a very large file | Streaming command-line tool or application code |
 
-Any text editor can open JSON files:
+## Open JSON on Windows
 
-- **Notepad** (Windows)
-- **TextEdit** (Mac)
-- **gedit** (Linux)
+### Use a Code Editor
 
-Simply right-click the file → Open With → Choose your text editor.
+1. Right-click the `.json` file.
+2. Choose **Open with**.
+3. Select Visual Studio Code or Notepad++.
+4. To make it the default, choose **Choose another app** and enable **Always**.
 
-### 2. Code Editors (Recommended)
+Windows Notepad can display JSON, but a code editor provides clearer indentation and highlights matching brackets.
 
-Code editors provide syntax highlighting and formatting:
+### Use PowerShell
 
-- **Visual Studio Code** (Free, cross-platform)
-- **Sublime Text** (Free trial, cross-platform)
-- **Atom** (Free, cross-platform)
-- **Notepad++** (Free, Windows)
+Pretty-print a JSON file:
 
-### 3. Web Browsers
-
-Modern browsers can display JSON files:
-
-1. Drag and drop the JSON file into your browser
-2. Or use File → Open and select the JSON file
-
-**Pro tip:** Install a JSON formatter extension for better viewing.
-
-### 4. Online Tools
-
-Use [JSONLint](%%NEXT_PUBLIC_BASE_URL%%) to:
-
-- Paste JSON content directly
-- Validate the syntax
-- Format for readability
-- Edit and download
-
-## Opening JSON by Operating System
-
-### Windows
-
-**Method 1: Notepad**
-1. Right-click the .json file
-2. Select "Open with"
-3. Choose Notepad
-
-**Method 2: Set Default Program**
-1. Right-click any .json file
-2. Select "Open with" → "Choose another app"
-3. Select your preferred editor
-4. Check "Always use this app"
-
-### macOS
-
-**Method 1: TextEdit**
-1. Right-click the .json file
-2. Select "Open With"
-3. Choose TextEdit
-
-**Method 2: Terminal**
-```bash
-cat filename.json
-# or with formatting:
-cat filename.json | python -m json.tool
+```powershell
+Get-Content .\data.json -Raw |
+  ConvertFrom-Json |
+  ConvertTo-Json -Depth 100
 ```
 
-### Linux
+`ConvertFrom-Json` parses the file, so it will also reveal invalid syntax.
 
-**Terminal:**
-```bash
-# View file
-cat filename.json
+## Open JSON on macOS
 
-# Formatted view
-cat filename.json | jq .
+### Use Finder
 
-# Open in editor
-nano filename.json
-# or
-vim filename.json
-```
+1. Control-click the file.
+2. Choose **Open With**.
+3. Select Visual Studio Code, BBEdit, or TextEdit.
 
-## Opening Large JSON Files
+If you use TextEdit, ensure the document is treated as plain text rather than rich text.
 
-For files larger than 100MB, standard editors may struggle. Use:
+### Use Terminal
 
-### Command Line Tools
+Python can validate and format the file:
 
 ```bash
-# View first 100 lines
-head -100 large-file.json
-
-# Search within file
-grep "search-term" large-file.json
-
-# Format with jq
-jq '.' large-file.json | less
+python3 -m json.tool data.json
 ```
 
-### Specialized Tools
+Or use `jq` when installed:
 
-- **jq** - Command-line JSON processor
-- **fx** - Terminal JSON viewer
-- **JSON Viewer Pro** - Chrome extension for large files
-
-## Viewing JSON in Different Formats
-
-### Tree View
-
-Many tools display JSON as an expandable tree:
-
-- Browser extensions (JSON Formatter, JSON Viewer)
-- VS Code's built-in JSON viewer
-- Online tools like JSONLint
-
-### Table View
-
-For array data, table view can be helpful:
-
-- [JSON to Table](/json-to-table) — View JSON as an interactive table online
-- [JSON to CSV](/json-to-csv) — Convert JSON to CSV for Excel/Google Sheets
-- Excel (with Power Query)
-- Google Sheets (with ImportJSON)
-
-## Editing JSON Files
-
-When editing JSON:
-
-1. **Use a proper editor** - Syntax highlighting helps prevent errors
-2. **Validate after editing** - Use JSONLint to check syntax
-3. **Format before saving** - Keep files readable
-4. **Back up first** - Especially for configuration files
-
-## Common Issues
-
-### "File is not valid JSON"
-
-The file might be:
-- Corrupted
-- Using wrong encoding (try UTF-8)
-- Actually JSONL (JSON Lines) format
-
-### File Opens as Download
-
-In browsers, add this header to serve JSON files:
+```bash
+jq . data.json
 ```
+
+## Open JSON on Linux
+
+Most desktop editors and code editors can open JSON directly. From a terminal:
+
+```bash
+less data.json
+jq . data.json
+python3 -m json.tool data.json
+```
+
+Use `less` for viewing, `jq` for querying and formatting, and `python3 -m json.tool` for a dependency-free validation check when Python is available.
+
+## Open JSON in a Web Browser
+
+You can drag a local JSON file into a browser window or use **File → Open**. Browser behavior varies: some display raw text, some format JSON, and some download the file depending on the response headers.
+
+For JSON served by a website, the server should normally send:
+
+```http
 Content-Type: application/json
 ```
 
-### Encoding Issues
+The [JSON Formatter for Chrome](/json-formatter/chrome-extension) adds a formatted tree view for JSON responses opened in Chrome.
 
-If you see strange characters:
-1. Open the file in a text editor
-2. Save with UTF-8 encoding
-3. Try again
+## Format Minified JSON
 
-## Conclusion
+A one-line file is still valid JSON, but it is difficult to inspect:
 
-JSON files are simple text files that can be opened with any text editor. For the best experience, use a code editor with JSON support or an online tool like [JSONLint](%%NEXT_PUBLIC_BASE_URL%%) for validation and formatting.
+```json
+{"users":[{"id":1,"name":"Ada"},{"id":2,"name":"Grace"}]}
+```
 
----
+Use [JSON Formatter](/json-formatter), `jq`, or Python:
 
-## Related Tools & Resources
+```bash
+jq . data.json > formatted.json
+python3 -m json.tool data.json formatted.json
+```
 
-### Tools
-- [JSON Validator](/) — Validate and format your JSON
-- [JSON to Table](/json-to-table) — View JSON as an interactive table
-- [JSON to CSV](/json-to-csv) — Export to spreadsheet format
-- [JSON Path](/json-path) — Query specific data from large files
-- [JSON Minify](/json-minify) — Compress JSON files
+Keep the original until you have verified the formatted output.
 
-### Learn More
-- [Mastering JSON Format](/mastering-json-format) — Complete JSON syntax guide
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid syntax errors
-- [Fix "Unexpected End of JSON"](/fix-unexpected-end-of-json-input) — Debug parsing errors
+## Open Large JSON Files
+
+Desktop editors can become slow when they must parse and render hundreds of megabytes. Avoid loading a very large file into an online tool or a browser tab.
+
+Start by checking its size and structure:
+
+```bash
+wc -c large.json
+head -c 500 large.json
+jq -r 'type' large.json
+```
+
+Then stream or select only the data you need:
+
+```bash
+jq -c '.items[]' large.json | head
+```
+
+If the file contains one JSON value per line, it may be JSON Lines or NDJSON rather than one JSON array. See [JSON Lines and NDJSON](/json-lines).
+
+## Edit JSON Safely
+
+- Keep keys and string values in double quotes.
+- Remove trailing commas and comments unless the format is explicitly JSONC.
+- Preserve UTF-8 encoding.
+- Validate after every manual change.
+- Use version control or a backup for configuration files.
+- Do not reorder keys if another system incorrectly depends on their textual order.
+
+Use [JSON Diff](/json-diff) to review changes between two versions.
+
+## Common Problems
+
+### “This File Is Not Valid JSON”
+
+The file may contain a missing delimiter, comments, multiple concatenated values, or truncated content. Start with the [JSON Parse Error guide](/json-parse-error).
+
+### The File Contains Comments
+
+It may be JSONC. Standard JSON parsers reject comments; convert it using [JSONC to JSON](/jsonc-to-json).
+
+### The File Shows Strange Characters
+
+Reopen it as UTF-8. A byte-order mark or a different source encoding can also cause parse errors.
+
+### The File Has No `.json` Extension
+
+An extension is a convention, not proof of content. Inspect the first characters and the content type. A valid JSON document can also be a string, number, boolean, or null—not only an object or array.
+
+## Frequently Asked Questions
+
+### What program opens JSON files?
+
+Any plain-text editor can open JSON. Visual Studio Code and similar code editors are more convenient because they understand JSON syntax.
+
+### Can Excel open JSON?
+
+Modern Excel versions can import JSON through Power Query. For a quick conversion, use [JSON to Excel](/json-to-excel) or [JSON to CSV](/json-to-csv).
+
+### Can I open JSON on a phone?
+
+Yes. A text editor, code-viewer app, browser, or online validator can display it. Avoid uploading sensitive files.
+
+## Related Tools
+
+- [JSON Validator](/)
+- [JSON Formatter](/json-formatter)
+- [JSON Tree Viewer](/json-tree)
+- [JSON Path Finder](/json-path)
+- [JSON to Table](/json-to-table)

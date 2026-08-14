@@ -1,10 +1,12 @@
 ---
-title: "How to Read and Write JSON in Python: Complete Guide"
-description: "Master JSON in Python with this comprehensive guide. Learn to read, write, parse, and manipulate JSON data using the json module with practical examples."
-date: "2024-01-15"
+title: "Read and Write JSON Files in Python: load, loads, dump, and dumps"
+description: "Read, write, parse, and serialize JSON in Python with json.load, loads, dump, and dumps, plus error handling and practical file examples."
+category: languages
+priority: 10
+updated: "2026-08-14"
 ---
 
-Python's built-in `json` module makes working with JSON data straightforward. Whether you're reading configuration files, consuming APIs, or storing data, this guide covers everything you need to know about handling JSON in Python.
+Python's built-in `json` module reads JSON files and strings without an additional package. Use `json.load()` for a file, `json.loads()` for a string, `json.dump()` to write a file, and `json.dumps()` to create a string.
 
 ## Quick Start
 
@@ -502,6 +504,7 @@ state.set('processed_count', 42)
 ### Learn More
 
 - [JSON Parse Error Guide](/json-parse-error) — Fix common parsing errors
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid syntax errors
+- [JSON Parse Error Guide](/json-parse-error) — Diagnose invalid syntax
 - [JSON Comments Guide](/json-comments) — Why comments cause errors
 - [Mastering JSON Format](/mastering-json-format) — JSON fundamentals
+- [Python `json` documentation](https://docs.python.org/3/library/json.html) — Standard-library reference

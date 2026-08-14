@@ -1,432 +1,211 @@
 ---
-title: "How to Fix 'Unexpected End of JSON Input' Error"
-description: "Learn what causes the 'Unexpected end of JSON input' error and how to fix it with practical solutions for JavaScript, Python, and other languages."
-date: "2024-01-15"
+title: "Unexpected End of JSON Input: Causes and Fixes"
+description: "Fix Unexpected end of JSON input errors caused by empty responses, truncated data, missing brackets, incomplete strings, and incorrect fetch handling."
+category: errors
+priority: 1
+updated: "2026-08-14"
 ---
 
-The **"Unexpected end of JSON input"** error is one of the most common JSON parsing errors developers encounter. This error occurs when you try to parse incomplete or truncated JSON data.
+`SyntaxError: Unexpected end of JSON input` means a parser reached the end of its input before it found a complete JSON value. The input is commonly empty, truncated, missing a closing bracket, or cut off inside a string.
 
-In this guide, we'll explain why this error happens, show you how to identify the problem, and provide solutions for different programming languages.
+Validate the exact input with [JSONLint](/). If the data is recoverable but malformed, try the [JSON Repair tool](/json-repair) and review its output before using it.
 
-## What Causes This Error?
+## The Most Common Causes
 
-The error occurs when a JSON parser reaches the end of the input before finding a complete, valid JSON structure. In simple terms: **something is missing**.
+### Empty Input
 
-### Common Causes
-
-1. **Empty string or response**
-2. **Truncated data** (network timeout, file read error)
-3. **Missing closing brackets** `}` or `]`
-4. **Incomplete API response**
-5. **Encoding issues** cutting off data
-
-## Quick Diagnosis
-
-Paste your JSON into the [JSON Validator](/) to identify exactly where the problem is. The validator will show you what's missing.
-
-### Examples of Invalid JSON
-
-```json
-// Missing closing brace
-{
-  "name": "John",
-  "age": 30
-
-// Missing closing bracket
-{
-  "items": [1, 2, 3
-
-// Empty string
-(nothing)
-
-// Truncated string
-{"name": "Jo
-```
-
-All of these will produce the "Unexpected end of JSON input" error.
-
-## Solutions by Language
-
-### JavaScript / Node.js
-
-#### The Error
+Both an empty string and a whitespace-only response fail:
 
 ```javascript
-JSON.parse('{"name": "John"');
-// SyntaxError: Unexpected end of JSON input
-
 JSON.parse('');
-// SyntaxError: Unexpected end of JSON input
+JSON.parse('   ');
 ```
 
-#### Solution 1: Check for Empty Data
+Check before parsing:
 
 ```javascript
-function safeJsonParse(str) {
-  if (!str || str.trim() === '') {
-    return null; // or throw a custom error
-  }
-  
-  try {
-    return JSON.parse(str);
-  } catch (error) {
-    console.error('JSON parse error:', error.message);
+function parseJsonIfPresent(text) {
+  if (typeof text !== 'string' || text.trim() === '') {
     return null;
   }
+
+  return JSON.parse(text);
 }
 ```
 
-#### Solution 2: Validate API Responses
+Returning `null` is only appropriate if an empty value is valid in your application. Otherwise, throw a descriptive error.
+
+### Missing Closing Bracket or Brace
+
+These documents end too early:
+
+```json
+{"user":{"name":"Ada"}
+```
+
+```json
+{"items":[1,2,3}
+```
+
+The first needs another `}`. The second has mismatched array and object delimiters. Do not fix production data by blindly appending brackets: a truncated payload may also be missing properties or values.
+
+### Unterminated String
+
+```json
+{"message":"The request was cut off
+```
+
+The parser reached the end while still inside the string. Recover the original data rather than guessing the missing text.
+
+### Truncated Network Response
+
+A timeout, closed connection, proxy limit, or interrupted stream can produce a partial body. Compare logs from the sender and receiver, check response size, and retry the request when the operation is safe to repeat.
+
+### Parsing a Response That Has No Body
+
+Some successful responses intentionally have no JSON body, including common `204 No Content` responses. Do not call `response.json()` without checking:
+
+```javascript
+async function readOptionalJson(response) {
+  if (response.status === 204) return null;
+
+  const text = await response.text();
+  if (!text.trim()) return null;
+
+  return JSON.parse(text);
+}
+```
+
+## Fixing the Error with `fetch()`
+
+Check the HTTP status, expected content type, and raw text:
 
 ```javascript
 async function fetchJson(url) {
   const response = await fetch(url);
-  
-  // Check if response is OK
+  const contentType = response.headers.get('content-type') || '';
+
   if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
+    throw new Error(`HTTP ${response.status} from ${url}`);
   }
-  
-  // Get text first to inspect if needed
+
+  if (response.status === 204) return null;
+
   const text = await response.text();
-  
-  // Check for empty response
-  if (!text) {
-    throw new Error('Empty response from server');
+  if (!text.trim()) {
+    throw new Error('Expected JSON but received an empty response');
   }
-  
+
+  if (!contentType.includes('application/json')) {
+    throw new Error(`Expected JSON, received ${contentType || 'an unknown type'}`);
+  }
+
   try {
     return JSON.parse(text);
   } catch (error) {
-    console.error('Invalid JSON:', text.substring(0, 100));
-    throw new Error('Server returned invalid JSON');
+    throw new Error(`Invalid JSON from ${url}: ${error.message}`);
   }
 }
 ```
 
-#### Solution 3: Handle Streaming Data
+Reading the body once as text makes it possible to distinguish empty data from invalid JSON. Avoid logging the complete body when it may contain tokens, personal data, or credentials.
+
+## Fixing the Error in Node.js
+
+Use the promise-based file API and specify UTF-8:
 
 ```javascript
-// When receiving chunked data, wait for complete response
-let chunks = [];
+import { readFile } from 'node:fs/promises';
 
-response.on('data', chunk => chunks.push(chunk));
-response.on('end', () => {
-  const complete = Buffer.concat(chunks).toString();
-  try {
-    const data = JSON.parse(complete);
-    // Process data
-  } catch (error) {
-    console.error('Incomplete JSON received');
+async function readJsonFile(filename) {
+  const text = await readFile(filename, 'utf8');
+
+  if (!text.trim()) {
+    throw new Error(`${filename} is empty`);
   }
-});
+
+  return JSON.parse(text);
+}
 ```
 
-### Python
+When another process writes the file, use an atomic-write pattern: write the complete document to a temporary file and rename it after the write succeeds. This prevents readers from seeing half-written JSON.
 
-#### The Error
+## Fixing the Error in Python
+
+Python reports similar incomplete input through `json.JSONDecodeError`:
 
 ```python
 import json
+from pathlib import Path
 
-json.loads('{"name": "John"')
-# json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 16 (char 15)
+def read_json_file(filename):
+    text = Path(filename).read_text(encoding="utf-8")
 
-json.loads('')
-# json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
-```
+    if not text.strip():
+        raise ValueError(f"{filename} is empty")
 
-#### Solution
-
-```python
-import json
-
-def safe_json_loads(s):
-    if not s or not s.strip():
-        return None
-    
     try:
-        return json.loads(s)
-    except json.JSONDecodeError as e:
-        print(f"JSON error at position {e.pos}: {e.msg}")
-        return None
-
-# For API responses
-import requests
-
-def fetch_json(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    
-    if not response.text:
-        raise ValueError("Empty response from server")
-    
-    return response.json()  # Will raise JSONDecodeError if invalid
+        return json.loads(text)
+    except json.JSONDecodeError as error:
+        raise ValueError(
+            f"Invalid JSON at line {error.lineno}, column {error.colno}: {error.msg}"
+        ) from error
 ```
 
-### Java
+For normal file reads, `json.load(file)` is more direct. See [Read and Write JSON Files in Python](/python-json) for the difference between `load`, `loads`, `dump`, and `dumps`.
 
-#### The Error
+## Debugging Checklist
 
-```java
-// Using Jackson
-ObjectMapper mapper = new ObjectMapper();
-mapper.readTree("{\"name\":");
-// JsonParseException: Unexpected end-of-input
+1. Record whether the input length is zero.
+2. Inspect the final 100 characters of a redacted copy.
+3. Confirm the request returned the expected status and content type.
+4. Reproduce the problem with the exact received text.
+5. Validate the document and inspect the first reported location.
+6. Compare the sender’s byte count with the receiver’s byte count.
+7. Check for concurrent or interrupted file writes.
+8. Retry or recover from the authoritative source instead of guessing missing values.
+
+## Do Not Automatically Append Brackets
+
+Counting opening and closing braces is not a reliable repair strategy. Braces can appear inside strings, and a truncated document may be missing much more than its final delimiter:
+
+```json
+{"message":"use } in this example","permissions":["read"
 ```
 
-#### Solution
+Appending `]}` produces valid syntax, but it cannot prove the original permissions array was complete. Treat automated repair as a reviewable recovery aid, not a guarantee of semantic correctness.
 
-```java
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
+## Preventing Unexpected-End Errors
 
-public JsonNode safeParseJson(String json) {
-    if (json == null || json.trim().isEmpty()) {
-        return null;
-    }
-    
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-        return mapper.readTree(json);
-    } catch (JsonProcessingException e) {
-        System.err.println("JSON parse error: " + e.getMessage());
-        return null;
-    }
-}
-```
+- Serialize values with a standard JSON library instead of concatenating strings.
+- Write files atomically.
+- Use checksums, record counts, or message framing for streamed data.
+- Use JSON Lines for a stream of independent records.
+- Place response-size limits on both clients and servers.
+- Validate configuration and fixture files in CI.
+- Handle empty and `204` responses explicitly.
 
-### PHP
+## Frequently Asked Questions
 
-#### The Error
+### Why does `JSON.parse(undefined)` fail differently?
 
-```php
-json_decode('{"name": "John"', true);
-// Returns NULL, json_last_error() returns JSON_ERROR_SYNTAX
-```
+`JSON.parse` first converts many non-string inputs to strings. `undefined` becomes `"undefined"`, which usually produces an unexpected-token error rather than an unexpected-end error.
 
-#### Solution
+### Can valid JSON be empty?
 
-```php
-function safe_json_decode($json, $assoc = true) {
-    if (empty($json)) {
-        return null;
-    }
-    
-    $result = json_decode($json, $assoc);
-    
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        error_log('JSON error: ' . json_last_error_msg());
-        return null;
-    }
-    
-    return $result;
-}
-```
+No. An empty string is not a JSON value. `null` is valid JSON when you need an explicit empty or absent value.
 
-## Debugging Truncated JSON
+### Why does the error point to the last line?
 
-When JSON is cut off mid-stream, you need to find what's missing:
+The parser may only discover that something is missing after reaching the end. The actual mistake can be an opening bracket or quote much earlier.
 
-### Step 1: Count Brackets
+### Can JSONLint recover truncated data?
 
-Every `{` needs a `}`, and every `[` needs a `]`:
+The [JSON Repair tool](/json-repair) can repair some malformed structures, but no tool can reconstruct values that were never received.
 
-```javascript
-function countBrackets(json) {
-  let braces = 0;
-  let brackets = 0;
-  let inString = false;
-  
-  for (let char of json) {
-    if (char === '"' && json[json.indexOf(char) - 1] !== '\\') {
-      inString = !inString;
-    }
-    if (!inString) {
-      if (char === '{') braces++;
-      if (char === '}') braces--;
-      if (char === '[') brackets++;
-      if (char === ']') brackets--;
-    }
-  }
-  
-  console.log(`Missing ${braces} closing braces`);
-  console.log(`Missing ${brackets} closing brackets`);
-}
-```
+## Related Guides
 
-### Step 2: Use a JSON Repair Tool
-
-For automated fixing of truncated JSON:
-
-```javascript
-// Try to repair truncated JSON by closing open structures
-function repairJson(json) {
-  let braces = 0;
-  let brackets = 0;
-  let inString = false;
-  
-  for (let i = 0; i < json.length; i++) {
-    const char = json[i];
-    const prev = json[i - 1];
-    
-    if (char === '"' && prev !== '\\') {
-      inString = !inString;
-    }
-    if (!inString) {
-      if (char === '{') braces++;
-      if (char === '}') braces--;
-      if (char === '[') brackets++;
-      if (char === ']') brackets--;
-    }
-  }
-  
-  // Close open strings
-  if (inString) json += '"';
-  
-  // Close open structures
-  json += ']'.repeat(brackets);
-  json += '}'.repeat(braces);
-  
-  return json;
-}
-```
-
-### Step 3: Check Network Responses
-
-Common issues with API responses:
-
-```javascript
-// Log the raw response before parsing
-fetch(url)
-  .then(response => response.text())
-  .then(text => {
-    console.log('Response length:', text.length);
-    console.log('Response preview:', text.substring(0, 200));
-    console.log('Response end:', text.substring(text.length - 50));
-    
-    return JSON.parse(text);
-  });
-```
-
-## Common Scenarios and Fixes
-
-### Scenario 1: Empty API Response
-
-**Problem:** Server returns empty body or just whitespace
-
-```javascript
-// Bad: No data handling
-const data = JSON.parse(response.body);
-
-// Good: Check before parsing
-if (response.body && response.body.trim()) {
-  const data = JSON.parse(response.body);
-} else {
-  console.log('No data received');
-}
-```
-
-### Scenario 2: Network Timeout
-
-**Problem:** Response cut off due to timeout
-
-```javascript
-// Increase timeout for large responses
-const controller = new AbortController();
-const timeout = setTimeout(() => controller.abort(), 30000); // 30 seconds
-
-fetch(url, { signal: controller.signal })
-  .finally(() => clearTimeout(timeout));
-```
-
-### Scenario 3: File Read Issues
-
-**Problem:** File not fully read
-
-```javascript
-// Node.js - Use proper async file reading
-const fs = require('fs').promises;
-
-async function readJsonFile(path) {
-  const content = await fs.readFile(path, 'utf8');
-  return JSON.parse(content);
-}
-```
-
-### Scenario 4: Encoding Problems
-
-**Problem:** Unicode characters cause truncation
-
-```javascript
-// Ensure proper encoding
-const response = await fetch(url);
-const buffer = await response.arrayBuffer();
-const text = new TextDecoder('utf-8').decode(buffer);
-const data = JSON.parse(text);
-```
-
-## Prevention Best Practices
-
-### 1. Always Validate Before Parsing
-
-Use the [JSON Validator](/) during development to catch issues early.
-
-### 2. Implement Error Handling
-
-Never assume JSON parsing will succeed:
-
-```javascript
-try {
-  const data = JSON.parse(input);
-  processData(data);
-} catch (error) {
-  handleError(error);
-}
-```
-
-### 3. Log Raw Input on Errors
-
-When debugging, always log what you tried to parse:
-
-```javascript
-try {
-  return JSON.parse(input);
-} catch (error) {
-  console.error('Failed to parse:', input);
-  throw error;
-}
-```
-
-### 4. Validate Data Length
-
-For API responses, check Content-Length matches actual data:
-
-```javascript
-const contentLength = response.headers.get('content-length');
-const body = await response.text();
-
-if (contentLength && body.length < parseInt(contentLength)) {
-  console.warn('Response may be truncated');
-}
-```
-
-## Related Tools and Resources
-
-- [JSON Validator](/) — Validate and identify JSON errors
-- [JSON Stringify](/json-stringify) — Properly escape JSON strings
-- [JSON Unescape](/json-unescape) — Fix escaped JSON issues
-- [Common JSON Mistakes](/common-mistakes-in-json-and-how-to-avoid-them) — Avoid other common errors
-- [Mastering JSON Format](/mastering-json-format) — JSON syntax reference
-
-## Summary
-
-The "Unexpected end of JSON input" error always means **incomplete data**. To fix it:
-
-1. **Check for empty input** before parsing
-2. **Verify network responses** are complete
-3. **Count brackets** to find what's missing
-4. **Add proper error handling** to catch and log issues
-5. **Use the [JSON Validator](/)** to diagnose problems
-
-With proper validation and error handling, you can catch these issues early and provide meaningful error messages to users.
+- [JSON Parse Errors](/json-parse-error)
+- [Unexpected Token in JSON](/unexpected-token-in-json)
+- [JSON Lines and NDJSON](/json-lines)
+- [RFC 8259](https://www.rfc-editor.org/rfc/rfc8259)
