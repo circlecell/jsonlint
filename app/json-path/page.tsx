@@ -4,9 +4,9 @@ import { Container } from '@/components/Container';
 import { JsonPathQuery } from './JsonPathQuery';
 
 export const metadata: Metadata = {
-  title: 'JSON Path Query - Extract Data from JSON',
+  title: 'JSONPath Finder & Evaluator - Query JSON Online',
   description:
-    'Query and extract data from JSON using JSONPath expressions. Filter arrays, navigate nested objects, and find values anywhere in your JSON.',
+    'Find JSONPath expressions and query JSON online. Filter arrays, navigate nested objects, test paths, and extract matching values from JSON.',
   alternates: { canonical: '/json-path' },
 };
 
@@ -22,11 +22,11 @@ export default function JsonPathPage() {
         </div>
 
         <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-          JSONPath Evaluator
+          JSONPath Finder &amp; Evaluator
         </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
-          Enter a JSONPath expression to extract matching values from your JSON:
+          Find and test a JSONPath expression to extract matching values from your JSON:
         </p>
 
         <JsonPathQuery />

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
+import Link from 'next/link';
 import { ToolNav } from '@/components/ToolNav';
 import { JsonValidatorWrapper } from './JsonValidatorWrapper';
 import { SeoContent, ToolsSidebar } from '@/components/SeoContent';
@@ -39,6 +40,21 @@ export default function HomePage() {
             <Suspense fallback={<EditorSkeleton />}>
               <JsonValidatorWrapper />
             </Suspense>
+
+            <nav
+              className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm"
+              aria-label="Related JSON formatting tools"
+            >
+              <Link href="/json-formatter" className="text-[var(--accent-blue)] hover:underline">
+                Format and beautify JSON
+              </Link>
+              <Link href="/json-pretty-print" className="text-[var(--accent-blue)] hover:underline">
+                Pretty print JSON
+              </Link>
+              <Link href="/json-tree" className="text-[var(--accent-blue)] hover:underline">
+                View JSON as a tree
+              </Link>
+            </nav>
 
             {/* Native ad */}
             <div className="native-ad-container mt-6"></div>

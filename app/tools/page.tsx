@@ -21,6 +21,7 @@ const toolCategories = [
     color: 'var(--accent-green)',
     tools: [
       { name: 'JSON Validator', href: '/', description: 'Validate and format JSON with error highlighting' },
+      { name: 'JSON Formatter', href: '/json-formatter', description: 'Format and beautify JSON in one editor' },
       { name: 'JSON Repair', href: '/json-repair', description: 'Auto-fix broken JSON from LLMs and copy-paste' },
       { name: 'Error Analyzer', href: '/json-error-analyzer', description: 'Understand errors with detailed explanations' },
       { name: 'Pretty Print', href: '/json-pretty-print', description: 'Format JSON with customizable indentation' },
@@ -37,10 +38,10 @@ const toolCategories = [
     icon: SearchIcon,
     color: 'var(--accent-blue)',
     tools: [
-      { name: 'Tree Viewer', href: '/json-tree', description: 'Interactive collapsible tree visualization' },
+      { name: 'JSON Viewer / Tree', href: '/json-tree', description: 'Interactive collapsible tree visualization' },
       { name: 'Table Viewer', href: '/json-to-table', description: 'Display arrays as sortable tables' },
-      { name: 'JSON Diff', href: '/json-diff', description: 'Compare two JSON objects side-by-side' },
-      { name: 'JSON Path', href: '/json-path', description: 'Query data using JSONPath expressions' },
+      { name: 'JSON Compare & Diff', href: '/json-diff', description: 'Compare two JSON objects side-by-side' },
+      { name: 'JSONPath Finder', href: '/json-path', description: 'Query data using JSONPath expressions' },
       { name: 'JSON Search', href: '/json-search', description: 'Find keys and values with text search' },
       { name: 'Size Analyzer', href: '/json-size-analyzer', description: 'Analyze JSON size, depth, and structure' },
       { name: 'Flatten', href: '/json-flatten', description: 'Convert nested JSON to dot notation' },

@@ -491,6 +491,10 @@
 }
 
 /* Native ad styling */
+.native-ad-container {
+  min-height: 140px;
+}
+
 .native-ad {
   @apply flex flex-col overflow-hidden p-4 border rounded-lg;
   background: var(--bg-secondary);

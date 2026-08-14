@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
 /**
- * Loads the primary BSA/Prebid stack immediately through BidTune, then delays
- * native ad rendering until after page load to preserve initial page speed.
+ * Loads the primary BSA/Prebid stack when the browser is idle after load, then
+ * delays native ad rendering to preserve initial page speed and responsiveness.
  *
  * @see https://www.aaronpeters.nl/blog/why-loading-third-party-scripts-async-is-not-good-enough/
  */
@@ -42,11 +42,11 @@ export function DelayedAdLoader({ delay = 6500 }: DelayedAdLoaderProps) {
 
   return (
     <>
-      {/* BuySellAds Optimize / Prebid — served via BidTune script proxy */}
+      {/* BuySellAds Optimize / Prebid — defer third-party work until idle. */}
       <Script
         id="bsaOptimizeScript"
         src="https://s.bidtune.net/jsonlint/p.js"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
 
       {shouldLoad && (

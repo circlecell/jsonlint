@@ -6,15 +6,16 @@ import { useLayout } from './LayoutProvider';
 
 const tools = [
   { href: '/', label: 'Validate', icon: CheckCircleIcon },
+  { href: '/json-formatter', label: 'Format', icon: CodeIcon },
   { href: '/json-repair', label: 'Repair', icon: WrenchIcon },
   { href: '/json-minify', label: 'Minify', icon: CompressIcon },
-  { href: '/json-diff', label: 'Diff', icon: DiffIcon },
+  { href: '/json-diff', label: 'Compare', icon: DiffIcon },
   { href: '/json-to-csv', label: 'CSV', icon: TableIcon },
   { href: '/json-to-yaml', label: 'YAML', icon: ArrowRightIcon },
   { href: '/json-schema', label: 'Schema', icon: ShieldIcon },
-  { href: '/json-path', label: 'Path', icon: TargetIcon },
+  { href: '/json-path', label: 'Path Finder', icon: TargetIcon },
   { href: '/jwt-decoder', label: 'JWT', icon: KeyIcon },
-  { href: '/json-tree', label: 'Tree', icon: TreeIcon },
+  { href: '/json-tree', label: 'Viewer', icon: TreeIcon },
   { href: '/tools', label: 'All Tools', icon: GridIcon },
 ];
 

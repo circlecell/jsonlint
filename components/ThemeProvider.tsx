@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 type ResolvedTheme = 'dark' | 'light';
@@ -21,7 +21,7 @@ function getSystemTheme(): ResolvedTheme {
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
-  const [mounted, setMounted] = useState(false);
+  const hasInitializedTheme = useRef(false);
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -31,7 +31,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     const resolved = initialTheme === 'system' ? getSystemTheme() : initialTheme;
     setResolvedTheme(resolved);
-    setMounted(true);
   }, []);
 
   // Listen for system theme changes
@@ -50,11 +49,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   // Apply theme to document
   useEffect(() => {
-    if (mounted) {
-      document.documentElement.classList.remove('light', 'dark');
-      document.documentElement.classList.add(resolvedTheme);
+    // The beforeInteractive script in layout.tsx already applied the correct
+    // class. Avoid replacing it with the server default during the first effect.
+    if (!hasInitializedTheme.current) {
+      hasInitializedTheme.current = true;
+      return;
     }
-  }, [resolvedTheme, mounted]);
+
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(resolvedTheme);
+  }, [resolvedTheme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
@@ -63,16 +67,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const resolved = newTheme === 'system' ? getSystemTheme() : newTheme;
     setResolvedTheme(resolved);
   };
-
-  // Prevent flash - render nothing until mounted
-  // Using a script in layout.tsx would be better for production
-  if (!mounted) {
-    return (
-      <div style={{ visibility: 'hidden' }}>
-        {children}
-      </div>
-    );
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>

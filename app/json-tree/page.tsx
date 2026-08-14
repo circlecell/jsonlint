@@ -4,9 +4,9 @@ import { Container } from '@/components/Container';
 import { JsonTreeViewer } from './JsonTreeViewer';
 
 export const metadata: Metadata = {
-  title: 'JSON Tree Viewer - Visualize JSON Structure Online',
+  title: 'JSON Tree Viewer Online - JSON Viewer & Visualizer',
   description:
-    'Visualize JSON data as an interactive tree structure. Expand/collapse nodes, explore nested objects, and understand complex JSON hierarchies.',
+    'View JSON online as an interactive tree. Expand and collapse nodes, explore nested objects, and visualize complex JSON structure in your browser.',
   alternates: { canonical: '/json-tree' },
 };
 
@@ -24,14 +24,14 @@ export default function JsonTreePage() {
           JSON Tree Viewer
         </h1>
         <p className="text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
-          Visualize JSON as an interactive collapsible tree. Paste your JSON:
+          Use this online JSON viewer to explore data as an interactive collapsible tree:
         </p>
 
         <JsonTreeViewer />
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr,280px] gap-6 mt-8">
           <div className="prose-custom">
-            <h2>Visualize JSON Structure</h2>
+            <h2>Online JSON Viewer and Visualizer</h2>
             <p>
               The JSON Tree Viewer transforms raw JSON text into an interactive tree 
               structure. Click on nodes to expand or collapse them, making it easy to 

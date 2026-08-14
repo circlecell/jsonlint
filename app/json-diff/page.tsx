@@ -4,9 +4,9 @@ import { Container } from '@/components/Container';
 import { JsonDiff } from './JsonDiff';
 
 export const metadata: Metadata = {
-  title: 'JSON Diff - Compare Two JSON Objects',
+  title: 'JSON Compare & Diff Online - Compare JSON Objects',
   description:
-    'Compare two JSON documents and see exactly what changed. Highlights additions, deletions, and modifications with line-by-line diff view.',
+    'Compare two JSON documents online and see exactly what changed. This JSON diff checker highlights additions, deletions, and modifications side by side.',
   alternates: { canonical: '/json-diff' },
 };
 
@@ -22,20 +22,20 @@ export default function JsonDiffPage() {
         </div>
 
         <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
-          JSON Diff
+          JSON Compare &amp; Diff
         </h1>
 
         <p className="text-sm mb-3" style={{ color: 'var(--text-muted)' }}>
-          Paste two JSON documents below to see exactly what's different:
+          Compare two JSON documents online and see additions, deletions, and changes:
         </p>
 
         <JsonDiff />
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr,280px] gap-6 mt-8">
           <div className="prose-custom">
-            <h2>When to Use JSON Diff</h2>
+            <h2>When to Use JSON Compare</h2>
             <p>
-              JSON Diff compares two JSON documents and highlights every difference—additions, 
+              This JSON compare and diff tool highlights every difference—additions,
               deletions, and changes. It's essential when you need to:
             </p>
             <ul>

@@ -3,7 +3,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolNav } from '@/components/ToolNav';
 import { JsonValidatorWrapper } from '../JsonValidatorWrapper';
-import { SeoContent, ToolsSidebar } from '@/components/SeoContent';
+import { ToolsSidebar } from '@/components/SeoContent';
+import { FormatterSeoContent } from '@/components/FormatterSeoContent';
 import { Container } from '@/components/Container';
 
 export const metadata: Metadata = {
@@ -69,8 +70,8 @@ export default function JsonFormatterPage() {
             {/* Native ad */}
             <div className="native-ad-container mt-6"></div>
 
-            {/* SEO Content */}
-            <SeoContent />
+            {/* Formatter-specific content keeps this page distinct from the validator. */}
+            <FormatterSeoContent />
           </div>
 
           {/* Sidebar */}

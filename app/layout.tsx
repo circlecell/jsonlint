@@ -79,6 +79,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function(){
+            try {
+              var stored = localStorage.getItem('jsonlint-theme');
+              var dark = stored === 'dark' || ((!stored || stored === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+              document.documentElement.classList.remove('light', 'dark');
+              document.documentElement.classList.add(dark ? 'dark' : 'light');
+            } catch (e) {}
+          })();`}
+        </Script>
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -106,7 +116,7 @@ export default function RootLayout({
         </Script>
         <Script
           id="fullres-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         >
           {`(function(){
             var fullres = document.createElement('script');
@@ -130,8 +140,8 @@ export default function RootLayout({
         {/* BuySellAds Optimize - handles ad refresh on SPA navigation */}
         <OptimizeAds />
         
-        {/* The primary BSA/Prebid stack loads immediately via BidTune; native
-            ad rendering is still delayed to preserve initial page speed. */}
+        {/* The primary BSA/Prebid stack loads when the browser is idle; native
+            ad rendering is delayed further to preserve initial responsiveness. */}
         <DelayedAdLoader delay={6500} />
       </body>
     </html>

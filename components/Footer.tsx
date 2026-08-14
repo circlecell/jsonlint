@@ -9,7 +9,7 @@ const footerLinks = {
     { href: '/', label: 'JSON Validator' },
     { href: '/json-pretty-print', label: 'Pretty Print' },
     { href: '/json-minify', label: 'JSON Minify' },
-    { href: '/json-diff', label: 'JSON Diff' },
+    { href: '/json-diff', label: 'Compare JSON' },
     { href: '/json-tree', label: 'Tree Viewer' },
     { href: '/json-schema', label: 'Schema Validator' },
     { href: '/json-schema-generator', label: 'Schema Generator' },

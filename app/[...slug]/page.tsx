@@ -19,6 +19,10 @@ import jsonlintLight from '@/lib/themes/jsonlint-light.json';
 const contentDirectory = path.join(process.cwd(), 'docs/content/completed');
 const datasetsDirectory = path.join(process.cwd(), 'docs/datasets');
 
+function serializeJsonLd(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, '\\u003c');
+}
+
 function getAllMarkdownFiles(dir: string, fileList: string[] = []): string[] {
   if (!fs.existsSync(dir)) return fileList;
   
@@ -275,15 +279,77 @@ export default async function MarkdownPage({
     );
   }
 
+  const pageUrl = `https://jsonlint.com/${data.slug}`;
+  const structuredData = data.slug === 'privacy' ? null : {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: data.title,
+        description: data.description,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': pageUrl,
+        },
+        author: {
+          '@type': 'Person',
+          name: 'Todd Garland',
+          url: 'https://jsonlint.com/about',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'JSONLint',
+          url: 'https://jsonlint.com',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://jsonlint.com/images/logo.svg',
+          },
+        },
+        ...(data.updated ? { dateModified: data.updated } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'JSONLint',
+            item: 'https://jsonlint.com/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Learn',
+            item: 'https://jsonlint.com/learn',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: data.title,
+            item: pageUrl,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
-    <ArticlePageClient
-      title={data.title}
-      content={data.content}
-      breadcrumbs={breadcrumbs}
-      url={`https://jsonlint.com/${data.slug}`}
-      readingTime={data.readingTime}
-      updated={data.updated}
-      relatedArticles={relatedArticles}
-    />
+    <>
+      {structuredData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
+        />
+      )}
+      <ArticlePageClient
+        title={data.title}
+        content={data.content}
+        breadcrumbs={breadcrumbs}
+        url={pageUrl}
+        readingTime={data.readingTime}
+        updated={data.updated}
+        relatedArticles={relatedArticles}
+      />
+    </>
   );
 }

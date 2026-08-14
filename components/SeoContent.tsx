@@ -306,7 +306,7 @@ export function ToolsSidebar() {
               className="hover:underline"
               style={{ color: 'var(--accent-blue)' }}
             >
-              JSON Diff
+              Compare JSON
             </Link>
           </li>
           <li>

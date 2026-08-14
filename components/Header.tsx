@@ -9,11 +9,12 @@ import { GithubStar } from './GithubStar';
 
 const toolsMenu = [
   { href: '/', label: 'Validator', desc: 'Validate & format JSON' },
+  { href: '/json-formatter', label: 'JSON Formatter', desc: 'Format & beautify JSON' },
   { href: '/json-minify', label: 'Minify', desc: 'Compress JSON' },
-  { href: '/json-diff', label: 'Diff', desc: 'Compare JSON' },
+  { href: '/json-diff', label: 'JSON Compare', desc: 'Diff two JSON documents' },
   { href: '/json-schema', label: 'Schema', desc: 'Validate schema' },
-  { href: '/json-path', label: 'Path', desc: 'Query with JSONPath' },
-  { href: '/json-tree', label: 'Tree View', desc: 'Visual tree explorer' },
+  { href: '/json-path', label: 'Path Finder', desc: 'Query with JSONPath' },
+  { href: '/json-tree', label: 'JSON Viewer', desc: 'Tree view & visualizer' },
   { href: '/jwt-decoder', label: 'JWT Decoder', desc: 'Decode JWT tokens' },
   { href: '/tools', label: 'All Tools →', desc: 'View all 35+ tools' },
 ];
