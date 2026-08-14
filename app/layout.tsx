@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -9,6 +10,20 @@ import { ValidationProvider } from '@/components/ValidationContext';
 import { MainContent } from '@/components/MainContent';
 import { OptimizeAds } from '@/components/OptimizeAds';
 import { DelayedAdLoader } from '@/components/DelayedAdLoader';
+
+// Self-hosted via next/font — replaces the render-blocking Google Fonts
+// @import in globals.css (eliminates a blocking request, improves LCP).
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -46,9 +61,10 @@ export const metadata: Metadata = {
     title: 'JSONLint - The JSON Validator',
     description: 'JSONLint is the free online validator, json formatter, and json beautifier tool for JSON.',
   },
-  alternates: {
-    canonical: 'https://jsonlint.com',
-  },
+  // NOTE: no site-wide `alternates.canonical` — each page sets its own
+  // self-referencing canonical (relative, resolved against metadataBase).
+  // A root canonical here forces every child page to canonicalize to the
+  // homepage, which suppresses their indexing.
 };
 
 export default function RootLayout({
@@ -57,7 +73,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="apple-touch-icon"

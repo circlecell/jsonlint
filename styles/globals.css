@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Fonts are self-hosted via next/font (see app/layout.tsx), exposed as
+   --font-inter and --font-jetbrains-mono. No render-blocking @import. */
 
 @tailwind base;
 @tailwind components;
@@ -87,7 +88,7 @@
     @apply antialiased;
     background: var(--bg-primary);
     color: var(--text-primary);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   }
 
   /* Monaco Editor overrides */
@@ -395,7 +396,7 @@
   /* Ensure shiki code blocks have proper styling */
   .prose-custom pre.shiki code {
     @apply p-0;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-family: var(--font-jetbrains-mono), 'JetBrains Mono', 'Fira Code', monospace;
   }
 
   /* Line numbers and decorations for shiki */
