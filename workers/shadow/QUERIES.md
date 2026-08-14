@@ -12,8 +12,13 @@ curl "https://api.cloudflare.com/client/v4/accounts/{ACCOUNT}/analytics_engine/s
 `blob1=firstCode`, `blob2=mode`, `blob3=coreOk ("1"/"0")`, `blob4=codes`,
 `double1=len`, `double2=diagCount`, `double3=coreMs`, `index1=kind ("sample")`.
 
-Each row is a 10% sample of a real validation. Scale counts by ~10 for
-absolute traffic estimates.
+Each row is a 10% sample of a real validation. Weight by `_sample_interval`
+(counts: `sum(_sample_interval)`; percentiles: `quantileWeighted`) for
+sampling-corrected estimates.
+
+The SQL API is a **restricted ClickHouse subset**: `multiIf`, `splitByChar`,
+`arrayJoin`, and the `quantile(x)(y)` combinator form are unavailable. Queries
+below stick to what the API accepts; `./query.sh` runs the working versions.
 
 ## 1. Daily sample volume (sanity check the pipeline is flowing)
 
@@ -25,11 +30,15 @@ GROUP BY day ORDER BY day
 
 ## 2. Error-code frequency on real traffic — prioritizes /errors/CODE pages + hints
 
+Analytics Engine has no `arrayJoin`/`splitByChar`, so fetch the comma-joined
+code lists and tally individual codes client-side (this is what `./query.sh 2`
+does):
+
 ```sql
-SELECT arrayJoin(splitByChar(',', blob4)) AS code, count() AS n
-FROM jsonlint_shadow
-WHERE blob4 != ''
-GROUP BY code ORDER BY n DESC
+SELECT blob4 FROM jsonlint_shadow WHERE blob4 != ''
+```
+```bash
+# ... | jq -r '.data[].blob4' | tr ',' '\n' | sort | uniq -c | sort -rn
 ```
 
 Which errors humans actually hit decides the order to invest in `/errors/{CODE}`
@@ -43,20 +52,23 @@ FROM jsonlint_shadow
 GROUP BY core_ok
 ```
 
-## 4. Engine latency on real documents (p50/p95/p99 by size bucket)
+## 4. Engine latency on real documents (p50/p95/p99, weighted for sampling)
 
 ```sql
-SELECT multiIf(double1 < 10000, '<10KB', double1 < 1000000, '<1MB', '>=1MB') AS size,
-       quantile(0.5)(double3) AS p50_ms,
-       quantile(0.95)(double3) AS p95_ms,
-       quantile(0.99)(double3) AS p99_ms,
-       count() AS n
+SELECT quantileWeighted(0.5, double3, _sample_interval)  AS p50_ms,
+       quantileWeighted(0.95, double3, _sample_interval) AS p95_ms,
+       quantileWeighted(0.99, double3, _sample_interval) AS p99_ms,
+       max(double3) AS max_ms,
+       sum(_sample_interval) AS est_validations
 FROM jsonlint_shadow
-GROUP BY size ORDER BY size
 ```
 
-Production p95 by size answers "do we need the WASM build yet?" with data
-instead of guesses.
+`double3` is `coreMs`. Use `quantileWeighted(level, value, _sample_interval)` —
+the API's ClickHouse subset has no `quantile(x)(y)` combinator or `multiIf`.
+Production p95 answers "do we need the WASM build yet?" with data instead of
+guesses. For per-size buckets, wrap the selection in nested
+`if(double1 < 10000, '<10KB', if(double1 < 1000000, '<1MB', '>=1MB')) AS size …
+GROUP BY size` where `if()` is available.
 
 ## 5. First-error distribution (which error users see first, before fixing)
 
