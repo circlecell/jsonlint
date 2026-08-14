@@ -165,7 +165,7 @@ export function Header() {
             <div className="w-px h-5 mx-2" style={{ background: 'var(--border-primary)' }} />
 
             <Link
-              href="/json-formatter"
+              href="/json-formatter/chrome-extension"
               className="nav-link flex items-center gap-1.5 text-sm"
             >
               <ChromeIcon className="w-4 h-4" />
@@ -310,7 +310,7 @@ export function Header() {
                   Datasets
                 </Link>
                 <Link
-                  href="/json-formatter"
+                  href="/json-formatter/chrome-extension"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 px-2 py-2 text-sm rounded-md hover:bg-[var(--bg-tertiary)]"
                   style={{ color: 'var(--text-primary)' }}

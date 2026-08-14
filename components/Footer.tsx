@@ -165,7 +165,7 @@ export function Footer() {
               Privacy
             </Link>
             <Link
-              href="/json-formatter"
+              href="/json-formatter/chrome-extension"
               className="hover:text-[var(--accent-blue)] transition-colors"
               style={{ color: 'var(--text-muted)' }}
             >
