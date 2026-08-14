@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
 import { useValidation } from './ValidationContext';
 import { useLayout } from './LayoutProvider';
+import { GithubStar } from './GithubStar';
 
 const toolsMenu = [
   { href: '/', label: 'Validator', desc: 'Validate & format JSON' },
@@ -183,6 +184,9 @@ export function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            {/* Star the open-source engine */}
+            <GithubStar />
+
             {/* Width Toggle */}
             <button
               onClick={toggleWidth}
