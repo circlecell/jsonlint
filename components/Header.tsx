@@ -56,15 +56,26 @@ export function Header() {
         setShowConvertersMenu(false);
       }
     };
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowThemeMenu(false);
+        setShowToolsMenu(false);
+        setShowConvertersMenu(false);
+      }
+    };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, []);
 
   return (
     <header
       className="sticky top-0 z-50 border-b"
       style={{
-        background: 'var(--bg-primary)',
+        background: 'var(--bg-secondary)',
         borderColor: 'var(--border-primary)',
       }}
     >
@@ -74,10 +85,10 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <Logo className="w-8 h-8" status={status} />
             <span
-              className="font-bold text-lg tracking-tight"
-              style={{ color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif", letterSpacing: '-0.02em' }}
+              className="font-bold tracking-tight"
+              style={{ fontSize: '17px', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif", letterSpacing: '-0.02em' }}
             >
-              JSON<span style={{ color: '#0A84FF' }}>Lint</span>
+              <span style={{ color: '#0A84FF' }}>JSON</span>Lint
             </span>
           </Link>
 
@@ -88,33 +99,42 @@ export function Header() {
               <button
                 onClick={() => { setShowToolsMenu(!showToolsMenu); setShowConvertersMenu(false); }}
                 className="nav-link flex items-center gap-1"
+                style={showToolsMenu ? { background: 'var(--bg-pressed)' } : undefined}
               >
                 Tools
                 <ChevronIcon className={`w-4 h-4 transition-transform ${showToolsMenu ? 'rotate-180' : ''}`} />
               </button>
               {showToolsMenu && (
                 <div
-                  className="absolute left-0 mt-1 w-56 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  className="absolute left-0 mt-1 w-[236px] rounded-[10px] border overflow-hidden animate-fade-in"
                   style={{
                     background: 'var(--bg-secondary)',
                     borderColor: 'var(--border-primary)',
+                    boxShadow: 'var(--menu-shadow)',
                   }}
                 >
-                  {toolsMenu.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setShowToolsMenu(false)}
-                      className="flex flex-col px-4 py-2.5 hover:bg-[var(--bg-tertiary)] transition-colors"
-                    >
-                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {item.label}
-                      </span>
-                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                        {item.desc}
-                      </span>
-                    </Link>
-                  ))}
+                  {toolsMenu.map((item, i) => {
+                    const isLast = i === toolsMenu.length - 1;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setShowToolsMenu(false)}
+                        className="flex flex-col gap-px px-4 py-[9px] hover:bg-[var(--bg-menu-hover)] transition-colors"
+                        style={i > 0 ? { borderTop: '1px solid var(--border-hairline)' } : undefined}
+                      >
+                        <span
+                          className="text-[13px] font-medium"
+                          style={{ color: isLast ? 'var(--accent-blue)' : 'var(--text-primary)' }}
+                        >
+                          {item.label}
+                        </span>
+                        <span className="text-[11.5px]" style={{ color: 'var(--text-muted)' }}>
+                          {item.desc}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -124,33 +144,42 @@ export function Header() {
               <button
                 onClick={() => { setShowConvertersMenu(!showConvertersMenu); setShowToolsMenu(false); }}
                 className="nav-link flex items-center gap-1"
+                style={showConvertersMenu ? { background: 'var(--bg-pressed)' } : undefined}
               >
                 Convert
                 <ChevronIcon className={`w-4 h-4 transition-transform ${showConvertersMenu ? 'rotate-180' : ''}`} />
               </button>
               {showConvertersMenu && (
                 <div
-                  className="absolute left-0 mt-1 w-56 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  className="absolute left-0 mt-1 w-[236px] rounded-[10px] border overflow-hidden animate-fade-in"
                   style={{
                     background: 'var(--bg-secondary)',
                     borderColor: 'var(--border-primary)',
+                    boxShadow: 'var(--menu-shadow)',
                   }}
                 >
-                  {convertersMenu.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setShowConvertersMenu(false)}
-                      className="flex flex-col px-4 py-2.5 hover:bg-[var(--bg-tertiary)] transition-colors"
-                    >
-                      <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {item.label}
-                      </span>
-                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                        {item.desc}
-                      </span>
-                    </Link>
-                  ))}
+                  {convertersMenu.map((item, i) => {
+                    const isLast = i === convertersMenu.length - 1;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setShowConvertersMenu(false)}
+                        className="flex flex-col gap-px px-4 py-[9px] hover:bg-[var(--bg-menu-hover)] transition-colors"
+                        style={i > 0 ? { borderTop: '1px solid var(--border-hairline)' } : undefined}
+                      >
+                        <span
+                          className="text-[13px] font-medium"
+                          style={{ color: isLast ? 'var(--accent-blue)' : 'var(--text-primary)' }}
+                        >
+                          {item.label}
+                        </span>
+                        <span className="text-[11.5px]" style={{ color: 'var(--text-muted)' }}>
+                          {item.desc}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -207,7 +236,7 @@ export function Header() {
               <button
                 onClick={() => setShowThemeMenu(!showThemeMenu)}
                 className="p-2 rounded-md hover:bg-[var(--bg-tertiary)] transition-colors"
-                style={{ color: 'var(--text-secondary)' }}
+                style={{ color: 'var(--text-secondary)', ...(showThemeMenu ? { background: 'var(--bg-pressed)' } : {}) }}
                 aria-label="Toggle theme"
               >
                 {resolvedTheme === 'dark' ? (
@@ -219,10 +248,11 @@ export function Header() {
               
               {showThemeMenu && (
                 <div
-                  className="absolute right-0 mt-1 w-36 rounded-lg border shadow-lg overflow-hidden animate-fade-in"
+                  className="absolute right-0 mt-1 w-[150px] rounded-[10px] border overflow-hidden animate-fade-in"
                   style={{
                     background: 'var(--bg-secondary)',
                     borderColor: 'var(--border-primary)',
+                    boxShadow: 'var(--menu-shadow)',
                   }}
                 >
                   {[
@@ -233,8 +263,8 @@ export function Header() {
                     <button
                       key={option.value}
                       onClick={() => { setTheme(option.value as 'light' | 'dark' | 'system'); setShowThemeMenu(false); }}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-[var(--bg-tertiary)] ${
-                        theme === option.value ? 'bg-[var(--bg-tertiary)]' : ''
+                      className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-[var(--bg-menu-hover)] ${
+                        theme === option.value ? 'bg-[var(--bg-menu-hover)]' : ''
                       }`}
                       style={{ color: 'var(--text-primary)' }}
                     >
