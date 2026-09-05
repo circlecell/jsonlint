@@ -4,7 +4,7 @@ import { Container } from '@/components/Container';
 import { JsonDiff } from './JsonDiff';
 
 export const metadata: Metadata = {
-  title: 'JSON Compare & Diff Online - Compare JSON Objects',
+  title: 'JSON Diff — Compare JSON Online',
   description:
     'Compare two JSON documents online and see exactly what changed. This JSON diff checker highlights additions, deletions, and modifications side by side.',
   alternates: { canonical: '/json-diff' },
