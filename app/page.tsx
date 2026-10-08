@@ -54,6 +54,9 @@ export default function HomePage() {
               <Link href="/json-tree" className="text-[var(--accent-blue)] hover:underline">
                 View JSON as a tree
               </Link>
+              <Link href="/json-size-analyzer" className="text-[var(--accent-blue)] hover:underline">
+                JSON size calculator
+              </Link>
             </nav>
 
             {/* Native ad */}

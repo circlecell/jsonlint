@@ -157,6 +157,7 @@ def json_to_csv(json_data):
               <li><a href="/json-to-excel">JSON to Excel</a> — Direct Excel export</li>
               <li><a href="/">JSON Validator</a> — Validate your JSON first</li>
               <li><a href="/json-path">JSON Path</a> — Extract specific data before converting</li>
+              <li><a href="/json-base64">Base64 to JSON</a> — Decode Base64 strings back to JSON</li>
             </ul>
           </div>
           
