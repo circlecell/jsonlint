@@ -221,7 +221,7 @@ print(fixed)  # {"name": "John", "age": 30}`}</code></pre>
               <li>Multi-line strings</li>
             </ul>
             <p>
-              We also have a <a href="/json5-to-json">JSON5 to JSON converter</a> if you need 
+              We also have a <a href="/jsonc-to-json">JSONC / JSON5 to JSON converter</a> if you need 
               to convert JSON5 to standard JSON.
             </p>
 
