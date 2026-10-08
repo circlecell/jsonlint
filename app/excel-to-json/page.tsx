@@ -155,6 +155,7 @@ print(json.dumps(json.loads(json_data), indent=2))`}</code></pre>
               <li><a href="/csv-to-json">CSV to JSON</a> — Convert CSV files to JSON</li>
               <li><a href="/">JSON Validator</a> — Validate your JSON output</li>
               <li><a href="/json-to-table">JSON to Table</a> — View JSON as a table</li>
+              <li><a href="/json-base64">Base64 to JSON</a> — Decode Base64 strings back to JSON</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>

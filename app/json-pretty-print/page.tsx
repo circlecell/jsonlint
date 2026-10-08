@@ -177,6 +177,7 @@ cat data.json | jq -S '.'`}</code></pre>
               <li><a href="/json-minify">JSON Minify</a> — Compress JSON by removing whitespace</li>
               <li><a href="/json-sort">JSON Sorter</a> — Sort keys with more options</li>
               <li><a href="/json-formatter">JSON Formatter</a> — Format and validate JSON</li>
+              <li><a href="/json-size-analyzer">JSON Size Calculator</a> — Measure size, depth, and structure of your JSON</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>

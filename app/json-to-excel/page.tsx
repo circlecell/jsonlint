@@ -181,6 +181,7 @@ df.to_excel("output.xlsx", index=False)`}</code></pre>
               <li><a href="/json-to-table">JSON to Table</a> — Preview as HTML table</li>
               <li><a href="/json-flatten">JSON Flatten</a> — Flatten nested objects first</li>
               <li><a href="/">JSON Validator</a> — Validate JSON before converting</li>
+              <li><a href="/json-base64">Base64 to JSON</a> — Decode Base64 strings back to JSON</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>
