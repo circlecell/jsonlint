@@ -38,7 +38,7 @@ const toolCategories = [
     icon: SearchIcon,
     color: 'var(--accent-blue)',
     tools: [
-      { name: 'JSON Viewer / Tree', href: '/json-tree', description: 'Interactive collapsible tree visualization' },
+      { name: 'JSON Viewer', href: '/json-tree', description: 'Online JSON viewer with interactive collapsible tree' },
       { name: 'Table Viewer', href: '/json-to-table', description: 'Display arrays as sortable tables' },
       { name: 'JSON Compare & Diff', href: '/json-diff', description: 'Compare two JSON objects side-by-side' },
       { name: 'JSONPath Finder', href: '/json-path', description: 'Query data using JSONPath expressions' },
