@@ -107,6 +107,11 @@ export default function RootLayout({
           href="/images/favicon-16x16.png"
         />
         <link rel="manifest" href="/images/site.webmanifest" />
+        {/* @monaco-editor/react loads Monaco from jsDelivr on first use of an
+            editor; warm the connection so the first tap isn't waiting on a
+            cold cross-origin handshake. No crossOrigin: Monaco's loader and
+            CSS are fetched as plain (non-CORS) requests. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <meta name="theme-color" content="#0D0D0D" />
         <Script
           id="bsaOptimizeQueue"

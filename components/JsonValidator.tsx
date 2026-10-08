@@ -34,6 +34,7 @@ const SAMPLE_JSON = `{
 }`;
 
 type IndentOption = '2' | '4' | 'tab';
+type JSONStats = ReturnType<typeof getJSONStats>;
 
 interface JsonValidatorProps {
   initialJson?: string;
@@ -45,6 +46,9 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
   const [isFormatted, setIsFormatted] = useState(true);
   const [copied, setCopied] = useState(false);
   const [diagnostics, setDiagnostics] = useState<LintDiagnostic[]>([]);
+  // Stats for the last validated/formatted document. Kept in state (not derived
+  // from `input` during render) so typing doesn't re-parse the whole document.
+  const [stats, setStats] = useState<JSONStats | null>(null);
   const [indentOption, setIndentOption] = useState<IndentOption>('2');
   const containerRef = useRef<HTMLDivElement>(null);
   const { status, setStatus, errorMessage, setErrorMessage, errorLine, setErrorLine } =
@@ -100,6 +104,7 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
         setErrorMessage(null);
         setErrorLine(null);
         setDiagnostics([]);
+        setStats(null);
         return;
       }
 
@@ -122,10 +127,12 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
         // Don't auto-format - preserve original input to maintain number formatting (e.g., 1.0 vs 1)
         // User can click "Prettify" to format if desired
         setIsFormatted(detectFormat(jsonToValidate) === 'formatted');
+        setStats(getJSONStats(jsonToValidate));
       } else {
         setStatus('invalid');
         setErrorMessage(firstError?.message || 'Invalid JSON');
         setErrorLine(firstError?.line || null);
+        setStats(null);
       }
     },
     [input, setStatus, setErrorMessage, setErrorLine]
@@ -136,15 +143,19 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
 
     try {
       if (isFormatted) {
-        setInput(minifyJSON(input));
+        const minified = minifyJSON(input);
+        setInput(minified);
         setIsFormatted(false);
+        setStats(getJSONStats(minified));
       } else {
         // Format with selected indent option
         const result = parseJSON(input);
         if (result.valid) {
           const indent = indentOption === 'tab' ? '\t' : parseInt(indentOption, 10);
-          setInput(JSON.stringify(result.data, null, indent));
+          const formatted = JSON.stringify(result.data, null, indent);
+          setInput(formatted);
           setIsFormatted(true);
+          setStats(getJSONStats(formatted));
         }
       }
     } catch (e) {
@@ -158,11 +169,14 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
     setErrorMessage(null);
     setErrorLine(null);
     setDiagnostics([]);
+    setStats(null);
   };
 
   const handleSort = () => {
     try {
-      setInput(sortJSONKeys(input));
+      const sorted = sortJSONKeys(input);
+      setInput(sorted);
+      setStats(getJSONStats(sorted));
     } catch (e) {
       // Ignore errors
     }
@@ -190,8 +204,6 @@ export function JsonValidator({ initialJson, initialUrl }: JsonValidatorProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const stats = status === 'valid' ? getJSONStats(input) : null;
-  const format = detectFormat(input);
   const errors = diagnostics.filter((d) => d.severity === 'error');
   const warnings = diagnostics.filter((d) => d.severity === 'warning');
 
