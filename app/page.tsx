@@ -52,7 +52,7 @@ export default function HomePage() {
                 Pretty print JSON
               </Link>
               <Link href="/json-tree" className="text-[var(--accent-blue)] hover:underline">
-                View JSON as a tree
+                Online JSON viewer
               </Link>
             </nav>
 
