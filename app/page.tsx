@@ -84,12 +84,14 @@ export default function HomePage() {
 }
 
 function EditorSkeleton() {
+  // Matches the hydrated editor box: 380px editor + 1px .editor-container
+  // border top and bottom, so the content below doesn't shift on hydration.
   return (
     <div
       className="rounded-lg animate-pulse"
       style={{
         background: 'var(--bg-secondary)',
-        height: '400px',
+        height: '382px',
       }}
     />
   );

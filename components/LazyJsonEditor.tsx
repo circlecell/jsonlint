@@ -8,12 +8,15 @@ const JsonEditor = dynamic(
   () => import('./JsonEditor').then(mod => ({ default: mod.JsonEditor })),
   {
     ssr: false,
+    // Same height as the editor JsonValidator renders (height="380px") so
+    // the swap from placeholder -> loading block -> Monaco doesn't shift the
+    // content below the editor.
     loading: () => (
       <div
         className="rounded-lg animate-pulse"
         style={{
           background: 'var(--bg-secondary)',
-          height: '500px',
+          height: '380px',
         }}
       />
     ),
