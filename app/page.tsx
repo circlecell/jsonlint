@@ -25,7 +25,7 @@ export default function HomePage() {
           className="text-2xl font-bold mb-1"
           style={{ color: 'var(--text-primary)' }}
         >
-          JSON Validator and Formatter
+          JSON Validator
         </h1>
         <p
           className="text-sm mb-3"
@@ -46,7 +46,7 @@ export default function HomePage() {
               aria-label="Related JSON formatting tools"
             >
               <Link href="/json-formatter" className="text-[var(--accent-blue)] hover:underline">
-                Format and beautify JSON
+                JSON Formatter
               </Link>
               <Link href="/json-pretty-print" className="text-[var(--accent-blue)] hover:underline">
                 Pretty print JSON
