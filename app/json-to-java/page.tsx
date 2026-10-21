@@ -224,6 +224,16 @@ String output = gson.toJson(data);`}</code></pre>
               <li><a href="/json-schema">JSON Schema Validator</a> — Validate structure</li>
             </ul>
 
+            <h3>More Converters</h3>
+            <ul>
+              <li><a href="/json-to-go">JSON to Go struct</a> — Generate Go structs with json tags</li>
+              <li><a href="/json-to-swift">JSON to Swift</a> — Generate Codable structs</li>
+              <li><a href="/json-to-kotlin">JSON to Kotlin data class</a> — Generate Kotlin data classes</li>
+              <li><a href="/json-to-rust">JSON to Rust struct</a> — Generate Serde structs</li>
+              <li><a href="/json-to-markdown">JSON to Markdown table</a> — Turn JSON arrays into Markdown tables</li>
+              <li><a href="/json-to-php">JSON to PHP</a> — Generate PHP classes</li>
+            </ul>
+
             <h2>Frequently Asked Questions</h2>
             
             <h3>Should I use Lombok or write getters/setters?</h3>

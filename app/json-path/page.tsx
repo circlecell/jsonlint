@@ -38,7 +38,8 @@ export default function JsonPathPage() {
               JSONPath is XPath for JSON—a query language that lets you extract values from 
               JSON documents using path expressions. Instead of writing loops to find data, 
               you write a single expression like <code>$.users[*].email</code> to get all 
-              user emails.
+              user emails. If you don't know the key name or path yet, use <a href="/json-search">JSON search</a> to 
+              find keys and values by text and see the path to each match.
             </p>
 
             <h2>Syntax Quick Reference</h2>

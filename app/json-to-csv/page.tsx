@@ -159,6 +159,16 @@ def json_to_csv(json_data):
               <li><a href="/json-path">JSON Path</a> — Extract specific data before converting</li>
               <li><a href="/json-base64">Base64 to JSON</a> — Decode Base64 strings back to JSON</li>
             </ul>
+
+            <h3>More Converters</h3>
+            <ul>
+              <li><a href="/json-to-go">JSON to Go struct</a> — Generate Go structs with json tags</li>
+              <li><a href="/json-to-swift">JSON to Swift</a> — Generate Codable structs</li>
+              <li><a href="/json-to-kotlin">JSON to Kotlin data class</a> — Generate Kotlin data classes</li>
+              <li><a href="/json-to-rust">JSON to Rust struct</a> — Generate Serde structs</li>
+              <li><a href="/json-to-markdown">JSON to Markdown table</a> — Turn JSON arrays into Markdown tables</li>
+              <li><a href="/json-to-php">JSON to PHP</a> — Generate PHP classes</li>
+            </ul>
           </div>
           
           <aside className="hidden lg:block">
