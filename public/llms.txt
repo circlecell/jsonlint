@@ -6,87 +6,174 @@ JSONLint.com is a free web-based JSON validator and formatter. It helps develope
 
 ## Core Tools
 
-- [JSON Validator](https://jsonlint.com/): Validate JSON syntax with detailed error messages and duplicate key detection
-- [JSON Formatter](https://jsonlint.com/json-formatter): Format and beautify JSON with customizable indentation
-- [JSON Pretty Print](https://jsonlint.com/json-pretty-print): Format JSON with readable indentation
-- [JSON Minify](https://jsonlint.com/json-minify): Compress JSON by removing whitespace
-- [JSON Diff](https://jsonlint.com/json-diff): Compare two JSON documents and highlight differences
-- [JSON Repair](https://jsonlint.com/json-repair): Automatically fix common JSON syntax errors
-- [JSON Error Analyzer](https://jsonlint.com/json-error-analyzer): Get detailed explanations for JSON parsing errors
-- [JSON Tree](https://jsonlint.com/json-tree): Visualize JSON as an interactive tree structure
-- [JSON Path](https://jsonlint.com/json-path): Query JSON using JSONPath expressions
-- [JSON Search](https://jsonlint.com/json-search): Search for keys and values within JSON
-- [JSON Formatter for Chrome](https://jsonlint.com/json-formatter/chrome-extension): Browser extension that formats raw JSON pages with color-coding and collapsible trees
+- [JSONLint - The JSON Validator](https://jsonlint.com/): JSONLint is the free online validator, json formatter, and json beautifier tool for JSON, a lightweight data-interchange format.
+- [JSON Formatter - Format & Beautify JSON Online](https://jsonlint.com/json-formatter): Free online JSON formatter and beautifier. Paste JSON to instantly format, beautify, and validate it with customizable indentation. No signup, works in your browser.
+- [JSON Pretty Print - Format & Beautify JSON Online](https://jsonlint.com/json-pretty-print): Pretty print JSON instantly with our free online formatter. Customize indentation, sort keys, and beautify minified JSON. No signup required.
+- [JSON Minify - Compress JSON Online](https://jsonlint.com/json-minify): Minify and compress JSON by removing whitespace. Reduce file size for faster transfers and smaller payloads. Free online tool.
+- [JSON Diff — Compare JSON Online](https://jsonlint.com/json-diff): Compare two JSON documents online and see exactly what changed. This JSON diff checker highlights additions, deletions, and modifications side by side.
+- [JSON Repair - Fix Broken JSON Online](https://jsonlint.com/json-repair): Automatically repair broken JSON. Fix trailing commas, single quotes, unquoted keys, missing brackets, and malformed LLM outputs. Free online tool.
+- [JSON Error Analyzer - Understand & Fix JSON Errors](https://jsonlint.com/json-error-analyzer): Get detailed explanations for JSON syntax errors. Understand exactly what went wrong and how to fix it with helpful suggestions and auto-fix options.
+- [JSON Tree Viewer Online - JSON Viewer & Visualizer](https://jsonlint.com/json-tree): View JSON online as an interactive tree. Expand and collapse nodes, explore nested objects, and visualize complex JSON structure in your browser.
+- [JSONPath Finder & Evaluator - Query JSON Online](https://jsonlint.com/json-path): Find JSONPath expressions and query JSON online. Filter arrays, navigate nested objects, test paths, and extract matching values from JSON.
+- [JSON Search - Find Keys & Values in JSON](https://jsonlint.com/json-search): Search and find keys and values in JSON documents. Full-text search with case sensitivity, exact match, and path extraction. Free online JSON search tool.
+- [JSON Formatter for Chrome — Browser Extension](https://jsonlint.com/json-formatter/chrome-extension): Install the JSON Formatter Chrome extension to turn raw JSON pages into a visually intuitive, interactive experience — color-coded formatting, image previews, clickable URLs, and collapsible trees.
 
 ## Code Generators
 
-- [JSON to TypeScript](https://jsonlint.com/json-to-typescript): Generate TypeScript interfaces from JSON
-- [JSON to Python](https://jsonlint.com/json-to-python): Generate Python dataclasses from JSON
-- [JSON to Go](https://jsonlint.com/json-to-go): Generate Go structs from JSON
-- [JSON to Java](https://jsonlint.com/json-to-java): Generate Java classes from JSON
-- [JSON to Kotlin](https://jsonlint.com/json-to-kotlin): Generate Kotlin data classes from JSON
-- [JSON to Swift](https://jsonlint.com/json-to-swift): Generate Swift Codable structs from JSON
-- [JSON to Rust](https://jsonlint.com/json-to-rust): Generate Rust structs with serde from JSON
-- [JSON to C#](https://jsonlint.com/json-to-csharp): Generate C# classes from JSON
-- [JSON to PHP](https://jsonlint.com/json-to-php): Generate PHP classes from JSON
-- [JSON to SQL](https://jsonlint.com/json-to-sql): Generate SQL INSERT statements from JSON
+- [JSON to TypeScript - Generate TypeScript Interfaces](https://jsonlint.com/json-to-typescript): Convert JSON to TypeScript interfaces instantly. Generate type-safe interfaces from API responses and JSON data. Free online tool.
+- [JSON to Python Converter - Generate Dataclasses Online](https://jsonlint.com/json-to-python): Convert JSON to Python dataclasses, Pydantic models, or TypedDict. Generate type-annotated Python code with snake_case conversion.
+- [JSON to Go Converter - Generate Structs Online](https://jsonlint.com/json-to-go): Convert JSON to Go structs instantly. Generate type-safe Go code with json tags, omitempty support, and proper type inference.
+- [JSON to Java Converter - Generate POJO Classes Online](https://jsonlint.com/json-to-java): Convert JSON to Java classes instantly. Generate POJOs with Lombok, Jackson, or Gson annotations. Supports Java 16+ records.
+- [JSON to Kotlin Converter - Generate Data Classes Online](https://jsonlint.com/json-to-kotlin): Convert JSON to Kotlin data classes with kotlinx.serialization, Moshi, or Gson support. Generate type-safe Kotlin code instantly.
+- [JSON to Swift Converter - Generate Codable Structs Online](https://jsonlint.com/json-to-swift): Convert JSON to Swift structs with Codable support. Generate CodingKeys automatically for snake_case to camelCase mapping.
+- [JSON to Rust Converter - Generate Serde Structs Online](https://jsonlint.com/json-to-rust): Convert JSON to Rust structs with Serde derive macros. Generate type-safe Rust code with automatic field renaming.
+- [JSON to C# Converter - Generate Classes Online](https://jsonlint.com/json-to-csharp): Convert JSON to C# classes instantly. Generate POCO classes or records with JsonProperty attributes. Supports Newtonsoft.Json and System.Text.Json.
+- [JSON to PHP Converter - Generate PHP Classes Online](https://jsonlint.com/json-to-php): Convert JSON to PHP classes with typed properties and constructor promotion. Generate PHP 8+ compatible code from JSON data.
+- [JSON to SQL Converter - Generate INSERT Statements Online](https://jsonlint.com/json-to-sql): Convert JSON to SQL INSERT statements and CREATE TABLE scripts. Supports PostgreSQL, MySQL, SQLite, and SQL Server with proper type inference.
 
 ## Format Converters
 
-- [JSON to CSV](https://jsonlint.com/json-to-csv): Convert JSON arrays to CSV
-- [CSV to JSON](https://jsonlint.com/csv-to-json): Convert CSV data to JSON
-- [JSON to YAML](https://jsonlint.com/json-to-yaml): Convert JSON to YAML
-- [YAML to JSON](https://jsonlint.com/yaml-to-json): Convert YAML to JSON
-- [JSON to XML](https://jsonlint.com/json-to-xml): Convert JSON to XML
-- [XML to JSON](https://jsonlint.com/xml-to-json): Convert XML to JSON
-- [JSON to Excel](https://jsonlint.com/json-to-excel): Export JSON to an Excel spreadsheet
-- [Excel to JSON](https://jsonlint.com/excel-to-json): Convert Excel spreadsheets to JSON
-- [SQL to JSON](https://jsonlint.com/sql-to-json): Convert SQL results to JSON
-- [JSON to Markdown](https://jsonlint.com/json-to-markdown): Convert JSON to Markdown tables
-- [JSON to Table](https://jsonlint.com/json-to-table): Display JSON as HTML tables
-- [JSONC to JSON](https://jsonlint.com/jsonc-to-json): Strip comments from JSONC
+- [JSON to CSV Converter - Convert JSON to CSV Online](https://jsonlint.com/json-to-csv): Convert JSON to CSV instantly. Handles nested objects, arrays, and custom delimiters. Download or copy the result.
+- [CSV to JSON Converter - Convert CSV to JSON Online](https://jsonlint.com/csv-to-json): Convert CSV to JSON array instantly. Handles headers, custom delimiters, and automatic type detection. Free online tool.
+- [JSON to YAML Converter - Convert JSON to YAML Online](https://jsonlint.com/json-to-yaml): Convert JSON to YAML instantly. Perfect for Kubernetes configs, Docker Compose files, and CI/CD pipelines. Free online tool.
+- [YAML to JSON Converter - Convert YAML to JSON Online](https://jsonlint.com/yaml-to-json): Convert YAML to JSON instantly. Transform Kubernetes configs, Docker Compose files, and CI/CD configs to JSON format. Free online tool.
+- [JSON to XML Converter - Free Online Tool](https://jsonlint.com/json-to-xml): Convert JSON to XML instantly with our free online converter. Supports nested objects, arrays, custom root elements, and formatted output. No installation required.
+- [XML to JSON Converter - Transform XML Data Online](https://jsonlint.com/xml-to-json): Convert XML to JSON instantly. Handles attributes, namespaces, and nested elements. Preview the result and copy or download the converted JSON.
+- [JSON to Excel Converter - Convert JSON to XLSX Online](https://jsonlint.com/json-to-excel): Convert JSON to Excel (.xlsx) format instantly. Supports nested objects, auto-column widths, and custom sheet names. Free online converter, no upload required.
+- [Excel to JSON Converter - Convert XLSX to JSON Online](https://jsonlint.com/excel-to-json): Convert Excel spreadsheets to JSON format online. Upload .xlsx, .xls, or .csv files or paste data directly. Free, private, browser-based conversion.
+- [SQL to JSON Converter - Convert INSERT Statements to JSON](https://jsonlint.com/sql-to-json): Convert SQL INSERT statements to JSON format. Extract data from SQL dumps and transform to JSON arrays for APIs and applications.
+- [JSON to Markdown Table - Convert JSON Arrays to Tables](https://jsonlint.com/json-to-markdown): Convert JSON arrays to Markdown tables instantly. Perfect for documentation, README files, and GitHub. Free online converter.
+- [JSON to Table - View JSON as HTML Table](https://jsonlint.com/json-to-table): Convert JSON arrays to HTML tables. View JSON data in a readable table format and export as HTML. Free online tool.
+- [JSONC to JSON Converter - Remove Comments from JSON](https://jsonlint.com/jsonc-to-json): Convert JSONC (JSON with Comments) and JSON5 to standard JSON. Strip comments, remove trailing commas, and fix syntax for production use.
 
 ## Utility Tools
 
-- [JSON Sort](https://jsonlint.com/json-sort): Sort JSON keys alphabetically
-- [JSON Flatten](https://jsonlint.com/json-flatten): Flatten nested JSON to dot notation
-- [JSON Escape](https://jsonlint.com/json-escape): Escape JSON strings
-- [JSON Unescape](https://jsonlint.com/json-unescape): Unescape JSON strings
-- [JSON Stringify](https://jsonlint.com/json-stringify): Convert values to JSON string format
-- [JSON Base64](https://jsonlint.com/json-base64): Encode and decode JSON as Base64
-- [JSON Token Counter](https://jsonlint.com/json-token-counter): Count tokens for LLM context limits
-- [JSON Size Analyzer](https://jsonlint.com/json-size-analyzer): Analyze JSON structure and size
-- [JSON Schema Generator](https://jsonlint.com/json-schema-generator): Generate JSON Schema from JSON
-- [JSON Schema Validator](https://jsonlint.com/json-schema): Validate JSON against a schema
-- [JWT Decoder](https://jsonlint.com/jwt-decoder): Decode and inspect JWT tokens
+- [JSON Sorter - Sort Keys Alphabetically Online](https://jsonlint.com/json-sort): Sort JSON keys alphabetically with our free online tool. Supports nested objects, ascending/descending order, and case-insensitive sorting.
+- [JSON Flatten - Flatten Nested JSON Online](https://jsonlint.com/json-flatten): Flatten nested JSON objects into single-level key-value pairs. Unflatten back to nested structure. Free online tool.
+- [JSON Escape - Escape Special Characters Online](https://jsonlint.com/json-escape): Escape special characters for JSON strings. Convert newlines, quotes, backslashes, and tabs to their escaped equivalents. Free online tool.
+- [JSON Unescape - Unescape JSON Strings Online](https://jsonlint.com/json-unescape): Unescape JSON strings instantly. Convert escaped backslashes, quotes, and special characters back to readable JSON. Free online tool.
+- [JSON Stringify - Escape JSON for Embedding](https://jsonlint.com/json-stringify): Convert JSON to an escaped string for embedding in code, databases, or other JSON. Handles quotes, newlines, and special characters.
+- [JSON Base64 Encode/Decode - Convert JSON to Base64](https://jsonlint.com/json-base64): Encode JSON to Base64 or decode Base64 back to JSON. Free online Base64 converter with validation.
+- [JSON Token Counter - Count Tokens for GPT & Claude](https://jsonlint.com/json-token-counter): Count tokens in JSON for OpenAI GPT-4, GPT-3.5, and Anthropic Claude. Optimize your prompts and reduce API costs with token-aware JSON formatting.
+- [JSON Size Analyzer - Analyze JSON Structure & Complexity](https://jsonlint.com/json-size-analyzer): Analyze JSON size, structure, and complexity. See type distribution, depth analysis, largest nodes, and optimization opportunities.
+- [JSON Schema Generator - Create Schema from JSON Online](https://jsonlint.com/json-schema-generator): Generate JSON Schema from sample JSON data. Auto-detect formats (email, date, URI), set required fields, and export valid JSON Schema draft 2020-12.
+- [JSON Schema Validator - Validate JSON Against Schema](https://jsonlint.com/json-schema): Validate your JSON data against a JSON Schema. Catch structural errors, type mismatches, and missing required fields before they cause bugs.
+- [JWT Decoder - Decode JSON Web Tokens Online](https://jsonlint.com/jwt-decoder): Decode and inspect JWT tokens instantly. View header, payload, and check expiration status. Free online JWT decoder tool.
 
 ## Guides
 
-- [JSON Format: Syntax, Data Types, Rules, and Examples](https://jsonlint.com/mastering-json-format): JSON syntax with valid examples of objects, arrays, strings, numbers, booleans, null, escaping, nesting, and common mistakes
-- [JSON Parse Error: How to Find and Fix Invalid JSON](https://jsonlint.com/json-parse-error): Fix JSON parse errors with examples for unexpected tokens, trailing commas, quotes, escapes, and incomplete data
-- [Unexpected Token in JSON](https://jsonlint.com/unexpected-token-in-json): Diagnose unexpected-token JSON errors by the reported character, including HTML responses, undefined values, smart quotes, and BOMs
-- [Unexpected End of JSON Input: Causes and Fixes](https://jsonlint.com/fix-unexpected-end-of-json-input): Fix errors caused by empty responses, truncated data, missing brackets, and incomplete strings
-- [How to Open a JSON File](https://jsonlint.com/how-to-open-json-file): Open, view, format, and edit JSON files on Windows, macOS, Linux, and the web
-- [Comments in JSON](https://jsonlint.com/json-comments): Why comments are invalid in standard JSON and the safe alternatives, including JSONC and JSON5
-- [JSON Date Format](https://jsonlint.com/json-date-format): Represent dates and timestamps with ISO 8601 strings, UTC offsets, Unix time, and JSON Schema
-- [JSON Lines (JSONL) and NDJSON](https://jsonlint.com/json-lines): How JSON Lines stores one JSON value per line for streaming, logs, data pipelines, and large files
-- [JSON Multiline Strings](https://jsonlint.com/json-multiline-string): Why raw multiline strings are invalid JSON and how to encode line breaks
-- [JSON Patch: RFC 6902](https://jsonlint.com/json-patch): JSON Patch add, remove, replace, move, copy, and test operations, JSON Pointer paths, and Merge Patch differences
-- [JSON Schema Examples](https://jsonlint.com/json-schema-examples): Practical JSON Schema examples for required fields, nested objects, arrays, enums, and conditional shapes
-- [JSON vs JSONB in PostgreSQL](https://jsonlint.com/json-vs-jsonb): Compare PostgreSQL json and jsonb storage, indexing, and query performance
-- [JSON vs XML](https://jsonlint.com/json-vs-xml): Compare JSON and XML syntax, schemas, namespaces, performance, and API support
-- [YAML vs JSON](https://jsonlint.com/json-vs-yaml): Compare YAML and JSON syntax, readability, comments, data types, tooling, and security
-- [JSON.parse() in JavaScript](https://jsonlint.com/mastering-json-in-javascript): Use JSON.parse safely with reviver examples, fetch response checks, and error handling
-- [Read and Write JSON Files in Python](https://jsonlint.com/python-json): Parse and serialize JSON in Python with json.load, loads, dump, and dumps
+- [JSON Format: Syntax, Data Types, Rules, and Examples](https://jsonlint.com/mastering-json-format): Learn JSON format and syntax with valid examples of objects, arrays, strings, numbers, booleans, null, escaping, nesting, and common mistakes.
+- [JSON Parse Error: How to Find and Fix Invalid JSON](https://jsonlint.com/json-parse-error): Fix JSON parse errors with examples for unexpected tokens, trailing commas, quotes, escapes, incomplete data, and language-specific error messages.
+- [Unexpected Token in JSON: Fix `<`, `u`, BOM, and Other Errors](https://jsonlint.com/unexpected-token-in-json): Diagnose unexpected-token JSON errors by the reported character, including HTML responses, undefined values, smart quotes, BOMs, and invalid syntax.
+- [Unexpected End of JSON Input: Causes and Fixes](https://jsonlint.com/fix-unexpected-end-of-json-input): Fix Unexpected end of JSON input errors caused by empty responses, truncated data, missing brackets, incomplete strings, and incorrect fetch handling.
+- [How to Open a JSON File on Windows, macOS, Linux, and the Web](https://jsonlint.com/how-to-open-json-file): Open, view, format, and edit JSON files using a browser, code editor, command line, or JSONLint on Windows, macOS, and Linux.
+- [Comments in JSON: Why They Are Invalid and What to Use Instead](https://jsonlint.com/json-comments): Standard JSON does not support comments. Learn the safe alternatives—JSONC, JSON5, comment fields, and separate documentation—with working examples.
+- [JSON Date Format: ISO 8601 Examples and Best Practices](https://jsonlint.com/json-date-format): JSON has no date type. Learn how to represent dates and timestamps with ISO 8601 strings, UTC offsets, Unix time, and JSON Schema.
+- [JSON Lines (JSONL) and NDJSON: Format, Examples, and Use Cases](https://jsonlint.com/json-lines): Learn how JSON Lines and NDJSON store one JSON value per line for streaming, logs, data pipelines, and large files.
+- [JSON Multiline Strings: Newlines, Escaping, and Alternatives](https://jsonlint.com/json-multiline-string): Learn why raw multiline strings are invalid JSON, how to encode line breaks with escaped newlines, and when to use arrays or external files.
+- [JSON Patch: RFC 6902 Operations, Examples, and Best Practices](https://jsonlint.com/json-patch): Learn JSON Patch add, remove, replace, move, copy, and test operations, JSON Pointer paths, HTTP usage, and Merge Patch differences.
+- [JSON Schema Examples: Objects, Arrays, Enums, and Validation](https://jsonlint.com/json-schema-examples): Practical JSON Schema examples for required fields, nested objects, arrays, enums, conditional shapes, dates, and reusable definitions.
+- [JSON vs JSONB in PostgreSQL: Differences, Performance, and Indexing](https://jsonlint.com/json-vs-jsonb): Compare PostgreSQL json and jsonb storage, indexing, query performance, duplicate keys, and the cases where each data type fits.
+- [JSON vs XML: Key Differences, Examples, and When to Use Each](https://jsonlint.com/json-vs-xml): Compare JSON vs XML syntax, schemas, namespaces, performance, mixed content, and API support to choose the right data format.
+- [YAML vs JSON: Differences, Examples, and When to Use Each](https://jsonlint.com/json-vs-yaml): Compare YAML vs JSON syntax, readability, comments, data types, tooling, and security to choose the right format for APIs and configuration.
+- [JSON.parse() in JavaScript: Parsing, Revivers, Fetch, and Errors](https://jsonlint.com/mastering-json-in-javascript): Use JSON.parse safely in JavaScript with reviver examples, fetch response checks, TypeScript validation, error handling, and JSON.stringify guidance.
+- [Read and Write JSON Files in Python: load, loads, dump, and dumps](https://jsonlint.com/python-json): Read, write, parse, and serialize JSON in Python with json.load, loads, dump, and dumps, plus error handling and practical file examples.
+
+## Datasets
+
+- [Free JSON Datasets - Download Open Source Data](https://jsonlint.com/datasets): Browse and download free JSON datasets for testing, learning, and development. Curated collections of countries, languages, programming data, and more.
+- [World Airports JSON Dataset](https://jsonlint.com/datasets/airports): Major international airports with IATA codes, locations, and geographic coordinates for travel applications.
+- [Colors JSON Dataset](https://jsonlint.com/datasets/colors): A collection of 35 common colors with names, hex codes, RGB values, and color categories.
+- [ESLint Config JSON Dataset](https://jsonlint.com/datasets/config-eslint): Example ESLint configuration for TypeScript and React projects.
+- [Package.json Example Dataset](https://jsonlint.com/datasets/config-package): Example package.json for Node.js/JavaScript projects with common scripts and dependencies.
+- [Prettier Config JSON Dataset](https://jsonlint.com/datasets/config-prettier): Example Prettier configuration for consistent code formatting.
+- [TypeScript Config JSON Dataset](https://jsonlint.com/datasets/config-tsconfig): Example tsconfig.json with strict settings for TypeScript projects.
+- [Continents JSON Dataset](https://jsonlint.com/datasets/continents): All seven continents with area, population, country counts, and geographic facts.
+- [World Countries JSON Dataset](https://jsonlint.com/datasets/countries): A curated dataset of 50+ major countries with ISO codes, capitals, regions, populations, and currency information.
+- [CSS Named Colors JSON Dataset](https://jsonlint.com/datasets/css-colors): All CSS named colors with hex codes and RGB values for web development.
+- [World Currencies JSON Dataset](https://jsonlint.com/datasets/currencies): A dataset of 30 major world currencies with codes, symbols, decimal digits, and associated countries.
+- [Chemical Elements JSON Dataset](https://jsonlint.com/datasets/elements): Periodic table elements with atomic numbers, symbols, masses, and categories.
+- [Emoji Categories JSON Dataset](https://jsonlint.com/datasets/emoji-categories): Emojis organized by category with unicode characters for emoji pickers.
+- [Emoticons JSON Dataset](https://jsonlint.com/datasets/emoticons): A collection of classic text emoticons with meanings and categories, perfect for sentiment analysis and chat features.
+- [European Countries JSON Dataset](https://jsonlint.com/datasets/european-countries): All European countries with capitals, population, EU membership status, and currency information.
+- [File Extensions JSON Dataset](https://jsonlint.com/datasets/file-extensions): A reference dataset of common file extensions with types, MIME types, and descriptions for file handling.
+- [US Holidays JSON Dataset](https://jsonlint.com/datasets/holidays-us): US federal holidays and common observances with dates and types.
+- [HTTP Status Codes JSON Dataset](https://jsonlint.com/datasets/http-status-codes): Complete reference of HTTP status codes with messages, categories, and descriptions for web development.
+- [Keyboard Shortcuts JSON Dataset](https://jsonlint.com/datasets/keyboard-shortcuts): Common keyboard shortcuts for Windows and Mac with categories and actions.
+- [World Languages JSON Dataset](https://jsonlint.com/datasets/languages): Major world languages with ISO codes, native names, speaker counts, and text direction for internationalization.
+- [Lorem Ipsum JSON Dataset](https://jsonlint.com/datasets/lorem-ipsum): Lorem ipsum placeholder text with paragraphs, sentences, words, and fake names for testing.
+- [Mock Comments JSON Dataset](https://jsonlint.com/datasets/mock-comments): Sample comment data for testing discussion features, moderation, and social interactions.
+- [Mock Events JSON Dataset](https://jsonlint.com/datasets/mock-events): Sample event data for testing calendar features, registrations, and event management.
+- [Mock Notifications JSON Dataset](https://jsonlint.com/datasets/mock-notifications): Sample notification data for testing notification systems, read states, and user alerts.
+- [Mock Orders JSON Dataset](https://jsonlint.com/datasets/mock-orders): Sample e-commerce order data for testing order management and fulfillment systems.
+- [Mock Blog Posts JSON Dataset](https://jsonlint.com/datasets/mock-posts): Sample blog post data for testing CMS features, content management, and publishing workflows.
+- [Mock Products JSON Dataset](https://jsonlint.com/datasets/mock-products): Sample e-commerce product data for testing shopping carts, catalogs, and product management features.
+- [Mock Transactions JSON Dataset](https://jsonlint.com/datasets/mock-transactions): Sample financial transaction data for testing banking features and accounting systems.
+- [Mock Users JSON Dataset](https://jsonlint.com/datasets/mock-users): Sample user data for testing authentication, user management, and CRUD operations in your applications.
+- [Mountains JSON Dataset](https://jsonlint.com/datasets/mountains): Famous mountains worldwide with heights, ranges, and first ascent dates for geographic applications.
+- [Movie Genres JSON Dataset](https://jsonlint.com/datasets/movie-genres): Film genres with descriptions and example movies for entertainment applications.
+- [Music Genres JSON Dataset](https://jsonlint.com/datasets/music-genres): Music genres with origins, parent genres, and subgenres for music applications.
+- [NATO Phonetic Alphabet JSON Dataset](https://jsonlint.com/datasets/nato-alphabet): NATO phonetic alphabet with letters, code words, pronunciations, and Morse code.
+- [Oceans JSON Dataset](https://jsonlint.com/datasets/oceans): The five world oceans with area, depth, and geographic information.
+- [Solar System Planets JSON Dataset](https://jsonlint.com/datasets/planets): All eight planets in our solar system with physical and orbital characteristics.
+- [Programming Languages JSON Dataset](https://jsonlint.com/datasets/programming-languages): A curated collection of popular programming languages with creation year, creator, paradigms, and type system information.
+- [Regex Patterns JSON Dataset](https://jsonlint.com/datasets/regex-patterns): Common regular expression patterns for validation with examples and descriptions.
+- [Rivers JSON Dataset](https://jsonlint.com/datasets/rivers): Major world rivers with length, drainage area, and geographic information.
+- [NFL Teams JSON Dataset](https://jsonlint.com/datasets/sports-teams-nfl): All 32 NFL teams with cities, conferences, divisions, stadiums, and colors.
+- [JSON Edge Cases Test Dataset](https://jsonlint.com/datasets/test-edge-cases): Edge cases and special values for testing JSON parsers and validators.
+- [Large Array Test JSON Dataset](https://jsonlint.com/datasets/test-large-array): 50-item array for testing pagination, filtering, and list rendering performance.
+- [Validation Test Data JSON Dataset](https://jsonlint.com/datasets/test-validation): Valid and invalid examples for testing validation rules and form inputs.
+- [World Timezones JSON Dataset](https://jsonlint.com/datasets/timezones): A dataset of 31 major world timezones with IANA identifiers, abbreviations, UTC offsets, and DST information.
+- [Units of Measurement JSON Dataset](https://jsonlint.com/datasets/units-of-measurement): Common units of measurement with symbols, types, and conversion factors.
+- [US State Capitals JSON Dataset](https://jsonlint.com/datasets/us-capitals): All 50 US state capitals with population, founding year, and coordinates.
+- [US States JSON Dataset](https://jsonlint.com/datasets/us-states-with-detail): A comprehensive JSON dataset of all 50 US states with abbreviations, capitals, statehood dates, and bordering states.
+- [World Cities JSON Dataset](https://jsonlint.com/datasets/world-cities): Major world cities with populations, coordinates, and timezone information for global applications.
+- [Zodiac Signs JSON Dataset](https://jsonlint.com/datasets/zodiac-signs): All 12 zodiac signs with symbols, elements, and date ranges for astrology applications.
+
+## Error Codes
+
+- [JSON Error Codes — Reference & Fixes](https://jsonlint.com/errors): A complete reference for every JSON validation error and warning: what each code means, an example, and how to fix it. Powered by @jsonlint/core.
+- [E001: Unexpected character — JSON Error](https://jsonlint.com/errors/E001): A character appeared that is not part of JSON syntax. Learn what JSON E001 means, see an example, and how to fix it.
+- [E002: Trailing content after the JSON value — JSON Error](https://jsonlint.com/errors/E002): Extra content appears after the top-level value ended. Learn what JSON E002 means, see an example, and how to fix it.
+- [E003: Unexpected identifier — JSON Error](https://jsonlint.com/errors/E003): A bare word was found where a value was expected. Learn what JSON E003 means, see an example, and how to fix it.
+- [E004: Unexpected end of input — JSON Error](https://jsonlint.com/errors/E004): The document ended while a value was still expected. Learn what JSON E004 means, see an example, and how to fix it.
+- [E005: Expected a value — JSON Error](https://jsonlint.com/errors/E005): Punctuation appeared where a value belongs. Learn what JSON E005 means, see an example, and how to fix it.
+- [E006: Unclosed object or array — JSON Error](https://jsonlint.com/errors/E006): An object or array was opened but never closed. Learn what JSON E006 means, see an example, and how to fix it.
+- [E007: Leading comma in object — JSON Error](https://jsonlint.com/errors/E007): An object starts with a comma before its first member. Learn what JSON E007 means, see an example, and how to fix it.
+- [E008: Trailing comma — JSON Error](https://jsonlint.com/errors/E008): A comma appears before a closing brace or bracket. Learn what JSON E008 means, see an example, and how to fix it.
+- [E009: Missing comma between items — JSON Error](https://jsonlint.com/errors/E009): Expected ',' or a closing bracket between two values. Learn what JSON E009 means, see an example, and how to fix it.
+- [E010: Strings must use double quotes — JSON Error](https://jsonlint.com/errors/E010): A string was written with single quotes ('). Learn what JSON E010 means, see an example, and how to fix it.
+- [E011: Smart quote found — JSON Error](https://jsonlint.com/errors/E011): A curly “smart” quote appeared where a string was expected. Learn what JSON E011 means, see an example, and how to fix it.
+- [E012: Number cannot start with + or . — JSON Error](https://jsonlint.com/errors/E012): A number began with a leading '+' or '.'. Learn what JSON E012 means, see an example, and how to fix it.
+- [E013: Unterminated string — JSON Error](https://jsonlint.com/errors/E013): A string was opened but never closed. Learn what JSON E013 means, see an example, and how to fix it.
+- [E014: Invalid \u escape — JSON Error](https://jsonlint.com/errors/E014): A \u escape was not followed by four hex digits. Learn what JSON E014 means, see an example, and how to fix it.
+- [E015: Invalid escape sequence — JSON Error](https://jsonlint.com/errors/E015): A backslash was followed by a character that is not a valid escape. Learn what JSON E015 means, see an example, and how to fix it.
+- [E016: Unescaped control character in string — JSON Error](https://jsonlint.com/errors/E016): A raw control character (tab, newline, etc.) appears inside a string. Learn what JSON E016 means, see an example, and how to fix it.
+- [E018: Number has a leading zero — JSON Error](https://jsonlint.com/errors/E018): A number has an extra zero in front of it. Learn what JSON E018 means, see an example, and how to fix it.
+- [E019: Malformed number — JSON Error](https://jsonlint.com/errors/E019): Expected a digit that is missing from a number. Learn what JSON E019 means, see an example, and how to fix it.
+- [E020: Unterminated block comment — JSON Error](https://jsonlint.com/errors/E020): A /* comment was never closed with */. Learn what JSON E020 means, see an example, and how to fix it.
+- [E021: Comments are not allowed in strict JSON — JSON Error](https://jsonlint.com/errors/E021): A // or /* comment appeared in strict JSON. Learn what JSON E021 means, see an example, and how to fix it.
+- [E022: Object keys must be quoted — JSON Error](https://jsonlint.com/errors/E022): An object key was written without double quotes. Learn what JSON E022 means, see an example, and how to fix it.
+- [E023: Expected an object key — JSON Error](https://jsonlint.com/errors/E023): Something other than a key appeared inside an object. Learn what JSON E023 means, see an example, and how to fix it.
+- [E024: Expected ':' after object key — JSON Error](https://jsonlint.com/errors/E024): A colon is missing between a key and its value. Learn what JSON E024 means, see an example, and how to fix it.
+- [E025: Leading byte-order mark (BOM) — JSON Error](https://jsonlint.com/errors/E025): The input begins with a UTF-8 BOM. Learn what JSON E025 means, see an example, and how to fix it.
+- [E026: Input is UTF-16/UTF-32 encoded — JSON Error](https://jsonlint.com/errors/E026): The bytes look like UTF-16 or UTF-32, not UTF-8. Learn what JSON E026 means, see an example, and how to fix it.
+- [E027: Invalid UTF-8 byte — JSON Error](https://jsonlint.com/errors/E027): A byte in the input is not valid UTF-8. Learn what JSON E027 means, see an example, and how to fix it.
+- [E030: Language literal is not valid JSON — JSON Error](https://jsonlint.com/errors/E030): A Python/JavaScript literal such as True, None, or undefined was used. Learn what JSON E030 means, see an example, and how to fix it.
+- [E031: NaN or Infinity is not valid JSON — JSON Error](https://jsonlint.com/errors/E031): A NaN or Infinity value was used. Learn what JSON E031 means, see an example, and how to fix it.
+- [E040: Maximum nesting depth exceeded — JSON Error](https://jsonlint.com/errors/E040): The JSON is nested more deeply than the parser allows. Learn what JSON E040 means, see an example, and how to fix it.
+- [W001: Leading byte-order mark (BOM) — JSON Warning](https://jsonlint.com/errors/W001): The input begins with a UTF-8 BOM (allowed in JSONC). Learn what JSON W001 means, see an example, and how to fix it.
+- [W017: Lone surrogate in \u escape — JSON Warning](https://jsonlint.com/errors/W017): A \u escape encodes half of a surrogate pair. Learn what JSON W017 means, see an example, and how to fix it.
+- [W050: Integer loses precision — JSON Warning](https://jsonlint.com/errors/W050): A large integer exceeds JavaScript’s safe range. Learn what JSON W050 means, see an example, and how to fix it.
+- [W051: Control escape in a Windows path — JSON Warning](https://jsonlint.com/errors/W051): An escape like \t is a control character in what looks like a path. Learn what JSON W051 means, see an example, and how to fix it.
+- [W060: Duplicate object key — JSON Warning](https://jsonlint.com/errors/W060): The same key appears more than once in one object. Learn what JSON W060 means, see an example, and how to fix it.
 
 ## Resources
 
-- [Learn JSON](https://jsonlint.com/learn): Tutorial on JSON syntax and best practices
-- [All Tools](https://jsonlint.com/tools): Complete list of all JSONLint tools
-- [JSON Error Codes](https://jsonlint.com/errors): Reference for every JSON validation error and warning, with examples and fixes
-- [Sample Datasets](https://jsonlint.com/datasets): Example JSON datasets for testing, each with its own page under /datasets/
-- [JSONLint Pro](https://jsonlint.com/pro): Native JSON editor for macOS that works offline and handles large files
-- [About](https://jsonlint.com/about): About JSONLint
+- [Learn JSON - Guides, Tutorials & Datasets](https://jsonlint.com/learn): Everything you need to master JSON. Guides, tutorials, best practices, and free datasets.
+- [All JSON Tools - Validators, Converters, Formatters](https://jsonlint.com/tools): Complete collection of free JSON tools: validate, format, convert, compare, and transform JSON data. 30+ tools for developers.
+- [JSONLint Pro - Native JSON Editor for macOS](https://jsonlint.com/pro): Professional JSON toolkit for macOS. Validate, format, repair, and convert JSON with native performance. Works offline, handles large files, available on the Mac App Store.
+- [About JSONLint - Todd Garland](https://jsonlint.com/about): Learn about JSONLint and its creator Todd Garland, founder of BuySellAds and Carbon Ads. Building developer tools since 2010.
 
 ## Mac App
 
