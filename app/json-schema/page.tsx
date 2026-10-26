@@ -170,6 +170,10 @@ export default function JsonSchemaPage() {
               <li>
                 <code>must be {'>='} 0</code> — Number violates minimum constraint
               </li>
+              <li>
+                <a href="/errors/E040">Maximum nesting depth exceeded</a> — Not a schema error: 
+                the document itself is nested more deeply than the JSON parser allows
+              </li>
             </ul>
 
             <h2>Pro Tips</h2>
