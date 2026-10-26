@@ -231,6 +231,7 @@ print(fixed)  # {"name": "John", "age": 30}`}</code></pre>
               <li><a href="/json-pretty-print">JSON Pretty Print</a> — Format repaired JSON nicely</li>
               <li><a href="/json-minify">JSON Minify</a> — Compress JSON after repair</li>
               <li><a href="/json-escape">JSON Escape</a> — Escape special characters in strings</li>
+              <li><a href="/json-search">JSON Search</a> — Find keys and values in the repaired JSON</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>

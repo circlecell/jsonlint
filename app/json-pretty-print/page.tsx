@@ -178,6 +178,7 @@ cat data.json | jq -S '.'`}</code></pre>
               <li><a href="/json-sort">JSON Sorter</a> — Sort keys with more options</li>
               <li><a href="/json-formatter">JSON Formatter</a> — Format and validate JSON</li>
               <li><a href="/json-size-analyzer">JSON Size Calculator</a> — Measure size, depth, and structure of your JSON</li>
+              <li><a href="/json-token-counter">Token Counter</a> — Count tokens in formatted JSON for GPT-4 and Claude</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>
