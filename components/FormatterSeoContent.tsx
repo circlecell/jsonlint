@@ -61,8 +61,9 @@ export function FormatterSeoContent() {
         Beautifying JSON changes whitespace, not the underlying strings, numbers,
         booleans, arrays, objects, or null values. Object keys are sorted only when you
         explicitly select that option. Because JSON objects are unordered by the
-        specification, sorting keys can make configuration files and API responses
-        easier to compare without changing their meaning.
+        specification, <Link href="/json-sort">sorting keys</Link> can make
+        configuration files and API responses easier to compare without changing
+        their meaning.
       </p>
 
       <h2>What If the JSON Is Invalid?</h2>
