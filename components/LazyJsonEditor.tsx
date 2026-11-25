@@ -5,7 +5,22 @@ import { useState, useCallback } from 'react';
 
 // Dynamically import the full Monaco-based editor — no SSR, deferred until needed
 const JsonEditor = dynamic(
-  () => import('./JsonEditor').then(mod => ({ default: mod.JsonEditor })),
+  () =>
+    Promise.all([
+      import('./JsonEditor'),
+      // Self-host Monaco: load it from our own bundle (in parallel with the
+      // editor chunk) and register it with @monaco-editor/react before the
+      // editor mounts, so nothing is fetched from cdn.jsdelivr.net.
+      // Skipped when a tool page already loaded Monaco from the CDN in this
+      // session (it sets window.monaco), so two copies never coexist. If our
+      // chunk fails to load, the editor falls back to the CDN as before.
+      typeof window === 'undefined' || (window as unknown as { monaco?: unknown }).monaco
+        ? null
+        : import('./monacoSelfHost').catch((error) => {
+            console.error('Self-hosted Monaco failed to load, falling back to CDN:', error);
+            return null;
+          }),
+    ]).then(([mod]) => ({ default: mod.JsonEditor })),
   {
     ssr: false,
     // Same height as the editor JsonValidator renders (height="380px") so
